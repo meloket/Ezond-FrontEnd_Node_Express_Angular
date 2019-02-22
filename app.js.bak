@@ -1,0 +1,80 @@
+var express = require('express'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'),
+    md5 = require('md5'),
+    path = require('path'),
+    fs = require('fs'),
+
+
+    app = express();
+
+var compression = require('compression');
+app.use(compression());
+
+var http = require('http').Server(app);
+var serverPort = 3001;
+
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    console.log('a user connected');
+
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+    socket.on('ezond message', function(msg){
+        io.emit('ezond message', msg);
+    });
+});
+
+//set path to the views (template) directory
+app.set('views', path.join(__dirname, '/views'));
+
+// Use EJS Templating engine
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+// Set public folder to server static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+// Use Session middleware
+app.use(session({
+    genid: function(req) {
+        var d = new Date();
+        return md5("randomkey"+d.getTime());
+    },
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie: { expires: new Date(2147483647000) }
+}));
+
+// Attach body parser middleware for post and json
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+
+
+// dynamically include routes (Controller)
+fs.readdirSync('./controllers').forEach(function(file) {
+    if (file.substr(-3) === '.js') {
+        route = require('./controllers/' + file);
+        route.controller(app);
+        // console.log(file)
+    }
+});
+
+app.get('/logins1', function(req, res){
+    res.sendFile(__dirname + '/logins/index.html');
+});
+app.get('/logins2', function(req, res){
+    res.sendFile(__dirname + '/logins/index2.html');
+});
+
+http.listen(serverPort, function () {
+    console.log('Webserver listening on port: ' + serverPort);
+});

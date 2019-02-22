@@ -1,0 +1,28 @@
+<div class="common-ui-modal" ng-show="showPopup['editWidget']" >
+	<div class="modal-backdrop"></div>
+	<div class="modal" >
+		<md-dialog style="opacity: 1; width: 400px; "> 
+			<md-toolbar layout="row" layout-align="start center" class="md-padding  modal-dialog ">
+				<span class="white-c">{{dlgTitle}}</span>
+				<span flex=""></span>
+				<md-button class="md-icon-button" ng-click="closePopup()">
+					<i class="ion-close white-c"></i>
+				</md-button>
+			</md-toolbar>
+			<md-dialog-content style="width:400px; padding-top: 30px"  class="md-padding">
+				<label>Metrics</label>
+		        <select class="form-control" ng-model = 'metric1' ng-change="selectMetric(metric1)">
+		            <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+		        </select>
+		        <select class="form-control margin-top" ng-model = 'metric2'>
+		            <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+		        </select>
+			</md-dialog-content>
+			<md-dialog-actions class="md-padding" style="padding-top: 0px" layout="row" layout-align="center">
+				<md-button class="md-raised md-primary" ng-click="updateWidget()">Save Settings</md-button>
+				<span flex=""></span>
+				<md-button class="" ng-click="deleteWidget()">Remove Widget</md-button>
+			</md-dialog-actions>
+		</md-dialog>
+	</div>
+</div>

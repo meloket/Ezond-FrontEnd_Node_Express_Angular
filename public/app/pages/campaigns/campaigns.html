@@ -1,0 +1,318 @@
+<div class="common-widgets-panels" style="transition: padding-top 200ms; margin: 0 auto;">
+    <div layout="row" style="margin: 0 auto; padding: 0px 50px 35px; box-sizing: content-box;">
+        <h2 style="font-weight: 900;">Campaigns Hub</h2>
+        <span flex=""></span>
+        <div class="hide-xs hide-sm" ng-class="{'tryu': showmobilesearch, 'gryu': !showmobilesearch}" style="font-size: 16px; margin-right: 20px; position: relative; vertical-align: middle;" ng-show="activeMenu == 'campaigns'">
+                <input style="font-size: 13px; height: 70%; border-radius: 100px; top: 15%; width: 250px; outline: none; padding-left: 40px; vertical-align: middle; border: none; right: 0px; position: absolute;" ng-change="searching()" ng-blur="toggleshowmobilesearch()" placeholder="Search..." ng-model="searchkey" required type="text"> 
+
+                <div ng-hide="searchkey" style="position: absolute; height: 40%; top: 30%; right: 25px; border-left: 1px solid grey; padding-left: 20px;">
+                    <i class="fas fa-search" style="line-height: 27px; font-size: 14px;"></i>
+                </div>
+        </div>
+        <md-button ng-hide="showmobilemenu" ng-click="togglefiltering()" class="md-fab manualhide md-raised" style="background-color: white;z-index: 0;">
+            <i class="fa fa-bars"></i>
+        </md-button>
+    </div>
+    <div ng-class="{'backgroundE3E8EE': showmobilemenu }" class="tagi hide-xs hide-sm layout-align-sm-space-between layout-align-xs-space-between-center" layout="row" layout-align="space-around center" flex style="position: relative;transition: top 100ms; width: 100%;margin-bottom: 30px">
+        <i title="{{scrollbarwidth + ' ' + parentscrollbarwidth}}" ng-hide="(scrollbarwidth < parentscrollbarwidth) || fromleft <= 0" style="" ng-click="scroll_bar(-100)" class="fas fa-chevron-left md-whiteframe-2dp"></i>
+        <div class="custom-scrollbar hide-xs hide-sm dragscroll" style="white-space: nowrap;overflow: scroll;position: relative;">
+            
+            <div class="campaign-tag" ng-class="{'selectedTag': campaignGroupName == campaignGroup.tagName}" ng-repeat="campaignGroup in campaignGroups" ng-click="hidePopOver();changeCampaignGroup(campaignGroup.tagName)">
+                <span > {{::campaignGroup.tagName.charAt(0).toUpperCase() + campaignGroup.tagName.toLowerCase().slice(1)}} <font>({{::campaignGroup.tagCount}})</font> </span>
+            </div>
+        </div>
+        <i ng-hide="(scrollbarwidth < parentscrollbarwidth) || fromleft == scrollbarwidth" class="fas fa-chevron-right md-whiteframe-2dp" ng-click="scroll_bar(100)"></i>
+        <style>
+        .tryu.hide-xs,
+        .tryu.hide-sm {
+            display: block !important;
+        }
+        .fas.fa-chevron-right{
+            right: -15px; 
+            border-top-left-radius: 100px;
+            padding-right: 1px;
+            border-bottom-left-radius: 100px;
+        }
+        .fas.fa-chevron-left.ng-hide, .fas.fa-chevron-right.ng-hide {
+            opacity: 0.2;
+            transition: opacity 200ms ease-out;
+        }
+        .fas.fa-chevron-left {
+            left: -15px; 
+            padding-right: 6px;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+        }
+        .fas.fa-chevron-left, .fas.fa-chevron-right {
+            position: absolute;
+            width: 25px;
+            text-align: right;
+            z-index: 1; 
+            cursor: pointer;
+            border: 1px solid #80808042;
+            color: grey;
+            background: white;
+            font-size: 24px;
+            top: 0px;
+            line-height: 46px;
+        }
+        </style>
+        
+    </div>
+    <div ng-if="searchkey!=''" style="text-align: center;">
+        <h1 style="display: inline-block;border-bottom: 1px solid #95989A;">
+        <span style="font-weight: 600; color:#95989A;">Search Results for <i style="font-weight: 100;color:#95989A;">{{searchkey}}</i></span>
+      </h1>
+        <i class="curs-pointer ion ion-ios-close-outline" style="color:#95989A;font-size: 26px;margin-left: 20px;"
+         ng-click="stopSearching()"></i>
+    </div>
+    <div id="filteringbar" ng-show="showfiltering==true">
+        <div layout="row" layout-align="center center" style="padding: 0 60px;">
+            <h3 class="no-margin">Campaigns Hub</h3>
+            <span flex=""></span>
+            <md-button class="md-raised white-bgc md-fab md-mini" ng-click="togglefiltering()"><i class="ion ion-close" style="color: lightgrey;"></i></md-button>
+        </div>
+        <h4 style="padding-left: 60px;">Sort by</h4>
+        <div style="text-align: center;margin-bottom: 40px;">
+            <ul>
+                <li ng-class="{'filteringactivestate': activestate==3}" ng-click="choseactivestate(3)">
+                    <div>Urgent</div>
+                </li>
+                <li ng-class="{'filteringactivestate': activestate==2}" ng-click="choseactivestate(2)">
+                    <div>Review</div>
+                </li>
+                <li ng-class="{'filteringactivestate': activestate==1}" ng-click="choseactivestate(1)">
+                    <div>Normal</div>
+                </li>
+            </ul>
+        </div>
+        <h4 style="padding-left: 60px;">Order by</h4>
+        <div class="filerordering" ng-class="{'filteringactivestate': activeorderstate==1}" ng-click="toggleordering('actionCount')">Improvements Available</div>
+        <div class="filerordering" ng-class="{'filteringactivestate': activeorderstate==2}" ng-click="toggleordering('taskscount')">Incomplete Tasks</div>
+        <div class="filerordering" ng-class="{'filteringactivestate': activeorderstate==3}" ng-click="toggleordering('createdDate')">Added Recently</div>
+        <div class="filerordering" ng-if="activestate" ng-click="toggleordering('clear')">Ezond Auto Priority</div>
+    </div>
+    <div class="react-wrapper" ng-class="{'loader': loadingData}" style="text-align:center;max-width: 1630px; margin: 0 auto; ">
+        <ui-view></ui-view>
+        <md-card class="campaignscards" ng-if="expired">
+            <md-card-content style="height: 100%;">
+                <div class="layout-column layout-align-center-center text-center" style="background: #F45F5C;height: 65%;border-top-left-radius: 8px;border-top-right-radius: 8px;">
+                    <i class="fas fa-exclamation-triangle white-c" style="font-size: 80px;"></i>
+                    <span class="white-c">Payment Failed</span>
+                    <span class="white-c">Your payment could not be processed.</span>
+                </div>
+                <div style="height: 35%; border: 1px solid #d3d3d361; border-top: none; text-align: center; font-size: 16px; padding-top: 15px; position: relative;">
+                    Your account is on hold due to billing issues. Please fix it on the billing page.
+                    <a ui-sref="app.controlpanel.pleasesubscribe" class="curs-pointer" style="left: 0;border-top: 1px solid #d3d3d361;position: absolute; bottom: 0px; width: 100%; padding: 6px 0px;">
+              GO TO BILLING
+            </a>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card class="campaignscards" md-theme="default" layout="column" md-theme-watch="" ng-repeat="campaign in campaignsList | filter: filterbystatus | filter : {company_name: searchkey} | orderBy:['-campaignStatus', '-'+orderingtype]">
+            <div class="rounblock text-center" style="line-height: 67px;font-size: 18px;">{{campaign.company_name[0]+""+campaign.company_name[1]}}</div>
+            <md-card-content class="text-center no-padding" style="padding-top: 8px;">
+                <div class="md-headline" style="max-height: 32px;max-width: 85%;margin: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    {{campaign.company_name}}
+                </div>
+                <div class="md-body-2 lighter-color">
+                    <a href="{{::campaign.url}}">{{::campaign.url}}</a>
+                </div>
+                <md-menu class="changeCampaignStatusDropdown" md-offset="0 35" md-is-locked-open="true">
+                    <div aria-label='input destination' aria-expanded="false" aria-haspopup="true" class="curs-pointer margin-top" layout="row" layout-align="center center" style="display: inline-block;">
+                        <div ng-mouseover="selectCampaign(campaign)" ng-class="{'campstatus1': campaign.campaignStatus==1, 'campstatus2': campaign.campaignStatus==2, 'campstatus3': campaign.campaignStatus==3}" ng-click="$mdMenu.open($event); addOvh(); menuOpened=true" class="statusbutton" layout="row" layout-align="center center">
+                            <span style="color: white;" class="md-body-1 curs-pointer"
+                      ng-show="campaign.campaignStatus == 1">Normal</span>
+                            <span style="color: white" class="md-body-1 curs-pointer"
+                      ng-show="campaign.campaignStatus == 2">Review</span>
+                            <span style="color: white" class="md-body-1 curs-pointer"
+                      ng-show="campaign.campaignStatus == 3">Urgent</span>
+                            <i class="ion-chevron-down md-subheader margin-sm-left white-c" flex="nogrow" style="background: none;"></i>
+                        </div>
+                    </div>
+                    <md-menu-content width="2" class="no-padding">
+                        <md-menu-item>
+                            <span ng-click="changeCampaignStatus(1);" style="color: green;"
+                      class="md-body-1 curs-pointer">Normal</span>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <span ng-click="changeCampaignStatus(2)" style="color: orange"
+                      class="md-body-1 curs-pointer">Review</span>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <span ng-click="changeCampaignStatus(3)" style="color: red"
+                      class="md-body-1 curs-pointer">Urgent</span>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <div class="campaignstatsgraph" style="background-image: url({{::backendUrl}}apis/chart_test.php?id={{::campaign.id}}&w=380&h=60);"></div>
+                <div ng-click="pressing(campaign.id)" style="" ng-hide="!campaign.noticecount" class="curs-pointer  md-caption margin-top" layout="row">
+                    <span class="campaignimprovementsnotification text-uppercase" >{{campaign.noticecount}} Improvements available</span>
+                </div>
+                <div ng-click="pressing(campaign.id)" ng-hide="campaign.noticecount" class="curs-pointer  md-caption margin-top" layout="row">
+                    <span class="campaignimprovementsnotification text-uppercase">Ezond Bot is on the lookout</span>
+                </div>
+            </md-card-content>
+            <div class="campaignactionbuttons">
+                <div class="curs-pointer text-uppercase" style="" ng-click="taskManagement(campaign)">
+                    <i class="ion-compose ion" style=""></i>
+                    Manage
+                </div>
+                <div class="curs-pointer text-uppercase" ui-sref="app.dashboard.home({id: campaign.id})" style="">
+                    <i class="ion ion-connection-bars" style="color: #0076FC;"></i>
+                    Metrics</div>
+            </div>
+            <md-menu md-offset="0 20" class="manualhide">
+                <i class="ion-more ion curs-pointer " aria-label="openCampaignMenu" ng-click="$mdMenu.open()" style="transform: rotateZ(90deg);position: absolute; top: 10px; right: 10px;font-size: 20px;"></i>
+                <md-menu-content>
+                    <md-menu-item style="border: 0">
+                        <md-button ng-click="editCampaign(campaign)" style="min-height: 30px">Edit campaign</md-button>
+                    </md-menu-item>
+                    <md-menu-item style="border: 0">
+                        <md-button ng-click="showIntegrations(campaign)" style="min-height: 30px">Integrations</md-button>
+                    </md-menu-item>
+                    <md-menu-item style="border: 0">
+                        <md-button ng-click="showFollowers(campaign)" style="min-height: 30px">Followers</md-button>
+                    </md-menu-item>
+                    <md-menu-item style="border: 0">
+                        <md-button ng-click="removeCampaign(campaign)" style="min-height: 30px">Delete</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-card>
+    </div>
+</div>
+</div>
+</div>
+<div class="taskmButton showTaskm" ng-hide="showmobilemenu" style="position: fixed; z-index: 5;">
+    <md-button ng-click="createCampaign()" class="md-fab md-primary md-raised" style="text-align: center;font-size: 40px;">
+        +
+    </md-button>
+</div>
+<div id="popover-campaign-warning" style="display: none">
+    <ul style="padding: 0; list-style: none; margin: 0;">
+        <li class="list-group-item" style="position: relative;">
+            <b>Issues Detected</b>
+            <i class="icon icon-warning"
+         style="position: absolute; top: 0.6rem; right: 1rem; color: #EF6000; font-size: 2rem; display: inline-block;"></i>
+        </li>
+        <li class="list-group-item" __style="height: 115px; overflow-y: auto;">
+            <div ng-repeat="notice in campaignNoticesd">
+                <i class="icon icon-emoti-bad" style="display: inline-block;font-size:2rem;vertical-align: top;"></i>
+                <p style="word-break: break-all;width: calc(100% - 3rem); display: inline-block; line-height: 2rem; margin: 0;">{{::notice.title}}</p>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <p onclick="dynamicnotificationconsolebutton('message')" style="color:white; background-color: #B07CC3; padding: 0.3rem; width: 160px; margin: 0; text-align: center; border-radius: 0.4rem;">
+                NOTIFICATION CONSOLE</p>
+        </li>
+    </ul>
+</div>
+<script>
+function dynamicnotificationconsolebutton(message) {
+    angular.element('#popover-campaign-warning').scope().pressing(message)
+}
+</script>
+<div id="popover-campaign-status" style="display: none;">
+    <ul class="link-menu">
+        <li class="list-group-item" onclick="changeCampaignStatus(1)" style="color: #65a26d; padding: 0.7rem;">Normal</li>
+        <li class="list-group-item" onclick="changeCampaignStatus(2)" style="color: #f55c18; padding: 0.7rem;">Review
+            Required
+        </li>
+        <li class="list-group-item" onclick="changeCampaignStatus(3)" style="color: #ff4d4d; padding: 0.7rem;">Urgent
+            Attention
+        </li>
+    </ul>
+</div>
+<style>
+.campaign-tag.selectedTag>span {
+    font-weight: bold;
+    color: #1880E7 !important;
+}
+
+.selectedTag {
+    outline: none;
+    /*border-bottom: 2px solid #1880E7;*/
+    font-weight: bold;
+    color: #4680FE;
+}
+
+.scrollicon i {
+    color: lightgrey;
+}
+
+.scrollicon:hover i {
+    color: black;
+}
+
+.scrollicon:hover {
+    background: white;
+}
+
+.scrollicon {
+    font-size: 17px;
+    border: 1px solid darkgrey;
+    line-height: 30px;
+}
+
+.scrollleft {
+    left: 170px;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+}
+
+.scrollright {
+    right: 205px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.scrollleft,
+.scrollright {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    height: 30px;
+    position: absolute;
+    background: ghostwhite;
+    vertical-align: middle;
+    top: calc(50% - 15px);
+}
+
+.selectedTag:focus {
+    outline: none
+}
+
+.campaign-tag:first-child span font {
+    display: none
+}
+
+md-card:hover md-icon {
+    color: blue;
+}
+
+.campaign-tag>span,
+.campaign-tag>span>font {
+    font-weight: normal
+}
+
+.campaign-tag {
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    /*line-height: 75px;*/
+    background: white;
+    color: #4680FE;
+    margin-right: 20px;
+    border-radius: 100px;
+    display: inline-block;
+    padding: 12px 42px;
+}
+.selectedTag font {
+    display: inline-block !important;
+}
+.campaign-tag font {
+    display: none;
+}
+</style>

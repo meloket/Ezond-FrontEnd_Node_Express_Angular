@@ -1,0 +1,119 @@
+<div class="canvas-sidebar">
+	<div class="common-report-interface canvas">
+		<div class="common-report-interface-header has-sidebar" style="top: 9rem;">
+			<div class="spacer">
+				<div class="left">
+					<div class="common-report-interface-header-ui-title">
+						<img ng-src="{{ratingsInfo.logo}}">&nbsp;<span hide-gt-xs hide-xs class="title vertical-align-middle">{{ratingsInfo.name}}</span>
+					</div>
+					<div class="common-report-interface-header-ui-menu">
+						<div class="navigation-box">
+							<ul class="nav nav-pills hidden-mobile">
+								<li ng-class="{active: $index == selectdIndex}" ng-repeat="menu in ratingsInfo.menu" ng-click="changeMenu($index);"><md-button  class="new-buttons " title="{{menu}}">{{menu}} </md-button></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+                    <div class="btn-group margin-sm-left" ng-show="bindAccountInfo.websiteUrl != ''">
+                    	<button class="btn new-buttons tooltip-button common-report-header-settings-button" ng-click="toggleDropDown()" ng-class="{'popover-opened': showDropDown == true}">
+                    		<div><i class="icon icon-sliders"></i></div>
+                    	</button>
+                    </div>
+				</div>
+			</div>
+			<div id="interface-report-settings"></div>
+		</div>
+		<div class="canvas-content" style="padding-top: 1rem;">
+				<div class="react-grid-item common-widgets-wrapper width-12 height-2 padding-0 report-table">
+					<div class="common-widgets-table">
+						<div class="common-widgets-table-header">
+							<div class="controls">
+								<div class="left">
+									<div><span>{{result_desc}}</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="body">
+							<div>
+								<table class="table table-striped table-overflow table-no-results sortable">
+									<thead class="common-widgets-table-thead">
+										<tr>
+											<th class="text-left short" ng-repeat="header in ratingsInfo.header[selectdIndex]">
+												<span>{{header.name}}<i class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, header.name)" ng-mouseout="unDisplayTip()"></i></span>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="common-widgets-table-tbody">
+										<tr style="height: auto;" ng-hide="getResultCheck()">
+											<td colspan="20" class="text-muted noresults">No data matching the selected criteria.</td>
+										</tr>
+										<tr ng-show="getResultCheck()" ng-repeat="row in tableRows">
+											<td class="text-center" ng-repeat="header in ratingsInfo.header[selectdIndex]"><span>{{row[header.name]}}</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="common-report-setup-buttons" ng-show="bindAccountInfo.websiteUrl == ''">
+				<button class="btn setup" ng-click="editIntegration();">
+					<div class="profile-image">
+						<img src="{{ratingsInfo.logo}}">
+					</div>
+					<h4>Setup <span class="name">{{ratingsInfo.logo_name}}</span></h4>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="position: absolute; top: 0px; left: 0px; width: 100%;">
+	<div data-reactroot="">
+		<div class="rc-tooltip rc-tooltip-placement-top" id="toolTipDiv" ng-class="{'rc-tooltip-hidden': displayTipCheck}" ng-style="{'left': tipOffsetLeft, 'top': tipOffsetTop}">
+			<div class="rc-tooltip-content">
+				<div class="rc-tooltip-arrow"></div>
+				<div class="rc-tooltip-inner">{{displayTipContent}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="position: absolute; top: 0px; left: 0px; width: 100%;">
+	<div data-reactroot="">
+		<div class="rc-tooltip-mask"></div>
+		<div class="rc-tooltip common-ui-popover popover-medium right-locked extra-mobile-offset rc-tooltip-placement-bottomRight" ng-class="{'rc-tooltip-hidden': showDropDown == false}">
+			<div class="rc-tooltip-content">
+				<div class="rc-tooltip-arrow"></div>
+				<div class="rc-tooltip-inner">
+					<div class="common-report-interface-settings">
+						<div class="content">
+							<ul class="section">
+								<li>
+									<div class="common-report-interface-settings-ui-account">
+										<div class="heading">Integration</div>
+										<ul class="">
+											<li>
+												<img src="{{ratingsInfo.logo}}">
+												<div class="account"><b>{{bindAccountInfo.account}}</b><br>{{bindAccountInfo.viewID}}</div>
+												<div>
+													<button class="btn btn-default btn-sm" ng-click="editIntegration();">
+														<i class="icon icon-pencil"></i>
+													</button>
+													<button class="btn btn-danger btn-sm" ng-click="deleteIntegration();">
+														<i class="icon icon-delete"></i>
+													</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

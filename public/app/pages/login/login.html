@@ -1,0 +1,242 @@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="258172867784-1dv5vdr6g2q321t76btruhnedv6g8339.apps.googleusercontent.com">
+
+<md-content style="background: #E6E9EA;" ng-cloak="" class="md-padding vcent" layout="column"
+            layout-align="center center">
+  <div class="md-display-1 main-light-color" style="margin-bottom: 30px">
+    <a ng-href="{{siteUrl}}" target="_blank" rel="noopener">
+      <img class="logo"
+           ng-src="{{backendUrl}}apis/agencyProfileImage.php?preview=0&user_id={{imageId}}&{{timereport}}">
+    </a>
+  </div>
+  <div class="md-headline" style="margin-bottom: 20px">
+    Digital Campaign Manager
+  </div>
+  <!-- <div data-onsuccess="onSignIn" class=" g-signin2"></div> -->
+
+  <md-card class="logincard border-radius-5" style="margin-bottom: 20px">
+    <md-card-title-text layout="row" layout-align="center center">
+      <span class="md-title main-light-color" style="font-size: 18px">LOGIN</span>
+      <span flex=""></span>
+      <i style="font-size: 20px;" class="curs-pointer ion-ios-help-outline"></i>
+    </md-card-title-text>
+    <md-divider class="mb"></md-divider>
+    <form class="signup_form" ng-submit="login()">
+      <input ng-class="{'wronglogin': wronglogin}" placeholder="Email" class="md-subhead border-radius-5 emailll" type="email" ng-model="userData.email">
+      <input ng-class="{'wronglogin': wronglogin}" placeholder="Password" type="password" class="md-subhead border-radius-5 passwordddd"
+             ng-model="userData.password">
+      <div layout="row" layout-align="center center">
+        <!-- <div ng-show="showLoading" class="loading"></div> -->
+        <md-button type="submit" class=" no-margin border-radius-5 md-raised md-primary md-button signup_button">Login
+        </md-button>
+      </div>
+      <div ng-show="wronglogin" style="color: tomato;" class="md-subhead text-center margin-top" >Wrong login or password</div>
+    </form>
+  </md-card>
+  <div class="mt text-center input-margin-bottom-sm " style="background: #E6E9EA">
+    <a href="forgotpw" title="Forgot Password?">Forgot Password?</a>
+    <span ng-if="hostname == 'app' || !hostname" style="display:inline-block; padding-left:50px;" class="dum float-sm-right text-xs-center m-0">New here? <a
+            href="signup" class="card-link">Register</a></span>
+  </div>
+</md-content>
+<script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function onSignIn(googleUser) {
+
+        var alke = document.cookie.split(";")
+        var allow = true
+        var profile = googleUser.getBasicProfile();
+        var scope = angular.element(".emailll").scope()
+
+        scope.$apply(function () {
+            scope.userData.email = profile.getEmail()
+            scope.userData.password = profile.getId()
+            scope.login()
+        })
+    }
+</script>
+
+<style>
+  .logincard {
+    max-width: 460px !important;
+    min-width: 450px;
+    padding: 30px 45px;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .no-margin {
+    margin: 0;
+  }
+
+  .main-light-color {
+    color: #00CC99;
+  }
+
+  .mb {
+    margin-bottom: 25px;
+  }
+
+  .mt {
+    margin-top: 15px;
+  }
+
+  input,
+  button {
+    width: 100% !important;
+  }
+
+  input {
+    background-color: #E6E9EA;
+    box-sizing: border-box;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #E6E9EA;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  @media (min-height: 566px) {
+    md-content.vcent {
+      height: 100vh;
+    }
+  }
+
+  md-button:hover {
+    cursor: pointer;
+  }
+
+  button {
+    padding: 15px !important;
+    background-color: #3399FF !important;
+  }
+
+  .border-radius-5 {
+    border-radius: 5px
+  }
+
+  input:hover {
+    border: 1px solid lightblue
+  }
+
+  input:hover,
+  button:hover {
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: #4680FB;
+  }
+
+  .dum {
+    color: #B7A7AB;
+  }
+
+  @media (max-width: 460px) {
+    md-card {
+      width: 100% !important;
+      min-width: 100% !important;
+      min-width: 1px !important;
+      padding: 15px 15px !important;
+    }
+
+
+    body { 
+      margin: 0;
+      position: relative; 
+    }
+
+    .loader {
+        background: white;
+        opacity: 0.3;
+      position: relative;
+      height: 100vh;
+    }
+
+    .loader:after {
+      content: "";
+      position: absolute;
+      top:    0;
+      left:   0;
+      bottom: 0;
+      right:  0;
+      z-index: 9999;
+      transition: all .3s ease-in-out;
+      background: rgba(10, 1, 112, .8);
+    }
+
+    .loader:before {
+      content: "";
+      z-index: 99999;
+      position: absolute;
+      top:  50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(0, 0);
+      width:  10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: #0366b2;
+      box-shadow: 
+        31px 45px 0 5px #3385ff, 
+        13px 20px 0 2px #ff9967, 
+        -31px -45px 0 5px #3385ff, 
+        -13px -20px 0 2px #ff9967;
+      animation: loader 3s infinite, round 4s infinite;
+    }
+
+    @keyframes loader {
+      0%   { transform: translate3d(-50%, -50%, 0) rotate(0deg) scale(1, 1); }
+      70%  { transform: translate3d(-50%, -50%, 0) rotate(360deg) scale(0.7, 0.7); }
+      100% { transform: translate3d(-50%, -50%, 0) rotate(360deg) scale(1, 1); }
+    }
+
+    @keyframes round {
+      0% {
+        box-shadow: 
+          31px 45px 0 5px #3385ff, 
+          13px 20px 0 2px #ff9967, 
+          -31px -45px 0 5px #3385ff, 
+          -13px -20px 0 2px #ff9967;
+      }
+      25% {
+        box-shadow: 
+          -13px -20px 0 2px #ff9967, 
+          31px 45px 0 5px #3385ff, 
+          13px 20px 0 2px #ff9967, 
+          -31px -45px 0 5px #3385ff;
+      }
+      50% {
+        box-shadow: 
+          -31px -45px 0 5px #3385ff, 
+          -13px -20px 0 2px #ff9967, 
+          31px 45px 0 5px #3385ff, 
+          13px 20px 0 2px #ff9967;
+      }
+      75% {
+        box-shadow: 
+          -13px -20px 0 2px #ff9967, 
+          31px 45px 0 5px #3385ff, 
+          13px 20px 0 2px #ff9967, 
+          -31px -45px 0 5px #3385ff;
+      }
+      100% {
+        box-shadow: 
+          31px 45px 0 5px #3385ff, 
+          13px 20px 0 2px #ff9967, 
+          -31px -45px 0 5px #3385ff, 
+          -13px -20px 0 2px #ff9967;
+      }
+    }
+</style>

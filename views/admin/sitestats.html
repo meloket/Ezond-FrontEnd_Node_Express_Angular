@@ -1,0 +1,15 @@
+<% include ../app/header.html %>
+
+<div class="pl-wrap" style="text-align: center;">
+  <% include ../app/left_menu.html %>
+
+  <div class="pl pl-10" style="margin-top: 70px;">
+    <div class="pl-body">
+      <h3>Site Stats</h3><br/><br/>
+      New Users today: <%= sitestats.newusers %><br/>
+      Total Users: <%= sitestats.totalusers %><br/>
+    </div>
+  </div>
+</div>
+
+<% include ../app/footer.html %>

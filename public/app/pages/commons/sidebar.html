@@ -1,0 +1,75 @@
+<div ng-controller="sidebarController"  class="common-menu-topbar"  layout="column" style=" box-shadow: 0 0px 1px rgba(0,0,0,0.16), 0 0px 1px rgba(0,0,0,0.23);height: 48px;">
+      <div layout="row" layout-align="center" layout-align-xs="start" layout-align-sm="start" class="custom-scrollbar" style="max-width: calc(100vw - 50px); margin-left: 20px;overflow: auto; white-space: nowrap;">
+        <div  layout="row" ng-hide="isClient" ng-class="{'selected': selectedMenu == 0}" >
+          <div ng-click="gotoHome();selectMenu(0);" class="custom-menu-padding">HOME</div>
+        </div>
+        <div  layout="row" ng-class="{'selected': selectedMenu == 1}" >
+          <div ng-click="gotoDashboard();selectMenu(1);" class="custom-menu-padding" ng-show="isProviderVisible(0)">DASHBOARD</div>
+        </div>
+        <div  ng-show="allowAll" layout="row" ng-class="{'selected': selectedMenu == 2}" >
+          <div ng-click="gotoIntelPage();selectMenu(2);" class="custom-menu-padding" ng-show="isProviderVisible(3)">INTEL</div>
+        </div>
+        <md-menu  ng-show="allowAll" layout="row" class="no-padding" ng-class="{'selected': selectedMenu == 3}"  md-offset="0 50">
+            <div class="custom-menu-padding" ng-click="$mdOpenMenu();">SEO <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>  
+                <md-menu-item class="" ><md-button ng-click="selectMenu(3);gotoConsoleRatings(10);">Google Search Console</md-button>
+                </md-menu-item>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(3);gotoRankRatings(10);">Rank Tracker</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu  layout="row" class="no-padding" ng-class="{'selected': selectedMenu == 4}"  md-offset="0 50">
+            <div class="custom-menu-padding" ng-click="$mdOpenMenu()" ng-show="isProviderVisible(1)">ANALYTICS <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(4);gotoRatings(1);">Channels</md-button>
+                </md-menu-item>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(4);gotoRatings(2); ">Audience</md-button>
+                </md-menu-item>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(4);gotoAnalyticsRatings(3); ">Conversions</md-button>
+                </md-menu-item>            
+                <md-menu-item class="" ><md-button ng-click="selectMenu(4);gotoAnalyticsRatings(4);">Pages</md-button>
+                </md-menu-item>            
+                <md-menu-item class="" ><md-button ng-click="selectMenu(4);gotoRatings(5);">Events</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu  ng-show="allowAll" layout="row" class="no-padding"  ng-class="{'selected': selectedMenu == 5}"  md-offset="0 50">
+            <div class="custom-menu-padding" ng-click="$mdOpenMenu()" ng-show="isProviderVisible([2,7])">ADS <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>
+                <md-menu-item class=""  ><md-button ng-click="selectMenu(5);gotoAdwordRatings(6);">Google Adwords</md-button>
+                </md-menu-item>
+                <md-menu-item class=""  ><md-button ng-click="selectMenu(5);gotoFacebookAdsRatings(7);">Facebook Ads</md-button>
+                </md-menu-item>
+                <md-menu-item class=""  ><md-button ng-click="selectMenu(5);gotoAdrollRatings(13);">AdRoll</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu ng-show="allowAll"  layout="row" class="no-padding" ng-class="{'selected': selectedMenu == 6}" md-offset="0 50">
+            <div  class="custom-menu-padding" ng-click="$mdOpenMenu()" ng-show="isProviderVisible([8,5])">SOCIAL <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(6);gotoFacebookRatings(8);">Facebook</md-button>
+                </md-menu-item>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(6);gotoYoutubeRatings(9);">Youtube</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu  ng-show="allowAll" layout="row" class="no-padding" ng-class="{'selected': selectedMenu == 7}" md-offset="0 50">
+            <div  class="custom-menu-padding" ng-click="$mdOpenMenu()" ng-show="isProviderVisible(9)">CALL METRICS <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>
+                <md-menu-item class="" ><md-button ng-click="selectMenu(7);gotoCallRailRatings(11);">Call Rail</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu  ng-show="allowAll" layout="row" class="no-padding" ng-class="{'selected': selectedMenu == 8}"  md-offset="0 50">
+            <div class="custom-menu-padding" ng-click="$mdOpenMenu()" ng-show="isProviderVisible(6)">MAIL <i class="ion-chevron-down" ></i></div>
+            <md-menu-content>
+                <md-menu-item class=""  ><md-button ng-click="selectMenu(8);gotoMailChimpRatings(12);">Mail chimp</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+
+        <div ng-show="allowAll" layout="row" ng-class="{'selected': selectedMenu == 9}" >
+          <div ng-click="gotoDatastudio();selectMenu(9);" class="custom-menu-padding">DATA STUDIO REPORTS</div>
+        </div>
+      </div>
+</div>

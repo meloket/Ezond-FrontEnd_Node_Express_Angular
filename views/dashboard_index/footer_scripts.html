@@ -1,0 +1,209 @@
+<!--dashboard_index/footer_script.html-->
+<!-- BEGIN VENDOR JS-->
+<!-- build:js robust-assets/js/vendors.min.js-->
+<script src="/robust-assets/js/core/libraries/jquery.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/tether.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/core/libraries/bootstrap.min.js" type="text/javascript"></script>
+<!--
+<script src="/robust-assets/js/plugins/ui/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/unison.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/blockUI.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/jquery.matchHeight-min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/jquery-sliding-menu.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/sliders/slick/slick.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/ui/screenfull.min.js" type="text/javascript"></script>
+<!-- /build-->
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+<!--
+<script src="/robust-assets/js/plugins/extensions/jquery.knob.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/components/extensions/knob.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/raphael-min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/morris.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/jvector/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/jvector/jquery-jvectormap-world-mill.js" type="text/javascript"></script>
+<script src="/robust-assets/demo-data/jvector/visitor-data.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/chart.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/charts/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="/robust-assets/js/plugins/extensions/unslider-min.js" type="text/javascript"></script>-->
+<script src="/js/moment.min.js" type="text/javascript"></script>
+<script src="/js/moment-timezone-with-data.min.js" type="text/javascript"></script>
+<script src="/js/daterangepicker.js" type="text/javascript"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN ROBUST JS-->
+<!-- build:js robust-assets/js/app.min.js-->
+<script src="/robust-assets/js/core/robust-menu.js" type="text/javascript"></script>
+<script src="/robust-assets/js/core/robust.js" type="text/javascript"></script>
+<!--<script src="/robust-assets/js/components/ui/fullscreenSearch.js" type="text/javascript"></script>-->
+<!-- /build-->
+<!-- END ROBUST JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<!--<script src="/robust-assets/js/components/pages/dashboard-analytics.js" type="text/javascript"></script>-->
+<!--
+<script src="/robust-assets/js/custom.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL JS-->
+<script src="/js/highcharts.js"></script>
+<script src="/js/no-data-to-display.js"></script>
+<script src="/js/quill.js"></script>
+<script src="/js/dragula.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2O18subSyz9Zy7fBaeRq-ZfNNecDcBfI&libraries=places&language=en"></script>
+<script src="/js/data.js"></script>
+<!-- LOGIC LEVEL JS -->
+<script src="/js/angular.min.js"></script>
+<!-- <script src="/js/angular.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-aria.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-messages.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.js"></script> -->
+<script src="/js/angular-cookies.js"></script>
+<script src="/js/dragscroll.js"></script>
+<script src="/js/angular.route.js"></script>
+<script src="/js/angular-animate.min.js"></script>
+<script src="/js/angular-aria.min.js"></script>
+<script src="/js/angular-messages.min.js"></script>
+<script src="/js/angular-material.min.js"></script>
+<script src="/js/ng-formio.js"></script>
+
+    
+<script src="/js/angular-idle.min.js"></script>
+<script src="/js/ngFormBuilder-full.js"></script>
+<script src="/js/angular-ui-router.min.js"></script>
+<script src="/js/stateEvents.min.js"></script>
+<script src="/js/angular-resource.min.js"></script>
+<script src="/js/angular-gridster.js"></script>
+<script src="/js/angular-raven.js"></script>
+<script src="/js/tribute.min.js"></script>
+<script src="/js/jquery-resize.js"></script>
+<script src="/js/jquery.autogrowtextarea.min.js"></script>
+<script src="/js/jquery.webui-popover.js"></script>
+<script src="/js/socket.io.js"></script>
+<script src="/js/ngStorage.min.js"></script>
+<script src="/js/mollystrap.js"></script>
+<script src="/js/pagespeed.min.js"></script>
+<script src="/app/app.js"></script>
+<script src="/app/env.js"></script>
+<!-- services -->
+<script src="/app/services/integrationproviders.service.js"></script>
+<script src="/app/services/subscriptionPlans.service.js"></script>
+<script src="/app/services/user.service.js"></script>
+<script src="/app/services/upload.service.js"></script>
+<script src="/app/services/appdata.service.js"></script>
+<script src="/app/services/widgets.service.js"></script>
+<script src="/app/services/widgetgroupproviders.service.js"></script>
+<script src="/app/services/ratingproviders.service.js"></script>
+<!-- pages -->
+<script src="/app/pages/login/login.controller.js"></script>
+<script src="/app/pages/setupwizard/setupwizard.controller.js"></script>
+<script src="/app/pages/setupwizard/setupwizard.service.js"></script>
+<script src="/app/pages/commons/sidebar.controller.js"></script>
+<script src="/app/pages/commons/header.controller.js"></script>
+<script src="/app/pages/dashboard/dashboard.controller.js"></script>
+<script src="/app/pages/dashboard/dashboard.service.js"></script>
+<script src="/app/pages/campaigns/campaigns.controller.js"></script>
+<script src="/app/pages/clienthome/clienthome.controller.js"></script>
+<script src="/app/pages/rank_ratings/rank_ratings.controller.js"></script>
+<script src="/app/pages/campaigns/showcampaignController.js"></script>
+<script src="/app/pages/subscriptions/logoutpanel.controller.js"></script>
+<script src="/app/pages/subscriptions/subscribePlease.controller.js"></script>
+<script src="/app/pages/forms/forms.controller.js"></script>
+<script src="/app/pages/users/users.controller.js"></script>
+<script src="/app/pages/controlpanel/controlpanel.controller.js"></script>
+<script src="/app/pages/intel/intel.controller.js"></script>
+<script src="/app/pages/seo/ratings.controller.js"></script>
+<script src="/app/pages/analytics_ratings/ratings.controller.js"></script>
+<script src="/app/pages/adword/ratings.controller.js"></script>
+<script src="/app/pages/fbad/ratings.controller.js"></script>
+<script src="/app/pages/fb/ratings.controller.js"></script>
+<script src="/app/pages/data_studio/data_studio.controller.js"></script>
+<script src="/app/pages/youtube/ratings.controller.js"></script>
+<script src="/app/pages/messages/messages.controller.js"></script>
+<script src="/app/pages/tasks/tasks.controller.js"></script>
+<script src="/app/pages/settings/settings.controller.js"></script>
+<script src="/app/pages/adroll/adroll.controller.js"></script>
+<script src="/app/pages/alerts/alerts.controller.js"></script>
+<script src="/app/pages/console/ratings.controller.js"></script>
+<script src="/app/pages/callrail/ratings.controller.js"></script>
+<script src="/app/pages/mailchimp/ratings.controller.js"></script>
+<script src="/app/global.controller.js"></script>
+<!-- Modules -->
+<script src="/app/modules/createcampaign/createcampaign.js"></script>
+<script src="/app/modules/topbar/topbar.js"></script>
+<script src="/app/modules/taskmanagement/taskmanagement.js"></script>
+<script src="/app/modules/userprofile/userprofile.js"></script>
+<script src="/app/modules/createstaff/createstaff.js"></script>
+<script src="/app/modules/createclient/createclient.js"></script>
+<script src="/app/modules/editcampaign/editcampaign.js"></script>
+<script src="/app/modules/editcampaign/editcampaign.service.js"></script>
+<script src="/app/modules/removecampaign/removecampaign.js"></script>
+<script src="/app/pages/subscriptions/checkoutPage.js"></script>
+<script src="/app/pages/subscriptions/checkoutCard.js"></script>
+<script src="/app/modules/removecampaign/removecampaign.service.js"></script>
+<script src="/app/modules/removechilduser/removechilduser.js"></script>
+<script src="/app/modules/editchilduser/editchilduser.js"></script>
+<script src="/app/modules/integrations/integrations.js"></script>
+<script src="/app/modules/integrations/integrations.service.js"></script>
+<script src="/app/modules/integration/integration.js"></script>
+<script src="/app/modules/integration/integration.service.js"></script>
+<script src="/app/modules/addwidget/addwidget.js"></script>
+<script src="/app/modules/editwidget/editwidget.js"></script>
+<script src="/app/modules/datepickerrange/datepickerrange.js"></script>
+
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- <script>
+window.intercomSettings = {
+    app_id: "of1zxqcu",
+    hide_default_launcher: false
+};
+</script>
+<script>
+
+(function() { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator');
+        ic('update', intercomSettings); } else { var d = document; var i = function() { i.c(arguments) };
+        i.q = [];
+        i.c = function(args) { i.q.push(args) };
+        w.Intercom = i;
+
+
+
+        function l() { var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/of1zxqcu'; var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x); } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } 
+            
+    window.$('.app-popups').show()
+    window.$('.app-popups>div').css('visibility', 'visible')
+          })()
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    navigator.serviceWorker.register('service-worker.js')
+        .then(function(reg) {
+            console.log("Yes, it did.");
+        }).catch(function(err) {
+            console.log("No it didn't. This happened: ", err)
+        });
+}
+</script> -->
+<noscript>
+    <a href="https://app.ezond.com/">External Link</a>
+</noscript>
+<!-- Drip -->
+<script type="text/javascript">
+  var _dcq = _dcq || [];
+  var _dcs = _dcs || {};
+  _dcs.account = '8317791';
+
+  (function() {
+    var dc = document.createElement('script');
+    dc.type = 'text/javascript'; dc.async = true;
+    dc.src = '//tag.getdrip.com/8317791.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(dc, s);
+  })();
+</script>
+<!-- end Drip -->

@@ -1,0 +1,55 @@
+{
+  "name": "MarketAnapp",
+  "version": "0.0.1",
+  "description": "Marketting Analyis Web app.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "chat",
+    "system"
+  ],
+  "author": "Gabriel Valiant",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^6.1.3",
+    "@sentry/node": "^4.0.6",
+    "angular": "^1.6.6",
+    "angular-animate": "^1.6.6",
+    "angular-aria": "^1.6.6",
+    "angular-hero": "0.0.7",
+    "angular-material": "^1.1.5",
+    "angular-messages": "^1.6.6",
+    "async": "^2.0.1",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "connect-redis": "^3.4.0",
+    "debug": "^2.6.8",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "express-session": "^1.14.2",
+    "express-sslify": "^1.2.0",
+    "gulp-each": "^0.5.0",
+    "ionicons": "^3.0.0",
+    "jade": "^1.11.0",
+    "md5": "^2.2.1",
+    "mysql": "^2.14.1",
+    "mysql2": "^1.2.0",
+    "node-libcurl": "1.3.3",
+    "nodemailer": "^2.7.2",
+    "nopt": "~3.0.6",
+    "pug": "^2.0.0-beta3",
+    "querystring": "^0.2.0",
+    "redis": "^2.8.0",
+    "sequelize": "^3.30.4",
+    "socket.io": "^2.0.3",
+    "stripe": "^6.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "webpack": "^2.5.1"
+  }
+}

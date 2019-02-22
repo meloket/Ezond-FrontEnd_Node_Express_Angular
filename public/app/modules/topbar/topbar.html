@@ -1,0 +1,73 @@
+<div class="canvas-content" style="background-color: #E3E8EE; ">
+    <div ng-class="{'backgroundE3E8EE': showmobilemenu }" class="tagi layout-align-sm-space-between layout-align-xs-space-between-center" layout="row" layout-align="space-around center" flex style="transition: top 100ms;border-bottom: 1px solid #7070702d; height: 75px; background-color: white; position: fixed;z-index: 4; top: 0px;width: 100%;">
+        <md-button class="md-icon-button hide-gt-sm" aria-label="" ng-click="toggleshowmobilemenu()">
+            <i class="fa" style="font-size: 15px;" ng-class="{'fa-bars': !showmobilemenu, 'fa-times': showmobilemenu}"></i>
+        </md-button>
+        <div id="agency_logo" layout-align="center center" layout="column" style="cursor: pointer;position: absolute; /*top: 0; */ left: 30px; z-index: 5;" ui-sref="app.controlpanel.campaigns" ng-click="goToControlPanel()" class="md-display-1 main-light-color">
+            <a class="logo layout-row">
+                                      <img ng-src="{{backendUrl}}apis/agencyProfileImage2.php?user_id={{user_id}}" style="">
+                                    </a>
+        </div>
+        <md-button ng-hide="showmobilesearch" class="md-icon-button hide-gt-sm" aria-label="" ng-click="toggleshowmobilesearch()">
+            <i class="fas fa-search"></i>
+        </md-button>
+        <span class="flex"></span>
+        <style>
+            .tryu.hide-xs, .tryu.hide-sm {
+                display: block !important;
+            }
+            .topusermenu:hover *{
+            }
+
+            .topusermenu:hover{
+                background: #e9e9e963;
+            }
+        </style>
+        <md-menu  class="curs-pointer topusermenu layout-row layout-align-center-center" style="height: 100%; border-left: 1px solid lightgrey; padding-left: 20px;">
+            <div style="height: 100%; line-height: 75px;" ng-click="$mdMenu.open($event);">
+                <span class="margin-right md-title" style="vertical-align: middle;">{{userName}}</span>
+                <div class="margin-sm-right" style="background: url('https://networks.ezond.com/apis/image_or_color.php?user_id={{user_id}}');display: inline-block;vertical-align: middle;border: 1px solid grey; width: 40px;height: 40px;border-radius: 50%;background-size: contain;">
+                                        </div>
+            </div>
+            <md-menu-content>
+                <md-menu-item >
+                    <md-button ng-click="logout()">
+                        Log out
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        
+        <div class="hide-xs hide-sm" ng-class="{'tryu': showmobilesearch, 'gryu': !showmobilesearch}" style="right: 30px;font-size: 16px; /*top: 50%; */ position: absolute; /*transform: translateY(-50%);*/" ng-show="activeMenu == 'campaigns'">
+            <md-input-container style="">
+                <input ng-change="searching()" ng-blur="toggleshowmobilesearch()" placeholder="Search..." ng-model="searchkey" required type="text">
+            </md-input-container>
+        </div>
+    </div>
+    <div id="one-more-menu" class="hide-gt-sm" ng-show="showmobilemenu">
+        <md-button ng-click="changestate('app.controlpanel.campaigns')" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-tachometer-alt"></i>
+            <div class="md-headline">Campaigns</div>
+        </md-button>
+        <md-button ng-click="changestate('app.controlpanel.messages')" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-comments"></i>
+            <div class="md-headline">Messages</div>
+        </md-button>
+        <md-button ng-click="changestate('app.controlpanel.tasks')" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-check-square"></i>
+            <div class="md-headline">Tasks</div>
+        </md-button>
+        <md-button ng-click="pressing(-1)" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-fingerprint"></i>
+            <div class="md-headline">Alerts</div>
+        </md-button>
+        <md-button ng-click="changestate('app.controlpanel.users')" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-users"></i>
+            <div class="md-headline">Users</div>
+        </md-button>
+        <md-button ng-click="$mdMenu.open()" ui-sref-active-eq="md-primary" class="md-raised margin-bottom">
+            <i style="font-size: 36px;" class="fa fa-cog"></i>
+            <div class="md-headline">Settings</div>
+        </md-button>
+    </div>
+</div>

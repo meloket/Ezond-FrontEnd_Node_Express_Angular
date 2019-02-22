@@ -1,0 +1,87 @@
+<div id="agencyPane" class="pa hide">
+	<div class="pa-head"><span data-bind="addDashboardPaneTitle">Agency</span><button class="pa-close" onclick="$(this).parent().parent().hide();"><i class="fa fa-times"></i>&nbsp;</button></div>
+
+
+    <div class="pa-body" data-pa-section="agencyMain" style="min-height: 450px;">
+
+        <% if (user.agencyID == 0) { %>
+            You are not apart of an agency, you may upgrade your account to an agency account.<br/><br/>
+            Agency Name<br/>
+            <input type="text" class="it it-f" id="agencyName"><br/>
+			Country
+			<input type="text" class="it it-f" id="agencyCountry"><br/><br/>
+            <button class="bn bn-std" onclick="createAgency()">Create</button>
+        <% } else { %>
+
+            <h3 id="agencyName"><%= user.agency.name %></h3><br/><br/>
+            You are a
+            <% if (user.agencyAccess == 0)  { %>
+                <b>Client</b>
+            <% } else if (user.agencyAccess == 1) { %>
+                <b>Employee</b>
+            <% } else if (user.agencyAccess == 2) { %>
+                <b>Manager</b>
+            <% } %>
+
+            of this agency.<br/><br/>
+
+            <% if (user.agencyAccess > 0) { %>
+                <button class="bn bn-std" onclick="showHidePaneSection('agencyAddClient', 'agencyMain')">Add a client</button>
+                <button class="bn bn-std" onclick="showHidePaneSection('agencyClientList', 'agencyMain')">Client List</button>
+				<button class="bn bn-std" onclick="showHidePaneSection('agencyDashboards', 'agencyMain')">Dashboards</button>
+                <button class="bn bn-otr" onclick="showHidePaneSection('agencySettings', 'agencyMain')">Settings</button> <br/><br/>
+            <% } %>
+
+        <% } %>
+
+    </div>
+
+    <div class="pa-body hide" data-pa-section="agencyAddClient" style="display: none;">
+        <h3>Add client</h3> <button class="bn bn-std bn-right" onclick="showHidePaneSection('agencyMain', 'agencyAddClient')">Back</button><br/><br/>
+        You have <b>10</b> user slots of <b>10</b> available slots.<br/><br/>
+        First Name
+        <input type="text" class="it it-f" id="addClientFirstName">
+        Last Name
+        <input type="text" class="it it-f" id="addClientLastName">
+        Email
+        <input type="text" class="it it-f" id="addClientEmail">
+        Company
+        <input type="text" class="it it-f" id="addClientCompany">
+        Access
+        <select class="st st-f" id="addClientAccess">
+            <option value="0">Client</option>
+            <option value="1">Employee</option>
+            <option value="2">Manager</option>
+        </select>
+        <br/><br/>
+        <button class="bn bn-suc" onclick="addClient()">Add Client</button>
+    </div>
+
+    <div class="pa-body hide" data-pa-section="agencyClientList" style="display: none;">
+        <h3>Client List</h3> <button class="bn bn-std bn-right" onclick="showHidePaneSection('agencyMain', 'agencyClientList')">Back</button><br/><br/>
+        <% if (user.agencyID > 0 && user.agencyAccess > 0) { %>
+			<ul class="agencyList">
+				<% for (var i = 0; i < user.agency.clients.length; i++) { %>
+					<li><%= user.agency.clients[i].first_name %> <%= user.agency.clients[i].last_name %></li>
+				<% } %>
+			</ul>
+		<% } %>
+    </div>
+
+    <div class="pa-body hide" data-pa-section="agencySettings" style="display: none;">
+        <h3>Agency Settings</h3> <button class="bn bn-std bn-right" onclick="showHidePaneSection('agencyMain', 'agencySettings')">Back</button><br/><br/>
+        <i>Coming Soon...</i>
+    </div>
+
+	<div class="pa-body hide" data-pa-section="agencyDashboards" style="display: none;">
+		<h3>Agency Client Dashboards</h3> <button class="bn bn-std bn-right" onclick="showHidePaneSection('agencyMain', 'agencyDashboards')">Back</button><br/><br/>
+		<% if (user.agencyID > 0 && user.agencyAccess > 0) { %>
+			<ul id="agencyDashboardList" class="agencyList">
+				<% for (var i = 0; i < user.agency.dashboards.length; i++) { %>
+					<li data-did="<%= user.agency.dashboards[i].id %>" data-ownerID="<%= user.agency.dashboards[i].ownerID %>" class="dashboard"><%= user.agency.dashboards[i].name %></li>
+				<% } %>
+			</ul>
+		<% } %>
+	</div>
+
+</div>

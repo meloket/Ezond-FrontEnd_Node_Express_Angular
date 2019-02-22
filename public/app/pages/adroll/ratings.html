@@ -1,0 +1,203 @@
+<div class="canvas-sidebar toGetController" ng-class="{'loader': dataLoading}">
+	<div class="common-report-interface canvas">
+		<div class="common-report-interface-header has-sidebar" style="top: 9rem;">
+			<div class="spacer">
+				<div class="left">
+					<div class="common-report-interface-header-ui-title">
+						<img ng-src="{{ratingsInfo.logo}}">&nbsp;<span class="title vertical-align-middle">{{ratingsInfo.name}}</span>
+					</div>
+					<div class="common-report-interface-header-ui-menu">
+						<div class="navigation-box">
+							<ul class="nav nav-pills hidden-mobile">
+								<li ng-class="{active: $index == selectdIndex}" ng-repeat="menu in ratingsInfo.menu" ng-click="changeMenu($index, false);"><md-button  class=" new-buttons" title="{{menu}}">{{menu}} </md-button></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+                    <md-button id="CalendarTextBtn2" class="new-buttons md-raised common-ui-form-report-date margin-sm-left " ng-show="bindAccountInfo.websiteUrl != ''">
+                        <i class="ion ion-android-calendar margin-xs-right"></i>
+                        <span id="CalendarTextDisp2">{{calendarLabel}}</span>
+                        <i class="icon icon-caret-down hidden-mobile margin-xs-left exe_hidden"></i>
+                    </md-button>
+                    <input type=text id="CalendarText2" style="width: 0px;border:0;" readonly>
+                    <div class="btn-group margin-sm-left" ng-show="bindAccountInfo.websiteUrl != ''">
+                    	<md-button class="md-icon-button btn new-buttons tooltip-button common-report-header-settings-button" ng-click="toggleDropDown()" ng-class="{'popover-opened': showDropDown == true}">
+                    		<div><i class="icon icon-sliders"></i></div>
+                    	</md-button>
+                    </div>
+				</div>
+			</div>
+			<div id="interface-report-settings"></div>
+		</div>
+		<div class="canvas-content" style="padding-top: 1rem;">
+			<div class="react-grid-layout widgets common-widgets-collection">
+				<div class="react-grid-item common-widgets-wrapper" style="top: 0px; left: 0px; height: 336px; position: absolute;">
+					<div class="react-grid-item common-widgets-wrapper height-4 padding-1 margin-0 timeline-chart" style="height:336px; width:100%; float:left;">
+						<div class="common-widgets-chart panel">
+							<div class="common-widgets-chart-header">
+								<div class="common-widgets-chart-header-tab selected" style="width: 100%;">
+									<span>{{mainSelectMetric.metricName}}<i class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, mainSelectMetric)" ng-mouseout="unDisplayTip()"></i></span>
+									<span class="stat redacted"><span>{{getDisplayData(mainSelectMetric)}}</span></span>
+								</div>
+							</div>
+							<div class="chart-container" id="chart-container2" style="width: 98%;">
+							</div>
+						</div>
+					</div>
+					<!-- <div class="react-grid-item common-widgets-wrapper width-6 height-4 padding-1 margin-0 timeline-chart" style="height:336px; width:50%; float:right;">
+						<div class="common-widgets-chart panel">
+							<div class="common-widgets-chart-header">
+								<div class="common-widgets-chart-header-tab selected" style="width: 100%;">
+									<span>{{mainSelectMetric.metricName}}<i class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, mainSelectMetric)" ng-mouseout="unDisplayTip()"></i></span>
+									<span class="stat redacted"><span>{{getDisplayData(mainSelectMetric)}}</span></span>
+								</div>
+							</div>
+							<div class="chart-container" id="chart-container1" style="width: 98%;">
+							</div>
+						</div>
+					</div> -->
+					<div style="clear: both;"></div>
+				</div>
+				<div class="react-grid-item common-widgets-wrapper width-12 height-2 padding-0 margin-0 big-stats" style="top: 336px; left: 0px; position: absolute;">
+					<div class="common-widgets-big-stats">
+						<div class="big-stat" ng-repeat="metric in selectMetricArray" ng-click="toggleMainSelectMetric(metric);" ng-class="{selected: metric == mainSelectMetric, 'box-width-1': selectMetricArray.length == 1, 'box-width-2': selectMetricArray.length == 2, 'box-width-3': selectMetricArray.length == 3, 'box-width-4': ((selectMetricArray.length == 4) || (selectMetricArray.length == 7) || (selectMetricArray.length == 8)), 'box-width-5': ((selectMetricArray.length == 5) || (selectMetricArray.length == 9) || (selectMetricArray.length == 10)), 'box-width-6dawd': ((selectMetricArray.length == 6) || (selectMetricArray.length == 11) || (selectMetricArray.length == 12))}">
+							<div class="panel">
+								<span class="stat">
+									<!-- <span>{{getDisplayData(metric)}}</span> -->
+									<span>{{fullmetrics[metric.metricKey] || 0 | number : fullmetrics[metric.metricKey][metric.metricKey] % 1 > 0 ? 2 : 0}}</span>
+									<!-- <span>{{dedicatedPageInfo[0][metric.metricKey] | number: dedicatedPageInfo[0][metric.metricKey] % 1 > 0 ? 3 : 0}}</span> -->
+									<span class="stat_small small-loading"></span>
+									<!-- <i ng-if="compare" style="font-size: 16px;" class="ion {{comparisonResult(getDisplayData(metric), getDisplayData(metric, true))}}">
+                                        <span  style="font-size: 10px; vertical-align: middle;">{{compDiff(getDisplayData(metric), getDisplayData(metric, true))}}</span>
+                                    </i> -->
+									<span class="label">{{metric.metricName}}</span>
+								</span>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="overflow: auto;padding: 0px 8px;" class="react-grid-item common-widgets-wrapper width-12 height-2 padding-0 report-table" ng-style="{'top': dataTableTop, 'left': '0px', 'position': 'absolute'}">
+					<div class="common-widgets-table">
+						<div class="body">
+							<div>
+								<table class="table table-striped table-overflow table-no-results sortable">
+									<thead class="common-widgets-table-thead">
+										<tr layout=row>
+											<th flex class="text-left">
+												 <!-- ng-show="ratingsInfo.header[selectdIndex].description != ''" -->
+												<span ng-show="selectdIndex==0">Campaign<i  class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, ratingsInfo.header[selectdIndex].name)" ng-mouseout="unDisplayTip()"></i></span>
+												<span ng-show="selectdIndex==1" >Ad group<i class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, ratingsInfo.header[selectdIndex].name)" ng-mouseout="unDisplayTip()"></i></span>
+												<span ng-show="selectdIndex==2">Ad<i  class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, ratingsInfo.header[selectdIndex].name)" ng-mouseout="unDisplayTip()"></i></span>
+											</th>
+											 <!-- ng-show="metric.metricSelect && metric.recordDisplay" -->
+											<th flex class="text-center short" ng-class="{desc: selectMetricSortValue && selectMetricSort == metric.metricName, asc: selectMetricSortValue == false && selectMetricSort == metric.metricName}" ng-repeat="metric in selectMetricArray" ng-click="changeMetricChange(metric.metricName);">
+												<span>{{metric.metricName}}<i class="icon icon-help-circled tooltip-icon" ng-mouseover="displayTip($event, metric.metricName)" ng-mouseout="unDisplayTip()" ng-show="metric.description != ''"></i></span>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="common-widgets-table-tbody">
+										<tr layout=row style="height: auto;" ng-hide="getResultCheck()">
+											<td colspan="20" class="text-muted noresults">No data matching the selected criteria.</td>
+										</tr>
+										<tr layout=row ng-repeat="row in dedicatedPageInfo">
+											<td flex class="text-center">
+												<a ng-click="changeMenu((selectdIndex+1), false, row.eid)">{{row.name}}</a>
+											</td>
+											<td flex ng-repeat="metric in selectMetricArray" class="text-center">
+												{{row.metrics.summary[metric.metricKey] || 0 | number : row.metrics.summary[metric.metricKey] % 1 > 0 ? 2 : 0 }}
+											</td>
+											<!-- <td ng-repeat="metric in metricDatas"> -->
+												<!-- <span ng-if="selectMetricArray.indexOf(metric)">{{row[metric.metricKey]}}</span> -->
+											<!-- </td> -->
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div style="height: 30px;background: #E3E8EE;"></div>
+
+					</div>
+				</div>
+			</div>
+			
+			<div class="common-report-setup-buttons" ng-show="bindAccountInfo.websiteUrl == ''">
+				<button class="btn setup" ng-click="editIntegration();">
+					<div class="profile-image">
+						<img src="{{ratingsInfo.logo}}">
+					</div>
+					<h4>Setup <span class="name">{{ratingsInfo.logo_name}}</span></h4>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="position: absolute; top: 0px; left: 0px; width: 100%;">
+	<div data-reactroot="">
+		<div class="rc-tooltip rc-tooltip-placement-top" id="toolTipDiv" ng-class="{'rc-tooltip-hidden': displayTipCheck}" ng-style="{'left': tipOffsetLeft, 'top': tipOffsetTop}">
+			<div class="rc-tooltip-content">
+				<div class="rc-tooltip-arrow"></div>
+				<div class="rc-tooltip-inner">{{displayTipContent}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="position: absolute; top: 0px; left: 0px; width: 100%;">
+	<div data-reactroot="">
+		<div class="rc-tooltip-mask"></div>
+		<div class="rc-tooltip common-ui-popover popover-medium right-locked extra-mobile-offset rc-tooltip-placement-bottomRight" ng-class="{'rc-tooltip-hidden': showDropDown == false}">
+			<div class="rc-tooltip-content">
+				<div class="rc-tooltip-arrow"></div>
+				<div class="rc-tooltip-inner">
+					<div class="common-report-interface-settings">
+						<div class="content">
+							<ul class="section">
+								<li>
+									<div>
+										<div class="heading layout-row layout-align-center-center">Metrics <span class="flex"></span> <md-button class="md-raised white-bgc md-fab md-mini" ng-click="toggleDropDown()"><i class="ion ion-close" style="color: lightgrey;"></i></md-button> </div>
+										<div>
+											<div class="common-ui-form-metrics">
+												<div class="metrics">
+													<div ng-repeat="metric in metricDatas"><input type="checkbox" ng-model="metricDatas[$index].metricSelect" ng-change="refreshMetricSelected();"><label>{{metric.metricName}}</label></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="common-report-interface-settings-ui-account">
+										<div class="heading">Integration</div>
+										<ul class="">
+											<li>
+												<img src="{{ratingsInfo.logo}}">
+												<div class="account"><b>{{bindAccountInfo.account}}</b><br>{{bindAccountInfo.viewID}}</div>
+												<div>
+													<button class="btn btn-default btn-sm" ng-click="editIntegration();">
+														<i class="icon icon-pencil"></i>
+													</button>
+													<button class="btn btn-danger btn-sm" ng-click="deleteIntegration();">
+														<i class="icon icon-delete"></i>
+													</button>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+		padding: 1rem 0.5rem;
+	}
+	.common-widgets-table .body table.table-no-results{
+		table-layout: fixed;
+	}
+</style>

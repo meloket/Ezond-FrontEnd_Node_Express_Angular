@@ -1,0 +1,33 @@
+<% include header.html %>
+
+<div id="wrapper">
+    <div class="pl pl-3 text-center">
+        <div class="pl-body">
+            <% if (typeof success !== "undefined") { %>
+                <span class="lb lb-suc"><%= success %></span><br/><br/><a href="/login" class="bn bn-std">Click here to login now</a><br/><br/>
+            <% } %>
+
+            <% if (typeof error !== "undefined") { %>
+                <span class="lb lb-err"><%= error %></span><br/><br/>
+            <% } %>
+
+            <% if (typeof email !== "undefined") { %>
+                <h3>Activate Client Account <%= email %></h3><br/><br/>
+                Enter Activation code:
+                <form method="POST" action="/doactivateclient">
+                    <input type="hidden" class="it" value="<%= email %>" name="email">
+                    <input type="text" class="it" value="<%= code %>" name="code"><br/><br/>
+                    Password<br/>
+                    <input type="password" class="it" name="password"><br/><br/>
+                    Confirm Password<br/>
+                    <input type="password" class="it" name="confirm_password"><br/><br/>
+                    <input type="submit"class="bn bn-std" value="Activate">
+                </form>
+            <% } else if (typeof success === "undefined") { %>
+                <span class="lb lb-err">No Email to activate</span>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<% include footer.html %>

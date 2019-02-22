@@ -1,0 +1,21 @@
+<div ng-include="'/app/pages/commons/header.html'" class="common-header">
+	
+</div>
+<div class="content cantint">
+	<div class="common-layouts-campaign">
+		<div ng-if="showsidebar" style="position: fixed;z-index: 4;width: 100%;" ng-include="'/app/pages/commons/sidebar.html'"></div>
+		<style>
+			.addpadding {
+				padding-top: 48px;
+			}
+		</style>
+		<div ui-view ng-class="{addpadding: showsidebar}">
+		</div>
+
+		<div class="taskmButton showTaskm" ng-mouseover="buttonHover()" style="position: fixed; padding-left: 100px; z-index: 5;">
+			<md-button  ng-show="showButton" ng-click="showTaskm()" class="  md-fab md-primary md-raised" style="text-align: center;" aria-label="Use Android">
+				MANAGE
+			        </md-button>
+		</div>
+	</div>
+</div>

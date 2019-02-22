@@ -1,0 +1,328 @@
+<div ng-controller="headerController">
+  <div layout='row' layout-align='center center'
+       ng-if="!pleasesubscribeState && planSubscribed == 'trial' && expiredTrial || expiredTrial"
+       style='height: 60px; z-index: 4;width: 100%; background-color: #3F51B5; position: fixed; font-size: 18px;'
+       class='white-c expreminderHead'>
+    <i class="ion ion-android-time white-c margin-right" style="font-size: 28px;"></i>
+    <strong class="white-c">Your Trial has ended. You may still manage 10 campaigns for free</strong>
+    <div style='border: 2px solid white; padding: 8px 15px' class='md-raised curs-pointer white-c margin-left'
+         ng-click='alirt()'>Select Plan
+    </div>
+  </div>
+  <md-toolbar ng-class="{'shadowcontrolpanel': showShadow, 'makefixed': showBurger, 'mobileheader': mobileView}" resizer
+              style="background: white; position: fixed; z-index: 4;" id="control-panel-logout2">
+    <div class="md-toolbar-tools" style="padding-left: 0;">
+
+      <i ng-show="restrictClient" ng-click="goToControlPanel()" ui-sref="app.controlpanel.campaigns"
+         class="ion orange ion-android-arrow-back curs-pointer"
+         style="transition: background-color 200ms ease;line-height: 62px; text-align: center; height: 100%;color:white; width: 40px; background-color: #437DFC;">
+      </i>
+
+      <i ng-show="!restrictClient && showsidebar" ng-click="hidethings()" ui-sref="app.dashboard.client_home"
+         class="ion orange ion-android-arrow-back curs-pointer"
+         style="transition: background-color 200ms ease;line-height: 62px; text-align: center; height: 100%;color:white; width: 40px; background-color: #437DFC;">
+      </i>
+      <style>
+        .orange:hover {
+          background-color: #d8881640 !important;
+          transition: background-color 200ms ease;
+        }
+      </style>
+
+      <div style="cursor: pointer" class="md-display-1 main-light-color md-padding mlr50" ng-click="goToControlPanel()">
+        <a class="logo" ui-sref="app.controlpanel.campaigns" ng-click="goToControlPanel()">
+          <img ng-src="{{::backendUrl}}apis/agencyProfileImage2.php?user_id={{owner_id}}&{{::timereport}}">
+        </a>
+      </div>
+      <md-menu ng-if="showsidebar" class="custom-scrollbar">
+        <md-button style="padding: 0px 16px" class="new-buttons md-raised" ng-click="$mdOpenMenu()">
+          {{selectedCampaign.company_name}}<i class="margin-sm-left ion-chevron-down" style="font-size: 12px"></i>
+        </md-button>
+        <md-menu-content style="padding-top: 0px; max-height: 400px">
+          <input type="text" ng-model="searchkey" style="padding: 8px; border: 0px" autofocus="">
+          <md-menu-item style="border: 0; padding: 8px; background: lightsteelblue; font-size: 20px;"
+                        layout-align="start center" layout="row" class="selected">{{selectedCampaign.company_name}}
+          </md-menu-item>
+          <md-menu-item style=" border: 0; " class="list-group-item no-padding"
+                        ng-repeat="campaign in campaigns | filter : {company_name : searchkey}"
+                        ng-click="changeCampaign(campaign)" ng-hide="campaign.id == selectedCampaign.id">
+            <md-button class="new-buttons">{{campaign.company_name}}</md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <md-menu ng-if="showsidebar">
+        <i class="margin-left ion-ios-gear curs-pointer blue-hover" class="curs-pointer" ng-click="$mdOpenMenu()"></i>
+        <md-menu-content>
+          <md-menu-item class="drop-min-height" ng-if="!restrictClient">
+            <md-button class="drop-min-height" onclick="editCampaign()">Edit Campaign</md-button>
+          </md-menu-item>
+          <md-menu-item class="drop-min-height">
+            <md-button class="drop-min-height" onclick="showIntegrations()">Integrations</md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+      <span flex></span>
+
+      <!-- <i class="ion-navicon ion curs-pointer md-display-2" style="transition: transform 200ms"
+         ng-class="{'rotatedburger': showBurger}" ng-show="mobileView"
+         ng-click="showBurger = !showBurger;hidemenus()"></i> -->
+
+      <div layout="row" style="left: 0" layout-align-sm="end center" layout-align-xs="center center"
+           class="formobilenavs" layout-align="center center" ng-show="showBurger || !mobileView" flex-xs="100">
+
+        <md-button class="new-buttons" ng-hide="isClient" ng-click="show('notificationshow')"
+                   ng-class="{'md-icon-button': !mobileView, 'md-menu': mobileView, 'active': sevenanimation['show']}">
+          <i class="curs-pointer ion-android-notifications" style="font-size: 22px;">
+            <span ng-show="mobileView">Alerts</span>
+          </i>
+        </md-button>
+
+        <md-divider ng-show="mobileView" style="border-top:0;border-right: 2px solid #CED2D5; height: 30px">
+        </md-divider>
+
+        <md-button class="new-buttons" ng-show="showActivities" ng-click="show('activities');"
+                   ng-class="{'md-icon-button': !mobileView, 'md-menu': mobileView }">
+          <i class="curs-pointer ion-ios-bolt" style="font-size: 22px;">
+            <span ng-show="mobileView">Activities</span>
+          </i>
+        </md-button>
+
+        <md-divider ng-show="mobileView" style="border-top:0;border-right: 2px solid #CED2D5; height: 30px">
+        </md-divider>
+
+        <md-menu md-offset="0 70" ng-hide="isClient">
+          <md-button class="new-buttons" ng-click="show_tasks();$mdOpenMenu();"
+                     ng-class="{'md-icon-button': !mobileView, 'md-menu': mobileView }">
+            <i class="curs-pointer ion-android-checkmark-circle" style="font-size: 22px;"> 
+              <span ng-show="mobileView">Tasks</span>
+            </i>
+          </md-button>
+          <md-menu-content width="5" class="md-padding"
+                           style="width:450px; border-top: 4px solid blue; max-height: none; height: calc(100vh - 65px);">
+            <md-card-header>
+              <md-card-header-text layout="row" layout-align="center center">
+                <div class="md-caption blue-color md-body-2" flex>Tasks</div>
+                <md-button class="no-margin md-raised md-caption">Mark all done</md-button>
+              </md-card-header-text>
+            </md-card-header>
+            <md-divider class="margin-bottom margin-top"></md-divider>
+            <md-card-content layout="row" class="no-mp">
+              <div flex>
+                <div class="curs-pointer lighter-color" style="padding: 8px 0px" layout-align="start start" layout="row"
+                     flex ng-repeat="task in today_tasks">
+                  <i class="margin-sm-right curs-pointer" style="font-size: 20px; margin-top: 2px"
+                     ng-class="task.task_progress == 0 ? 'ion-android-checkbox-outline-blank' : 'ion-android-checkbox-outline'"></i>
+                  <div layout="column" flex>
+                    <div class="text-capitalize md-caption">{{task.task_title}}</div>
+                    <div>
+                      Due <span>{{task.task_date}}</span> in <span ng-click="OpenTaskPage(task.dash_id)">{{task.dash_name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <md-divider ng-show="today_tasks.length>0"></md-divider>
+                <div class="curs-pointer lighter-color" style="padding: 8px 0px" layout-align="start start"
+                     ng-repeat="task in future_tasks">
+                  <i class="margin-sm-right curs-pointer icon" style="font-size: 20px; margin-top: 2px"
+                     ng-class="{'ion-android-checkbox-outline-blank': task.task_progress == 0}"></i>
+                  <div layout="column" flex>
+                    <div class="text-capitalize md-caption">{{task.task_title}}</div>
+                    <div>
+                      Due <span>{{task.task_date}}</span> in <span ng-click="OpenTaskPage(task.dash_id)">{{task.dash_name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <md-divider ng-show="future_tasks.length>0"></md-divider>
+                <div class="curs-pointer lighter-color" style="padding: 8px 0px" layout-align="start start" flex
+                     layout="row" ng-repeat="task in other_tasks">
+                  <i class="margin-sm-right curs-pointer icon" style="font-size: 20px; margin-top: 2px"
+                     ng-class="{'ion-android-checkbox-outline-blank': task.task_progress == 0}"></i>
+                  <div layout="column" flex>
+                    <div class="text-capitalize md-caption">{{task.task_title}}</div>
+                    <div>
+                      Due <span>{{task.task_date}}</span> in <span ng-click="OpenTaskPage(task.dash_id)">{{task.dash_name}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </md-card-content>
+          </md-menu-content>
+        </md-menu>
+
+        <md-divider ng-show="mobileView" style="border-right: 2px solid #CED2D5; height: 30px;">
+        </md-divider>
+
+        <md-button class="new-buttons" ng-if="!restrictClient" ng-class="{'md-icon-button': !mobileView, 'md-menu': mobileView }"
+                   ui-sref="app.controlpanel.users">
+          <i class="curs-pointer ion-android-people" style="font-size: 22px;"> Team</i>
+        </md-button>
+
+        <md-divider ng-show="mobileView" style="border-right: 2px solid #CED2D5; height: 30px">
+        </md-divider>
+
+        <md-menu md-offset="0 70">
+          <md-button class="new-buttons" ng-click="$mdOpenMenu()" ng-class="{'md-icon-button': !mobileView, 'md-menu': mobileView }">
+            <i class="curs-pointer ion-android-person " style="font-size: 22px;">
+              <span ng-show="mobileView">Profile</span>
+            </i>
+          </md-button>
+          <md-menu-content width="5" class="no-padding">
+            <md-card class="md-padding no-margin" style="width:450px">
+              <md-card-header class="no-padding" layout="row" layout-align="center center">
+                <div class="md-caption" flex>ACCOUNT</div>
+                <md-button onclick="logout()" style="width: auto" layout="row" layout-align="center center"
+                           class="small-button logout-button no-margin md-raised md-caption text-capitalize">
+                  <i class="ion-log-out blue-hover margin-sm-right" style="font-size:16px; vertical-align: middle;"></i>Logout
+                </md-button>
+              </md-card-header>
+              <md-divider class="margin-bottom margin-top"></md-divider>
+              <md-card-content layout="row" class="no-mp">
+                <div flex>
+                  <div class="md-title">{{username}}</div>
+                  <div class="margin-bottom">{{useremail}}</div>
+                  <md-button class="md-raised" onclick="userprofile()"><i
+                          class="curs-pointer blue-hover ion-ios-person margin-sm-right"
+                          style="font-size: 24px; vertical-align: middle"></i>Profile
+                  </md-button>
+                  <md-button class="md-raised cursor" ng-show="isOwner" ng-click="manageSubscription()">Billing
+                  </md-button>
+                </div>
+                <span class="text-uppercase margin-sm-right"
+                      style="background-color: {{ colors[0] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 24px; width: 75px; height: 75px; line-height: 75px; border-radius: 50%;">
+                                    <span style="width: 44px;color: white">{{usernameletters}}</span>
+
+                                    <div class="margin-sm-right"
+                                         style="background: url('{{backendUrl}}apis/image_or_color.php?user_id={{user_id}}&{{timereport}}');border: 1px solid grey; width: 75px;height: 75px;border-radius: 50%;margin-top: -75px;position: absolute;background-size: contain;">
+                                
+                                    </div>                    
+                                </span>
+              </md-card-content>
+            </md-card>
+          </md-menu-content>
+        </md-menu>
+        <!-- <md-button ng-show="!restrictClient" class="new-buttons" ng-click="createcampaign()">
+          <i class="ion ion-plus"></i>
+          Add campaign
+        </md-button> -->
+      </div>
+    </div>
+  </md-toolbar>
+
+  <!-- SIDEOUTS -->
+  <div style="width: 50%;"
+       ng-class="{'sevenanimation-remove': hidding, 'sevenanimation': sevenanimation.notificationshow}"
+       class="modalnew">
+    <md-dialog style="opacity: 1;max-height: 100%;max-width: 100%;height: 100%;">
+      <md-toolbar style="background-color: #EDEEEE">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="hide('notificationshow');" class="md-icon-button" aria-label="Close">
+            <i class="ion-close " style="font-size: 16px;"></i>
+          </md-button>
+          <span class="text-uppercase">Alerts</span>
+          <span flex></span>
+          <md-button ng-show="notifications.length > 0" onclick="clearNoticeArr()"
+                     class=" no-margin md-raised md-caption">
+            <i class="margin-sm-right margin-sm-left ion-checkmark-round blue-hover"
+               style="font-size: 14px;vertical-align: middle"></i>
+            <span>Mark all read</span>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-dialog-content>
+        <div layout="column" class="md-padding">
+          <div ng-show="notifications.length <= 0" class="md-headline md-padding">No alerts</div>
+          <div class="notik" ng-repeat="notice in notifications | limitTo:quantityAlerts">
+            <div layout="row" class="" layout-align="center center">
+              <i ng-if="notice.noticeType == 1" class="margin-right  ion-android-happy"
+                 style="color:green; opacity: 0.8; display: inline-block;font-size:2rem;vertical-align: top;"></i>
+              <i ng-if="notice.noticeType == 0" class="margin-right  ion-android-sad"
+                 style="color:red; opacity: 0.8; display: inline-block;font-size:2rem;vertical-align: top;"></i>
+              <div flex>
+                <div class="noti_title">
+                  <span>{{notice.noticeContent}}</span>
+                  <span>{{notice.title}}</span>
+                </div>
+                <div class="curs-pointer noti_detail">{{notice.time}} ago in <b>{{notice.campaign}}</b></div>
+              </div>
+              <md-button md-prevent-menu-close="md-prevent-menu-close" id="{{notice.noticeIdx}}"
+                         onclick="clearNoticeInfo(this.id)" class="margin-left md-raised small-button">
+                <i style="font-size: 12px; vertical-align: middle;"
+                   class="ion-checkmark-round text-capitalize blue-hover"></i>
+              </md-button>
+            </div>
+            <md-divider class="margin-top margin-bottom"></md-divider>
+          </div>
+          <div layout="row" ng-hide="notifications.length == quantityAlerts" class="" layout-align="start center">
+            <span ng-hide="notifications.length == quantityAlerts">Showing <strong>{{quantityAlerts}}</strong> of {{notifications.length}}</span>
+            <span flex></span>
+            <md-button ng-hide="notifications.length == quantityAlerts" md-prevent-menu-close="md-prevent-menu-close"
+                       ng-click="quantityAlerts=notifications.length" class="md-raised">
+              <i class="ion-eye blue-hover margin-sm-right"
+                 style="opacity: 0.8; display: inline-block;font-size:2rem;vertical-align: top;"></i>View all
+            </md-button>
+          </div>
+        </div>
+      </md-dialog-content>
+    </md-dialog>
+  </div>
+
+  <div style="width: 50%;" ng-class="{'sevenanimation-remove': hidding, 'sevenanimation': sevenanimation['activities']}"
+       class="modalnew">
+    <md-dialog style="opacity: 1;max-height: 100%;max-width: 100%;height: 100%;">
+      <md-toolbar style="background-color: #EDEEEE">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="hide('activities')" class="md-icon-button" aria-label="Close">
+            <i class="ion-close " style="font-size: 16px;"></i>
+          </md-button>
+          <span class="text-uppercase">Activities</span>
+          <span flex></span>
+          <input type="text" placeholder="Search ... " ng-model="searchActionkey"
+                 style="border:0; background: transparent;  border-bottom: solid 1px gray; ">
+        </div>
+      </md-toolbar>
+      <md-card-content layout="column" class="md-padding">
+        <div class="margin-top" ng-repeat="action in activities | filter : searchActionkey" style="">
+          <div layout="row" layout-align="center center">
+            <div style="width: 2.6rem;">
+              <img style="width:2rem; border-radius:50%;"
+                   ng-src="{{::backendUrl}}apis/profileImage.php?user_id={{action.userIdx}}&{{timereport}}">
+            </div>
+            <div flex layout="row">
+              <div flex>
+                <div flex>
+                  <span class="exe_hover_title" style="cursor: pointer;" ng-click="OpenTaskPage(action.dashboardId)">{{action.userName}} on <b>{{action.dashboard}}</b></span>
+                </div>
+                <div style="font-size: 1.2rem; height:6rem; line-height:1.7rem; width: 100%; overflow:hidden; border-radius: 0.5rem; border: solid 1px #aaaaaa; background-color: #f7f7f7; padding: 0.4rem; margin-bottom: 0.6rem; word-break: break-all;"
+                     ng-if="action.actionType==0" ng-bind-html="action.actionContent | trust">
+                </div>
+                <div style="font-size: 1.2rem; line-height:2rem; width: 100%; overflow:hidden; word-break: break-all;"
+                     ng-if="action.actionType==1">{{action.actionContent}}
+                  <a ng-href="{{::backendUrl}}apis/downloadFile.php?actionIdx={{action.actionIdx}}"
+                     target="_blank" rel="noopener">
+                    <b>{{action.actionDetail}}</b>
+                  </a>
+                </div>
+                <div style="font-size: 1.2rem; line-height:2rem; width: 100%; overflow:hidden; word-break: break-all;"
+                     ng-if="action.actionType==2"> {{action.actionContent}}: {{action.actionDetail}}
+                </div>
+                <div style="font-size: 1.2rem; line-height:2rem; width: 100%; overflow:hidden; word-break: break-all;"
+                     ng-if="action.actionType==4"> {{action.actionContent}}
+                </div>
+              </div>
+              <div class="margin-sm-left" style="font-size: 1rem; color: gray; padding-bottom:0.3rem;">
+                {{action.actionDisplayTime}}
+              </div>
+            </div>
+          </div>
+          <md-divider class="margin-top"></md-divider>
+        </div>
+        <div class="md-padding">
+          <a md-prevent-menu-close="md-prevent-menu-close" ng-click="getUserActivities()">Load more activities</a>
+        </div>
+      </md-card-content>
+    </md-dialog>
+  </div>
+  <!-- /SIDEOUTS -->
+
+</div>
+
+

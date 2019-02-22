@@ -1,0 +1,27 @@
+<div id="dashboardSettingsPane" class="pa hide">
+	<div class="pa-head">Dashboard Settings<button class="pa-close" onclick="$(this).parent().parent().hide();"><i class="fa fa-times"></i>&nbsp;</button></div>
+    <div class="pa-body">
+        Name:
+        <input type="text" class="it it-f" id="settingDashboardName"><br/><br/>
+        Description:
+        <textarea class="ta ta-f" style="height: 150px;" id="settingsDashboardDescription"></textarea><br/><br/>
+		<% if (user.agencyID > 0 && user.agencyAccess > 0) { %>
+	        Attach dashboard to client:
+	        <select class="st st-f" id="settingsDashboardClientID" data-bind="settingsDashboardClientID">
+	            <option value="-1">None</option>
+				<% for (var i = 0; i < user.agency.clients.length; i++) { %>
+					<option value="<%= user.agency.clients[i].id %>"><%= user.agency.clients[i].first_name %> <%= user.agency.clients[i].last_name %></option>
+				<% } %>
+	        </select>
+			<br/><br/>
+			Active Dashboards:
+			<select class="st st-f" id="settingsDashboardActive" data-bind="settingsDashboardActive">
+				<option value="1">Yes</option>
+				<option value="0">No</option>
+			</select>
+	 	<% } %>
+    </div>
+    <div class="pa-foot">
+        <button class="bn bn-suc bn-left" onclick="updateDashboard()">Update</button><button class="bn bn-err bn-left" onclick="deleteDashboard()">Delete</button>
+    </div>
+</div>

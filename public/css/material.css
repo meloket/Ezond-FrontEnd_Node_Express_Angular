@@ -1,0 +1,48 @@
+.round{
+	width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	font-size: 20px;
+	color: white;
+}
+.md-button{
+	text-transform: capitalize !important;
+	font-weight: 200;
+}
+md-card:hover md-card-actions i{
+	color: #4680FF;
+}
+md-card:hover md-card-actions .lighter-color{
+	color: #5B6A73;
+}
+.small-round{
+	width: 50px;
+	line-height: 50;
+	height: 50px;
+	position: relative;
+	border-radius: 50%;
+		background-color: #66D9BC;
+	font-size: 20px;
+	color: white;
+}
+.small-button{
+	width: 32px;
+	height: 32px;
+	min-width: 1% !important;
+	min-height: 1% !important;
+}
+
+.no-padding{
+	padding: 0;
+}
+.no-margin{
+	margin: 0;
+}
+.no-mp{
+	padding: 0;
+	margin: 0;
+}
+
+.no-transition{
+	transition: 0;
+}

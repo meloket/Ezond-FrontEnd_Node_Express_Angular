@@ -1,0 +1,121 @@
+<div style="position: fixed;width: 100%;background: #CED2D5; height: 50px; z-index: 3; box-shadow: 0px 0px 0px rgba(0,0,0,0.16), 0 1px 5px rgba(0,0,0,0.23)">
+    <div layout="row" layout-align="center center" style="max-width: 1360px;margin: 0 auto; height: 50px">
+        <span class="md-headline margin-left">Dashboard</span>
+        <span flex=""></span>
+        <md-button ng-if="!isClient" style="" class="margin-right md-raised addwidget smaller-md-button" ng-click="addWidget()">
+            <i class="hide-xs  margin-sm-left ion-android-add blue-hover"></i>
+            <span class="margin-sm-left margin-sm-right">Add widget</span>
+        </md-button>
+        <md-button style="height: " class="md-raised margin-right calendar smaller-md-button" id="CalendarTextBtn2">
+            <i class="hide-xs margin-sm-left ion-android-calendar blue-hover"></i>
+            <span class="margin-sm-left margin-sm-right" id="CalendarTextDisp2">{{calendarLabel}}</span>
+        </md-button>
+        <input type=text id="CalendarText2" style="width: 0px;border:0;" readonly>
+        <input type=text id="CalendarText3" style="width: 0px;border:0;" readonly>
+    </div>
+</div>
+<div class="canvas-sidebar toGetController">
+    <div class="common-report-interface canvas">
+        <div class="canvas-content" ng-class="{setup : widgets.length == 0}" style="">
+            <div class="widgets common-widgets-collection editable" id="widget-container" gridster style="max-width: 1360px">
+                <div class="widget-holder" style="height:168px;" ng-class="{setup: widget.linked}" ng-repeat="widget in widgets" gridster-item="widget">
+                    <!-- {{widget.sizeY}}-->
+                    <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                        <div class="common-widgets-one-metric-panel loading-metric" ng-show="!widget.linked" style="border: solid 1px #edeff5; margin-top: 5px">
+                            <md-card class="md-padding no-margin _md" style="padding: 15px 25px">
+                                <md-card-header style="padding: 4px 0px">
+                                    <md-card-header-text layout="row" layout-align="center center">
+                                        <div class=" md-subhead"><span style="color: #00BF90">{{widget.networkName}}</span></div>
+                                        <span flex=""></span>
+                                        <md-button  ng-if="!isClient" class="md-icon-button" ng-click="modalEditWidget(widget)">
+                                            <i class="ion-android-settings lighter-color" style="font-size: 24px"></i>
+                                        </md-button>
+                                        <div ng-if="isClient" style="height: 30px"></div>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-divider ng-class="{'big-margin-bottom': !ownerCheck}" class="margin-bottom"></md-divider>
+                                <md-card-content style="padding: 4px 0px; white-space: nowrap;" layout="row" layout-align="center center">
+                                    <img ng-src="{{widget.networkLogo}}" style="width:2.5rem; cursor:pointer;" ng-click="goto_dedicated(widget)">
+                                    <div flex="" layout="column" layout-align="center center">
+                                        <div class="md-headline lighter-color">{{widget.value1}}
+                                            <span class="widgetdiffloading small-loading"></span>
+                                            <i ng-if="compare" style="font-size: 16px;" class="ion {{comparisonResult(widget.value1, widget.value3)}}">
+                                                <span  style="font-size: 10px; vertical-align: middle;">{{compDiff(widget.value1, widget.value3)}}</span>
+                                            </i>
+                                        </div>
+                                        <div><strong style="white-space: nowrap;">{{widget.metric1}}</strong></div>
+                                    </div>
+                                    <div flex="" layout="column" layout-align="center center">
+                                        <div class="md-headline lighter-color">{{widget.value2}}
+                                            <span class="widgetdiffloading small-loading"></span>
+                                            <i ng-if="compare" style="font-size: 16px;" class="ion {{comparisonResult(widget.value2, widget.value4)}}">
+                                                <span  style="font-size: 10px; vertical-align: middle;">{{compDiff(widget.value2, widget.value4)}}</span>
+                                            </i>
+                                        </div>
+                                        <div><strong style="white-space: nowrap;">{{widget.metric2}}</strong></div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                        <div class="common-widgets-one-metric-panel" ng-show="widget.linked" style="margin-top: 5px;border: solid 1px #edeff5;">
+                            <md-card class="md-padding no-margin _md" style="padding: 15px 25px">
+                                <md-card-header style="padding: 4px 0px">
+                                    <md-card-header-text layout="row" layout-align="center center">
+                                        <div class=" md-subhead"><span style="color: #00BF90">{{widget.networkName}}</span></div>
+                                        <span flex=""></span>
+                                        <md-button ng-if="!isClient" class="md-icon-button" ng-click="modalEditWidget(widget)">
+                                            <i class="ion-android-settings ion lighter-color" style="font-size: 24px"></i>
+                                        </md-button>
+                                        <div ng-if="isClient" style="height: 30px"></div>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <md-divider ng-class="{'big-margin-bottom': !ownerCheck}" class="margin-bottom"></md-divider>
+                                <md-card-content style="padding: 4px 0px; white-space: nowrap;" layout="row" layout-align="center center">
+                                    <img ng-src="{{widget.networkLogo}}" style="width:2.5rem; cursor:pointer;" ng-click="goto_dedicated(widget)">
+                                    <div flex="" layout="column" layout-align="center center">
+                                        <div class="md-headline lighter-color">{{widget.value1}}
+                                            <span class="widgetdiffloading small-loading"></span>
+                                            <i ng-if="compare" style="font-size: 16px;" class="ion {{comparisonResult(widget.value1, widget.value3)}}">
+                                                <span  style="font-size: 10px; vertical-align: middle;">{{compDiff(widget.value1, widget.value3)}}</span>
+                                            </i>
+                                        </div>
+                                        <div><strong style="white-space: nowrap;">{{widget.metric1}}</strong></div>
+                                    </div>
+                                    <div flex="" layout="column" layout-align="center center">
+                                        <div class="md-headline lighter-color">{{widget.value2}}
+                                            <span class="widgetdiffloading small-loading"></span>
+                                            <i ng-if="compare" style="font-size: 16px;" class="ion {{comparisonResult(widget.value2, widget.value4)}}">
+                                                <span  style="font-size: 10px; vertical-align: middle;">{{compDiff(widget.value2, widget.value4)}}</span>
+                                            </i>
+                                        </div>
+                                        <div><strong style="white-space: nowrap;">{{widget.metric2}}</strong></div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                        <div ng-if="!isClient" class="common-report-setup-buttons" ng-show="widget.linked">
+                            <button  class="btn setup" ng-click="showIntegrations()">
+                                <h4>Setup</h4>
+                            </button>
+                        </div>
+                        <!--                         <div class="actions" style="left: 9%;">
+                            <i class="icon icon-cog icon-lg" ng-click="editWidget(widget)"></i>
+                            <i class="icon icon-move icon-lg dragable"></i>
+                            <i class="icon icon-delete icon-lg" title="Remove Widget"></i>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="common-report-setup-buttons" ng-show="widgets.length == 0">
+                <div>
+                    <md-button ng-click="addWidget()" class="btn setup" title="Setup Dashboard">
+                        <div class="profile-image">
+                            <img src="images/logos/widgetIcon.svg">
+                        </div>
+                        <h4>Setup Dashboard</h4>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

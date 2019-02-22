@@ -1,0 +1,66 @@
+<!-- <div layout="row" layout-align="center center" style="z-index: 1;background:white;height: 75px;position: fixed;width: 100%; padding: 0 120px 0 200px;">
+
+</div>
+ -->
+<style>
+    body, .common-report-interface.canvas{
+        background: #E3E8EE;
+    }
+</style>
+
+<div style="width: 100%;">
+    <div style="max-width: 1070px; margin: 0 auto; padding: 40px; background: white;">
+        <h2 style="font-weight: 900;" class="no-margin">Manage people</h2>
+        
+        <div class="canvas-content move-from-top">
+        
+            <h3 class="text-center margin-bottom" ng-if="isowner">You are owner of company {{company}}.</h3>
+            <h3 class="text-center margin-bottom" ng-if="!isowner">Your permission on {{company}} is set to <span ng-if="role == 'staff'">Team member, You will not be able to create other staff members or manage agency settings.</span><span ng-if="role == 'client'">Client. </span></h3>
+            <div class="margin-bottom" style="height: 50px;" layout="row" layout-align="center center" >
+                <md-button class="md-raised md-primary" ng-hide="role == 'staff'" ng-click="createStaff()">Add Team Member</md-button>
+                <md-button class="md-raised md-primary" ng-click="createClient()">Add Client</md-button>
+            </div>
+        
+            <div class="" layout="row" layout-align="center center" style="max-width: 600px; margin: 0 auto;margin-bottom: 25px;">
+                <span class="text-uppercase margin-sm-right" style="background-color: {{ colors[colors.length - 1] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 15px; width: 45px; height: 45px; line-height: 45px; border-radius: 50%;">
+                    <span style="width: 44px;color: white">{{owner.first_name[0] + " " + owner.last_name[0]}}</span>
+        
+                    <div class="margin-sm-right" style="background: url('{{backendUrl}}apis/image_or_color.php?user_id={{ownerid}}&{{timereport}}');border: 1px solid grey; width: 45px;height: 45px;border-radius: 50%;margin-top: -45px;position: absolute;background-size: contain; ">
+                    </div>
+                </span>
+                <span layout="column">
+                    <h4 style="margin-top: 0px; color: black" class="text-canvas">{{owner.first_name + " " + owner.last_name}}</h4>
+                    <span>{{user.email}}</span>
+                </span>
+                <span flex=""></span>
+                <div style="border-bottom: 1px dotted black;" class="curs-pointer" >
+                    <span class="md-subhead">Company Owner</span>
+                </div>
+            </div>
+            
+            <div class="" ng-repeat="user in usersList" layout="row" layout-align="center center" style="max-width: 600px; margin: 0 auto;margin-bottom: 25px;">
+                <span class="text-uppercase margin-sm-right" style="background-color: {{ colors[$index] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 15px; width: 45px; height: 45px; line-height: 45px; border-radius: 50%;">
+                        <span style="width: 44px;color: white">{{user.first_name[0] + " " + user.last_name[0]}}</span>
+        
+                        <div class="margin-sm-right" style="background: url('{{backendUrl}}apis/image_or_color.php?user_id={{user.id}}&{{timereport}}');border: 1px solid grey; width: 45px;height: 45px;border-radius: 50%;margin-top: -45px;position: absolute;">
+                    
+                        </div>                    
+        
+                </span>
+                
+                <span layout="column">
+                    <h4 style="margin-top: 0px; color: black" class="text-canvas">{{user.first_name + " " + user.last_name}}</h4>
+                    <span>{{user.email}}</span>
+                </span>
+                <span flex=""></span>
+                <md-input-container>
+                    <md-select ng-model="User" placeholder="{{user.role == 'staff' ? 'Team member' : 'Client'}}" class="action-with-user">
+                        <md-option ng-value="" ng-click="editChildUser(user)">Edit User</md-option>
+                        <md-option ng-value="" ng-disabled="true">Send mesage</md-option>
+                        <md-option ng-value="" ng-click="removeChildUser(user)">Delete User</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+</div>

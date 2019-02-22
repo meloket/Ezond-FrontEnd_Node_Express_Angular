@@ -1,0 +1,179 @@
+<!-- <div layout="row" layout-align="center center" style="z-index: 1;background:white;height: 75px;position: fixed;width: 100%; padding: 0 120px 0 200px;">
+
+    <span flex=""></span>
+
+
+    <md-input-container layout="row">
+      <label>Search...</label>
+      <input type="text" ng-model="fullfilter">
+    </md-input-container>
+
+    <md-menu class="custom-scrollbar" style="margin: 0;">
+        <md-button style="margin:none;padding: 0px 16px" class="md-raised" ng-click="$mdOpenMenu()">
+            {{filtredDashboard || "Select campaign to filter"}}<i class="margin-sm-left ion-chevron-down" style="font-size: 12px"></i>
+        </md-button>
+        <md-menu-content style="padding-top: 0px; max-height: 400px">
+            <input type="text" ng-model="searchkey" style="padding: 8px; border: 0px" autofocus="">
+            <md-menu-item ng-show="filtredDashboard != ''" style="border: 0; padding: 8px; background: lightsteelblue; font-size: 20px;" layout-align="start center" layout="row" class="selected">{{filtredDashboard}}</md-menu-item>
+            <md-menu-item style=" border: 0; " class="list-group-item no-padding" ng-repeat="campaign in campaigns | filter : {company_name : searchkey}" ng-click="changeCampaign(campaign)" ng-hide="campaign.company_name == filtredDashboard">
+                <md-button>{{campaign.company_name}}</md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div> -->
+
+<div layout="row">
+    <h2 style="font-weight: 900;" class="margin-bottom">Improvements</h2>
+    <!-- <h3 class="md-title margin-bottom" >Improvements</h3> -->
+    <span flex></span>
+
+  </div>
+
+
+<div style="max-width: 1070px; margin: 0 auto; box-sizing: content-box;">
+    <style>
+      span>b:hover {
+        color: black;
+      }
+
+      th {
+        color: lightgrey;
+        text-align: center;
+        padding: 
+      }
+
+      tr:last-child {
+        border-bottom: none !important;
+      }
+
+      tr {
+        border-bottom: 1px solid lightgrey;
+      }
+      table {
+        width: 100%;
+        font-size: 18px;
+      }
+      .noticecampaign{
+
+      }
+      td:first-child{
+        color: black;
+      }
+
+      td, th {
+        font-weight: 600;
+        color: #9AA4AD;
+        padding: 22px 24px;
+      }
+
+      .alertsrow {
+        width: 100%;
+      }
+
+      .alertsrow-item{
+        border-radius: 4px;
+        width: 100%;
+        margin-bottom: 15px;
+        border: 1px solid lightgrey;
+        background: white;
+        font-size: 15px;
+      }
+
+      .alertsrow > div span{ 
+
+      }
+
+      .alertsrow > div{
+        display: inline-block;
+        padding: 14px;
+      }
+      .alertsrow-item > div:nth-child(2){
+        display: none;
+      }
+      .alertsrow-item > .flex.togg{
+        display: block;
+        padding: 15px;
+        height: auto;
+        transition: height 200ms linear;
+      }
+
+      #campaignactionbuttons>div:hover, #campaignactionbuttons>div:hover>i, #campaignactionbuttons > div:hover > span{
+          color: white !important;
+      }
+      #campaignactionbuttons>div:hover{
+        background: #0076FF;
+        border-color: #0076ffa6 !important;
+      }
+      #campaignactionbuttons {
+            display: block; 
+            margin: 0 auto;
+            text-align: center;
+      }
+      #campaignactionbuttons > div i, #campaignactionbuttons > div > span{
+        color: #0076FC;
+      }
+      #campaignactionbuttons > div{
+        color: #0076FC;
+        font-size: 14px;
+        border-radius: 3px;
+        display: inline-block;
+        border: 1px solid #0076FC;
+        padding: 4px 8px;
+      }
+      .alerttimecol{
+        /*width: 160px;*/
+        text-align: right;
+      }
+      .small-loading.loading{
+        min-height: none;
+      }
+      md-progress-circular{
+        vertical-align: middle;
+        display: inline-block;
+      }
+
+    </style>
+
+    <div style="width: 100%;">
+      <div class="alertsrow-item" ng-repeat="notice in notifications | filter : fullfilter | filter : campaignfilter">
+          <div class="alertsrow" layout="row" layout-align="center center">
+            <div flex="20" class="noticecampaign">
+              <div>Campaign</div>
+              <b>{{::notice.campaign}}</b>
+              <b>{{notice.campaign_id}}</b>
+            </div>
+            <div flex>{{::notice.title}}</div>
+
+            <div class="alerttimecol">{{::notice.time}} ago</div>
+
+            <div id="campaignactionbuttons">
+              <div ng-click="clearNoticeInfo(notice.noticeIdx)" class="curs-pointer" style="margin-right: 15px;">
+                Snooze
+              </div>
+              <md-progress-circular ng-if="taskaddingprocess[$index]" md-mode="indeterminate" md-diameter="36"></md-progress-circular>
+
+              <div ng-hide="taskaddingprocess[$index]" class="curs-pointer"ng-click="postnewtask(notice, $index)">
+                <span ng-hide="taskadded[$index] || taskaddingprocess[$index]">Add to task</span>
+                <i ng-show="taskadded[$index]" class="ion ion-checkmark"></i>
+              </div>
+            </div>
+            <div ng-click="toggleexp($index)"><i class="ion-arrow-down-b grey-c ion"></i></div>
+          </div>
+          <div style="border-top: 1px solid lightgrey;" flex ng-class="{'togg': expandable[$index]}">
+            {{::notice.title}}
+            {{::notice.noticeContent}}
+            <div>
+              <a href="#">How to fix</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+
+    
+
+    
+
+
+    
+</div>

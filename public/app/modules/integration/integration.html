@@ -1,0 +1,114 @@
+<!-- integration.html -->
+<div   ng-cloak class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['integration']">
+<!-- integration.html -->
+    <div class="modal-backdrop"></div>
+    <!--account-->
+    <div id="account_dlg"> 
+        <!--presetup step -->
+        <div  ng-cloak ng-show="accountStep == 'preAccountSetup'">
+          <div class="modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-bar clearfix"><a class="modal-close-icon" ng-click="closePopup3()"><i class="icon icon-delete"></i></a></div>
+                <div>
+                  <div class="has-footer">
+                    <div class="modal-header">
+                      <img ng-src="{{accountLogo}}"><h3>{{dlgTitle}}</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div class="spacer">
+                        <p>{{dlgDescription}}</p>
+                        <br>
+                        <p>{{networkIndex}}</p>
+                        <div class="field">
+                          <label>API Key</label>
+                          <input type="text" class="form-control" ng-model="api_key">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="common-buttons-button-loader btn btn-primary" ng-click="getAccountInfos()">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>       
+        <!--setup step -->
+        <div  ng-cloak ng-show="accountStep == 'accountSetup'">
+          <div class="modal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-bar clearfix">
+                      <a class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+                    </div>
+                    <div>
+                      <div class="has-footer">
+                        <div class="modal-header">
+                          <img ng-src="{{accountLogo}}">
+                          <h3>{{dlgTitle}}</h3>
+                        </div>
+                        <div class="modal-search">
+                          <div class="input-group">
+                            <input type="text" class="form-control" ng-model="searchKey" placeholder="Search..." value="">
+                            <span class="input-group-addon"><i class="icon icon-search"></i></span>
+                          </div>
+                        </div>
+                        <div class="modal-body">
+                          <ul class="list">
+                            <li ng-repeat="record in dataRecords | filter : {websiteUrl: searchKey}">
+                              <div class="row">
+                                <div class="col-md-1 col-xs-1 col-sm-1">
+                                  <input type="radio" name="selected_integration" value="{{record.websiteUrl}}" viewID="{{record.webPropertyId}}">
+                                </div>
+                                <div class="col-md-7 col-xs-7 col-sm-7">
+                                  <b>{{record.websiteUrl}}</b>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                                  <small>{{record.webPropertyId}}</small>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" ng-click="selectNewAccount()">New Account</button>
+                          <button type="submit" class="btn btn-primary pull-right" ng-click="saveAccount()">Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <!--delete step -->
+        <div  ng-cloak ng-show="accountStep == 'accountDelete'">
+          <div class="modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-bar clearfix">
+                  <a class="modal-close-icon" ng-click="closePopup();"><i class="icon icon-delete"></i></a>
+                </div>
+                <div>
+                  <div class="common-modals-confirm-delete">
+                    <div class="modal-header">
+                      <h3>Confirm</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div class="message">Are you sure you want to remove this integration?</div>
+                      <div class="elements"><span>{{dlgTitle}}</span></div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="common-buttons-button-loader btn btn-primary" ng-click="deleteAccount()">Confirm</button>
+                      <button type="button" class="btn btn-default" ng-click="closePopup();">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>            
+    </div>    
+
+</div>

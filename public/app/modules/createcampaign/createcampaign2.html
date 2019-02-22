@@ -1,0 +1,220 @@
+<!-- createcampaign.html -->
+<div ng-cloak class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['createCampaign']">
+  <!-- createcampaign.html -->
+  <div class="modal-backdrop"></div>
+  <div class="modal modal-small" ng-show="!showAccount">
+    <div class="modal-dialog">
+      <div ng-cloak class="modal-content">
+        <md-dialog style="opacity: 1; max-width: none;max-height: 90vh">
+          <md-toolbar class="md-padding" layout="row" layout-align="center center">
+            <div class="white-c">Create Campaign</div>
+            <span flex></span>
+            <md-button class="md-icon-button white-c" ng-click="closePopup()"><i class="ion-close white-c"
+                                                                                 style="font-size: 16px"></i>
+            </md-button>
+          </md-toolbar>
+          <md-dialog-content class="md-padding" style="display: block; overflow-x: hidden">
+            <div style="padding: 0.6rem; text-align: center; font-size: 1.2rem;">Awesome! Let's add your campaign.
+              Remember to add Google Analytics,
+              <br>Google Search Console, correct landing URL and Keywords
+              <br>to take advantage of Ezond Audit and suggestion feature
+            </div>
+            <div class="modal-navigation"
+                 style="text-align: center; height:6rem; padding-left: calc(50% - 17rem); margin: 0;">
+              <div class="nav nav-tab exe_nav_tab">
+                <md-button ng-class="{'md-primary': step == 'general'}" ng-click="step = 'general'" class="md-raised">
+                  General
+                </md-button>
+                <!-- <md-button ng-class="{'md-primary': step == 'keywords'}" ng-click="changeStep('keywords')"
+                           class="md-raised">Keywords
+                </md-button> -->
+                <md-button ng-class="{'md-primary': step == 'integrations'}" ng-click="changeStep('integrations')"
+                           class="md-raised">Networks
+                </md-button>
+              </div>
+            </div>
+            <div style="max-width: 500px; margin-left: auto; margin-right: auto;">
+              <div ng-show="step == 'general'">
+                <input style="width: 100%; padding: 8px; border-radius: 4px; background-color: #E6E9EA; box-sizing: border-box;margin-bottom: 15px; border: 1px solid #E6E9EA;"
+                       type="text" ng-model="campaign.company_name" placeholder="Company Name">
+                <input style="width: 100%; padding: 8px; border-radius: 4px; background-color: #E6E9EA; box-sizing: border-box;margin-bottom: 15px; border: 1px solid #E6E9EA;"
+                       type="text" ng-model="campaign.url" placeholder="http://www.yourdomain.com">
+                <input style="width: 100%; padding: 8px; border-radius: 4px; background-color: #E6E9EA; box-sizing: border-box;margin-bottom: 15px; border: 1px solid #E6E9EA;"
+                       type="text" id="location" ng-model="campaign.location"
+                       placeholder="Enter the location you want to target">
+                <!-- <input style="width: 100%; padding: 8px; border-radius: 4px; background-color: #E6E9EA; box-sizing: border-box;margin-bottom: 15px; border: 1px solid #E6E9EA;"
+                       type="text" ng-model="campaign.group" placeholder="Campaign group"> -->
+              </div>
+              <div ng-show="step == 'keywords'">
+                <textarea id="" cols="30" style="width: 100%" rows="10"></textarea>
+              </div>
+              <div class="spacer tab-pane" ng-show="step == 'integrations'">
+                <div class="integrations-list" style="list-style: none" layout="column">
+                  <div style="margin-bottom: 10px" layout="row" layout-align="center center" class="enabled-section"
+                       ng-repeat="provider in providers track by $index">
+                    <img width="36" ng-src="{{provider.logo}}" style="margin-right: 10px">{{::provider.name}}
+                    <span flex>
+                                        </span>
+                    <span style="height: 48px;" class="pull-right text-muted account"
+                          ng-click="setAccount($index, provider.connectionInfoRecords[provider.activeRecordIdx])"
+                          ng-show="provider.connected" layout="row" layout-align="center center">
+                                            {{provider.connectionInfoRecords[provider.activeRecordIdx].websiteUrl}}&nbsp;
+                                            <i class="icon icon-delete icon-lg cursor"></i> 
+                                        </span>
+                    <md-button style="float: right;" class="md-raised" ng-click="connectProvider(provider)"
+                               ng-show="!provider.connected">Connect
+                    </md-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-dialog-content>
+          <md-dialog-actions class="md-padding" layout-align="center center">
+            <md-button ng-click="chkDataValid()" class="md-primary md-raised" ng-show="step=='general'">Next</md-button>
+            <md-button ng-click="step='integrations'" class="md-primary md-raised" ng-show="step=='keywords'">Next
+            </md-button>
+            <md-button layout-align="center" class="md-primary md-raised" ng-show="step=='integrations'"
+                       ng-click="addCampaign()">Save campaign
+            </md-button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+  </div>
+  <!--account-->
+  <div id="account_dlg" ng-show="showAccount">
+    <!--presetup step -->
+    <div ng-show="accountStep == 'preAccountSetup'">
+      <div class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-bar clearfix"><a class="modal-close-icon" ng-click="closePopup3()"><i
+                    class="icon icon-delete"></i></a></div>
+            <div>
+              <div class="has-footer">
+                <div class="modal-header">
+                  <img ng-src="{{accountLogo}}">
+                  <h3>{{dlgTitle}}</h3>
+                </div>
+                <div class="modal-body" ng-class="{'loader' : credentialsloading}">
+                  <div class="spacer">
+                    <p>{{dlgDescription}}</p>
+                    <br>
+                    <div class="field" ng-if="networkIndex!=10">
+                      <label>API Key</label>
+                      <input type="text" class="form-control" ng-model="api_key">
+                    </div>
+                    <div class="field" ng-if="networkIndex==10">
+                          <label>Username</label>
+                          <input class="form-control" type="text" ng-blur="setAdrollUsername(adroll_username)" ng-model="adroll_username">
+                    </div>
+                    <div class="field" ng-if="networkIndex==10">
+                          <label>Password</label>
+                          <input class="form-control" type="text" ng-blur="setAdrollPassword(adroll_password)" ng-model="adroll_password">
+                    </div>
+                    <div ng-if="adroll_error" class="field text-center alert alert-danger">
+                      {{adroll_error}}
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="common-buttons-button-loader btn btn-primary btn-exe-primary"
+                          ng-click="getAccountInfos()">Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--setup step -->
+    <div class="modal modal-small" ng-show="accountStep == 'accountSetup'">
+      <div class="modal-dialog">
+        <md-dialog style="opacity: 1; max-width: none;max-height: 90vh">
+          <md-toolbar class="md-padding" layout="row" layout-align="center center">
+            {{dlgTitle}}
+            <span flex></span>
+            <md-button class="md-icon-button white-c" ng-click="closePopup2()"><i class="ion-close white-c"
+                                                                                  style="font-size: 16px"></i>
+            </md-button>
+          </md-toolbar>
+          <md-dialog-content class="md-padding"><span layout="row"> <input type="text"
+                                                                                           class="form-control"
+                                                                                           ng-model="searchKey"
+                                                                                           placeholder="Search..."
+                                                                                           value=""> <i
+                  style="margin-left: -15px; margin-top: 8px;" class="ion-search"></i> </span>
+            <div layout="column">
+              <md-radio-group class="md-padding" style="padding-bottom: 0" ng-model="selected_integration">
+                <md-radio-button layout="row" ng-value="'{{record.websiteUrl}}'" viewID="{{record.webPropertyId}}"
+                                 aria-label="$index"
+                                 ng-repeat="record in dataRecords | filter : {websiteUrl: searchKey}">
+                  <div class=""><b ng-bind="record.websiteUrl"></b></div>
+                  <span flex></span>
+                  <div class="">
+                    <small ng-bind="record.webPropertyId"></small>
+                  </div>
+                </md-radio-button>
+              </md-radio-group>
+            </div>
+          </md-dialog-content>
+          <md-dialog-actions layout="row" class="md-padding" layout-align="center center" style="padding-top: 0">
+            <md-button type="button" class="md-raised" ng-click="selectNewAccount()">New Account</md-button>
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click="saveAccount()">Save</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+    <!--edit step -->
+    <div ng-show="accountStep == 'accountEdit'">
+      <div class="modal modal-small">
+        <div class="modal-dialog">
+          <md-dialog style="opacity: 1; max-width: none;max-height: 90vh">
+            <md-toolbar layout="row" layout-align="center center" class="md-padding">
+              <img width="32" class="margin-right" ng-src="{{accountLogo}}">
+              {{dlgTitle}}
+              <span flex></span>
+              <md-button class="md-icon-button white-c" ng-click="gobacktoIntegrations()"><i class="ion-close white-c"
+                                                                                             style="font-size: 16px"></i>
+              </md-button>
+            </md-toolbar>
+            <md-dialog-content class="md-padding">
+              <div layout="row">
+                <img width="32" height="32" class="margin-right" ng-src="{{accountLogo}}">
+                <div class="account"><b>{{infoRecord.websiteUrl}}</b>
+                  <br>{{infoRecord.webPropertyId}}
+                </div>
+                <span flex=""></span>
+                <div>
+                  <button class="margin-left btn btn-default btn-sm" ng-click="gotoAccountEdit()"><i
+                          class="icon icon-pencil"></i></button>
+                  <button class="btn btn-danger btn-sm" ng-click="accountStep='accountDelete'"><i
+                          class="icon icon-delete"></i></button>
+                </div>
+              </div>
+            </md-dialog-content>
+          </md-dialog>
+        </div>
+      </div>
+    </div>
+    <!--delete step -->
+    <div ng-show="accountStep == 'accountDelete'">
+      <div class="modal modal-small">
+        <div class="modal-dialog">
+          <md-dialog style="opacity: 1">
+            <md-toolbar class="md-padding" layout="row" layout-align="center center">
+              Are you sure you want to delete this integration?
+            </md-toolbar>
+            <md-dialog-content class="md-padding" layout="row" layout-align="center center">
+              <md-button class="" ng-click="accountStep='accountEdit'">Cancel</md-button>
+              <span flex=""></span>
+              <md-button class="md-raised md-primary" ng-click="deleteAccount()">Confirm</md-button>
+            </md-dialog-content>
+          </md-dialog>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

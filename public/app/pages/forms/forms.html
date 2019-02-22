@@ -1,0 +1,232 @@
+<div class="canvas-sidebar" style="padding-top: 25px; padding-bottom: 25px; margin: 0 auto;">
+<!-- 	 <div class="tagi" flex style="transition: top 100ms; height: 75px; background-color: white; position: fixed;z-index: 4; top: 0px;width: 100%;">
+    </div> -->
+  	<div class="common-widgets-panels" style="transition: padding-top 200ms; margin: 0 auto;padding-top: 110px;    padding-left: 90px; padding-right: 15px;"> 
+  		<style>
+			.ezond-service-panel>md-card-actions>md-button {
+				width: 100%;
+			}
+			.ezond-service-panel>md-card-actions {
+				position: absolute;
+			    border-top: 1px solid lightgrey;
+			    display: block;
+			    bottom: 0;
+			    left: 0;
+			    right: 0;
+			}
+			.ezond-service-panel{
+				position: relative;
+				vertical-align: top;
+				width: 260px;
+			    height: 260px;
+			    background: white;
+			    display: inline-block;
+			    text-align: center;
+			}
+
+			.navs:hover, .navs-active {
+			    color: black;
+			    font-weight: bold;
+			}
+		</style>
+
+		<div style="padding: 10px;" ng-show="state != 'listforms' && state != 'showform'" class="white-bgc layout-row md-subhead layout-align-center margin-bottom">
+			<a ng-class="{'navs-active': state == 'editservice'}" class="navs margin-right" ng-click="state = 'editservice'">Edit</a>
+			<a ng-class="{'navs-active': state == 'addoptions'}" class="navs margin-right" ng-click="state = 'addoptions'">Options</a>
+			<a ng-class="{'navs-active': state == 'addnewform'}" class="navs" ng-click="addoptionstodefaultform();">Service data</a>
+		</div>
+
+
+		<div class="md-caption text-center" ng-show="state == 'listforms'">
+			<md-card class="ezond-service-panel" ng-repeat="form in formsList">
+				<md-card-content>
+					<md-menu md-offset="0 20">
+					  <i class="ion-more ion curs-pointer " aria-label="openCampaignMenu" ng-click="$mdMenu.open()" style="transform: rotateZ(90deg);position: absolute; top: 10px; right: 10px;font-size: 20px;"></i>
+					  <md-menu-content>
+					    <md-menu-item style="border: 0">
+					      <md-button ng-click="editService(form)" style="min-height: 30px">Edit service</md-button>
+					    </md-menu-item>
+					    <md-menu-item style="border: 0">
+					      <md-button ng-click="showAlert(event, form)" style="min-height: 30px">Public service link</md-button>
+					    </md-menu-item>
+					    <md-menu-item style="border: 0">
+					      <md-button ng-click="deleteform(form)" style="min-height: 30px">Delete service</md-button>
+					    </md-menu-item>
+					  </md-menu-content>
+					</md-menu>
+					<div style="width: 80%; margin: 0 auto;">
+						<!-- <input style="width: 100%;" type="text" disabled ng-value="'/publicform/' + form.form_key"> -->
+						<a class="md-title" ui-sref="/app/buildservice">{{extractformname(form)}}</a>
+						<!-- <span>ezond-test.herokuapp.com/publicform/{{form.form_key}}</span> -->
+					</div>
+				</md-card-content>
+				<!-- <md-card-actions>
+					<md-button ng-click="showform(form)">
+						Show form
+					</md-button>
+					<md-button ng-click="deleteform(form)">
+						Delete form
+					</md-button>
+				</md-card-actions> -->
+			</md-card>
+			<md-button ng-hide="state == 'addformstate' || owner_id!=user_id" class="ezond-service-panel" style="z-index: 2;background: none; border: 1px solid grey;" ng-click="addnewform()">
+				<i class="ion ion-plus" style="font-size: 65px;display: block;"></i>
+				ADD SERVICE
+			</md-button>
+		</div>
+
+		<div style="background: white;" class="md-padding md-caption" ng-show="state == 'editservice'">
+			<div layout="row">
+                <label class="md-subhead bold" for="">Service name</label>
+                <span flex=""></span>
+            </div>
+            <input ng-model="newservicename" style="border-radius: 70px;" class="headtags" type="text" />
+
+            <div layout="row">
+                <label class="md-subhead bold margin-top" for="">Short description</label>
+                <span flex=""></span>
+            </div>
+            <textarea ng-model="newserviceDesc" style="" class="" type="text">
+            </textarea>
+
+            <div layout="row" class="margin-top">
+                <input class="margin-sm-right" id="newservicetype1" type="radio" ng-model="newserviceType" ng-value="'One-time'" />
+                <label class="md-title margin-right" for="newservicetype1">One-time</label>
+                <input class="margin-sm-right" id="newservicetype2" type="radio" ng-model="newserviceType" selected ng-value="'Recurring'" />
+                <label class="md-title" for="newservicetype2">Recurring</label>
+            </div>
+		</div>
+
+		<div style="background: white;" class="md-padding md-caption" ng-show="state == 'addoptions'">
+			<div class="md-subhead bold">Add options for service {{newservicename}} </div>
+			<md-divider class="margin-top margin-bottom"></md-divider>
+
+			<!-- <div class="md-subhead layout-row layout-align-center-center">
+				<md-input-container>
+					<input ng-model="newoptionname" placeholder="Option name">
+				</md-input-container>
+				<md-input-container>
+					<input ng-model="newoptionprice" type="number" placeholder="Option price per piece">
+				</md-input-container>
+				<md-button ng-class="{'md-raised md-primary': newoptionname}" class="curs-pointer margin-left" title="Add option" style="display: inline-block;" ng-click="addoption(newoptionname, newoptionprice)">
+					<i ng-class="{'white-c': newoptionname}" class="fas margin-sm-left margin-sm-right fa-plus"></i>Add option
+				</md-button>
+			</div> -->
+
+			<div class="md-subhead layout-row layout-align-center-center">
+				<md-input-container>
+					<input ng-model="newquestion" placeholder="Enter question">
+				</md-input-container>
+				<md-button ng-class="{'md-raised md-primary': newquestion}" class="curs-pointer margin-left" title="Add question" style="display: inline-block;" ng-click="addquestion(newquestion)">
+					<i ng-class="{'white-c': newquestion}" class="fas margin-sm-left margin-sm-right fa-plus"></i>Add question
+				</md-button>
+			</div>
+			
+			<br>
+
+			<div class="md-subhead bold">List of questions</div>
+			<div class="md margin-top" ng-repeat="question in questions">
+				<fieldset style="border: 1px solid grey;" class="margin-bottom md-padding" >
+					<div style="margin-bottom: 15px;">
+						<div ng-show="!question.isEdit" style="display: inline-block;width: 250px;" class="margin-right">
+							<span style="border-bottom: 1px dashed blue;" class="md-subhead curs-pointer"  ng-click="question.isEdit=!question.isEdit">{{question.questionName}}</span>
+						</div>
+						<md-input-container style="width: 250px;" ng-show="question.isEdit" class="margin-right">
+							<input ng-focus="question.isEdit = true" ng-blur="question.isEdit = false" ng-model="question.questionName" placeholder="question name" ng-value="question.questionName">
+						</md-input-container>
+						
+						<div class="curs-pointer margin-left" title="Delete question" style="display: inline-block;" ng-click="deletequestion($index)">
+							Delete question
+						</div>
+					</div>
+					<style>
+						.answerforquestion {
+							border: 1px solid lightgrey;
+							padding: 4px 8px;
+							display: inline-block;
+						}
+					</style>
+					<span ng-repeat="answer in question.answers" class="answerforquestion margin-sm-right">
+						<span class="md-subhead">{{answer.answername}}</span>
+						<span class="md-subhead">${{answer.answerprice}}</span>
+						<i ng-class="{'white-c': newquestion}" ng-click="delteanswer(question, $index)" class="fas margin-sm-left margin-sm-right fa-minus"></i>
+					</span>
+					<div ng-hide="addanswerstate" ng-click="addanswerstate = true" class="margin-top">
+						<i ng-class="{'white-c': newquestion}" class="md-padding md-subhead text-uppercase fas curs-pointer margin-sm-left margin-sm-right fa-plus">Answer</i>
+					</div>
+					<div ng-show="addanswerstate">
+						<md-input-container style="width: 250px;" class="margin-right">
+							<input ng-model="newanswername" placeholder="Answer" >
+						</md-input-container>
+						<md-input-container style="width: 250px;" class="margin-right">
+							<input type="number" ng-model="newanswerprice" placeholder="Cost" >
+						</md-input-container>
+						<md-button class="md-icon-button" ng-click="addanswer(question, newanswername, newanswerprice);newanswername='';addanswerstate = false;newanswerprice='';" >
+							<i ng-show="newanswername && newanswerprice" class="fas margin-sm-left margin-sm-right fa-plus curs-pointer"></i>
+						</md-button>
+					</div>
+				</fieldset>
+				
+				<!-- <input ng-show="option.isEdit" ng-blur="option.isEdit = false" type="text" ng-value="option.optionName" ng-model="option.optionName"> -->
+				<!-- <input ng-show="option.isEdit" ng-blur="option.isEdit = false" type="text" ng-value="option.optionPrice" ng-model="option.optionPrice"> -->
+				<!-- <i class="ion ion-plus" ></i> -->
+			</div>
+
+			<!-- <div>
+				<div class="md-subhead bold">Price variants</div>
+				<div>
+					<div ng-repeat="question in questions">
+						<div ng-repeat="answer in question.answers">
+							{{answer.answername}}
+						</div>
+					</div>
+				</div>
+			</div> -->
+
+
+			<!-- 			
+			<div class="md-subhead bold">List of options</div>
+			<div class="md margin-top" ng-repeat="option in options">
+				<fieldset class="margin-bottom md-padding" >
+					<div ng-show="!option.isEdit" style="display: inline-block;width: 250px;" class="margin-right">
+						<span style="border-bottom: 1px dashed blue;" class="md-subhead curs-pointer"  ng-click="option.isEdit=!option.isEdit">{{option.optionName}}</span>
+					</div>
+					<div ng-show="!option.isEdit" style="display: inline-block;width: 250px;" class="margin-right">
+						<span style="border-bottom: 1px dashed blue;" class="md-subhead curs-pointer"  ng-click="option.isEdit=!option.isEdit">${{option.optionPrice}}</span>
+					</div>
+					<md-input-container style="width: 250px;" ng-show="option.isEdit" class="margin-right">
+						<input ng-focus="option.isEdit = true" ng-blur="option.isEdit = false" ng-model="option.optionName" placeholder="Option name" ng-value="option.optionName">
+					</md-input-container>
+
+					<md-input-container style="width: 250px;" ng-show="option.isEdit" class="margin-right">
+						<input ng-focus="option.isEdit = true" placeholder="Option price per piece" ng-blur="option.isEdit = false" type="text" ng-value="option.optionPrice" ng-model="option.optionPrice">
+					</md-input-container>
+					<div class="curs-pointer margin-left" title="Delete option" style="display: inline-block;" ng-click="deleteoption($index)">
+						<i class="fas fa-minus"></i>
+					</div>
+				</fieldset>
+			</div> -->
+			<div layout="row" layout-align="center center">
+				<md-button class="md-primary md-raised" ng-click="addoptionstodefaultform();">
+					Next
+				</md-button>
+			</div>
+		</div>
+
+		<div style="" class="md-caption" ng-if="state == 'addnewform'">
+			<form-builder form="defaultform"></form-builder>
+			<md-button class="md-primary md-raised" ng-click="saveNewForm()">Save service</md-button>
+			
+		</div>
+
+		<div class="md-title" ng-if="state == 'showform'">
+			<md-button ng-click="setState('listforms')">Go back</md-button>
+			<formio form="showingform"></formio>
+		</div>
+	</div>
+</div>
+
+  <link rel="stylesheet" href="https://unpkg.com/bootswatch@3.3.7/yeti/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
+  <!-- <link rel="stylesheet" href="/css/ngFormBuilder-full.css" /> -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" /> -->

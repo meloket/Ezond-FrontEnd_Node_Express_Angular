@@ -1,0 +1,55 @@
+  <!-- removechilduser.html -->
+<div ng-cloak  class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['removeChildUser']">
+  <div ng-cloak  data-reactroot="" class="common-ui-modal" ng-show="!showAccount">
+    <div class="modal-backdrop"></div>
+    <div  ng-cloak class="modal">
+      <div class="modal-dialog">
+        <md-dialog>
+          <md-toolbar class="md-padding" layout-align="center center" layout="row">
+            <span class="white-c">Confirm</span>
+            <span class="flex"></span>
+            <md-button class="md-icon-button">
+              <i class="white-c ion-close ion"></i>
+            </md-button>
+          </md-toolbar>
+          <md-dialog-content class="md-padding">
+            <div class="md-subhead">Are you sure you want do delete this user?</div>
+            <div class="elements"><span>{{targetUser.first_name}} {{targetUser.last_name}}</span></div>
+          </md-dialog-content>
+          <md-dialog-actions class="md-padding">
+            <md-button class="md-raised md-primary" ng-click="removeChildUser()">Confirm</md-button>
+            <md-button class="md-raised" ng-click="closePopup()">Cancel</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<div ng-cloak  class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['removeChildUser']">
+  <div ng-cloak  data-reactroot="" class="common-ui-modal" ng-show="!showAccount">
+    <div class="modal-backdrop"></div>
+    <div  ng-cloak class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-bar clearfix">
+            <a class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+          </div>
+          <div>
+            <div class="common-modals-confirm-delete">
+              <div class="modal-header"><h3>Confirm</h3></div>
+              <div class="modal-body">
+                <div class="message">Are you sure you want do delete this user?</div>
+                <div class="elements"><span>{{targetUser.first_name}} {{targetUser.last_name}}</span></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="common-buttons-button-loader btn btn-primary" ng-click="removeChildUser()">Confirm</button>
+                <button type="button" class="btn btn-default" ng-click="closePopup()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

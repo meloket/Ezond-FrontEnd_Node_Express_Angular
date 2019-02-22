@@ -1,0 +1,525 @@
+<% include header.html %>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54W69M4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.5/angular-material.min.css" />
+    <meta name="google-signin-client_id" content="258172867784-1dv5vdr6g2q321t76btruhnedv6g8339.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:100,400,500);
+        html {
+            overflow: auto;
+        }
+    </style>
+    <div style="padding-bottom: 7px;background: white;">
+        <div style="box-shadow: rgba(0,0,0,.2) 0 1px 3px; background: white; padding: 1.5rem;">
+            <!-- <span style="color: white"></span> -->
+            <a href="https://ezond.com">
+                <img style="width: 100px;" src="<%= backendUrl %>apis/agencyProfileImage.php?preview=0&user_id=blank&MonFeb12201821:32:00GMT+0200(Финляндия(зима))" alt="">
+            </a>
+            <span class="md-subhead" style="float: right;">Already using Ezond? <a style="line-height: 42px; " href="/#!/login">Sign in</a></span>
+        </div>
+    </div>
+    <section style="background: white; padding-top: 60px;padding-bottom: 0;min-height: 0;" class="section-call-to-action2 slide">
+        <div class="wrapper">
+            <div id="description" style="display: inline-block; max-width: 300px; text-align: left; margin-right: 80px;">
+                <h3 style="color: #286EFA;">Create an account with Ezond</h3>
+                <div>
+                    <div style="height: 25px;"></div>
+                    <span class="youcan">
+                    With Ezond, you can
+                </span>
+                    <div style="height: 25px;"></div>
+                    <ul style="padding: 0;">
+                        <li>
+                            Manage multiple digital campaigns
+                        </li>
+                        <li>
+                            View data from multiple channels
+                        </li>
+                        <li>
+                            Manage teams & workflow efficiently
+                        </li>
+                        <li>
+                            Identify priority & critical tasks
+                        </li>
+                        <li>
+                            Create a public profile on Ezond
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>
+
+                .borderforgoogle:hover {
+                    outline: none;
+                    border-color: #3399FF;
+                }
+
+                .borderforgoogle {
+                    outline: none;
+                    border: 1px solid #3399FF;
+                    display: inline-block;
+                }
+
+                .borderforgoogle,
+                .sign.up {
+                    transition: background 0.3s ease;
+                }
+
+                .borderforgoogle:hover~.borderforgoogle {
+                    background-color: #1271c4 !important;
+                }
+
+                .whie.bak.otherback.borderforgoogle:focus {
+                    background-color: white !important;
+                    background: url(images/google-logo.png) 50% 50% no-repeat #fff;
+                }
+
+                .borderforgoogle:first-child {
+                    width: 60px !important;
+                    color: transparent;
+                    background: url(images/google-logo.png) 50% 50% no-repeat #fff;
+                    background-color: white !important;
+                    border-bottom-right-radius: 0px;
+                    border-top-right-radius: 0px;
+                }
+
+                .borderforgoogle:last-child {
+                    border-bottom-left-radius: 0px;
+                    border-top-left-radius: 0px;
+                    margin-left: -5px;
+                    width: calc(100% - 64px) !important;
+                }
+
+                .youcan {
+                    box-sizing: border-box;
+                    color: rgb(40, 110, 250);
+                    display: inline;
+                    font-family: "Akkurat Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                    font-size: 16px;
+                    font-stretch: 100%;
+                    font-style: normal;
+                    font-variant-caps: normal;
+                    font-variant-east-asian: normal;
+                    font-variant-ligatures: normal;
+                    font-variant-numeric: normal;
+                    font-weight: 400;
+                    height: auto;
+                    letter-spacing: -0.16px;
+                    line-height: 26px;
+                    text-size-adjust: 100%;
+                    width: auto;
+                    -webkit-font-smoothing: antialiased;
+                }
+
+                ul>li:before {
+                    content: "•";
+                    color: rgb(31, 140, 235);
+                    padding-right: 5px;
+                }
+
+                .start__hr {
+                    height: 0;
+                    margin: 10px 0;
+                    border: 0;
+                    border-top: 2px solid rgba(29, 54, 75, .1);
+                    background-color: transparent;
+                    max-width: 300px;
+                    width: 100%;
+                }
+
+                .start__option-divider {
+                    margin-bottom: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    align-self: center;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0px 5px;
+                }
+
+                ul>li {
+                    letter-spacing: normal;
+                    padding-left: 10px;
+                    list-style: none;
+                    text-indent: -11px;
+                    padding-bottom: 25px;
+                    color: rgb(99, 114, 128);
+                    font: 400 16px/26px "Akkurat Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                }
+                /*#my-signin2 div{
+                    height: 56px
+                }
+                #mysignin2 .abcRioButtonIcon{
+                    height: 54px;
+                }*/
+                #my-signin2>div{
+                    border-radius: 5px;
+                    width: 100% !important;
+                    /*height: 56px !important;*/
+                }
+
+            </style>
+            <div class="inside-formIII" style="vertical-align: top;display: inline-block;">
+                <!-- УБРАТЬ III -->
+                <% if (locals.error) { %>
+                    <label class="lb lb-err">
+                        <%= error %>
+                    </label>
+                    <% } %>
+                        <h3 id="showtitle" style="font-size: 26px;color: #286EFA;">Create an account with Ezond</h3>
+                        <!-- <div style="border-radius: 4px;height: 56px;" id="my-signin2"></div> -->
+                        <!-- <div style="margin-bottom: 25px;">
+                            <button id="signup" data-onsuccess="onSignIn" class="g-signin2 whie bak otherback borderforgoogle just sign up btn btn-primary sys-button btn-lg" style="">.</button>
+                            <button id="signup" data-onsuccess="onSignIn" class="g-signin2 borderforgoogle just sign up btn btn-primary sys-button btn-lg" style="">Sign Up with Google</button>
+                        </div> -->
+                        <div class="start__option-divider">
+                            <hr class="start__hr">
+                            <div class="t__small-caps t__light-text u__padr__10 u__padl__10" style="box-sizing: border-box;padding-left: 10px !important;padding-right: 10px !important;font-size: 11px;line-height: 20px;font-weight: 500;color: #8da2b5;">OR</div>
+                            <hr class="start__hr">
+                        </div>
+                        <form action="user/dosignup" method="POST" id="signup_form" class="logincard">
+                            <div>
+                                <div class="text-left">
+                                    <label for="first_name">Your name</label>
+                                </div>
+                                <input style="box-sizing: border-box;padding: 15px;height: auto" placeholder="Your full name" class="md-subhead border-radius-5 md-padding" type="text" name="first_name" id="first_name">
+                                <div class="field-error" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="text-left">
+                                    <label for="email">Work email</label>
+                                </div>
+                                <input value="<%= newemail %>" newemailstyle="box-sizing: border-box;padding: 15px;height: auto" placeholder="you@yourcompany.com" class="md-subhead border-radius-5 md-padding" type="text" name="email" id="email">
+                                <div class="field-error" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="text-left">
+                                    <label for="password">Password</label>
+                                </div>
+                                <input style="box-sizing: border-box;padding: 15px;height: auto" placeholder="Password (at least 6 characters)" class="md-subhead border-radius-5 md-padding" type="password" name="password" id="password">
+                                <div class="field-error" style="display: none;"></div>
+                            </div>
+                            <div>
+                                <div class="text-left">
+                                    <label for="company">Company name</label>
+                                </div>
+                                <input style="box-sizing: border-box;padding: 15px;height: auto" placeholder="Your app/company name" class="md-subhead border-radius-5 md-padding it" type="text" id="company" name="company">
+                                <!-- <label for="company">Company (Optional)</label> -->
+                                <div class="field-error" style="display: none;"></div>
+                            </div>
+                            <!-- <div layout="column" style="position: relative;box-sizing: border-box;padding-bottom: 15px;height: auto">
+                                <div class="w100p" style="display: inline-block;width: calc(50% - 4px)">
+                                    <div class="text-left">
+                                        <label for="compsize">Company size</label>
+                                    </div>
+                                    <div>
+                                        <select class="border-radius-5" style="margin-bottom: 0;" name="compsize" id="compsize">
+                                            <option value="1-3 employees">1-3 employees</option>
+                                            <option value="4-10 employees">4-10 employees</option>
+                                            <option value="11-50 employees">11-50 employees</option>
+                                            <option value="50+ employees">50+ employees</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="w100p" style="display: inline-block;width: 50%;">
+                                    <div class="text-left">
+                                        <label for="role">Role</label>
+                                    </div>
+                                    <div>
+                                        <select class="border-radius-5" style="margin-bottom: 0;" name="role" id="role">
+                                            <option value="1">Digital Marketing Manager</option>
+                                            <option value="2">Adwords Manager</option>
+                                            <option value="3">Agency owner</option>
+                                            <option value="4">Freelancer</option>
+                                            <option value="4">Analytics expert</option>
+                                            <option value="4">SEO expert</option>
+                                            <option value="4">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div style="text-align: left; margin-bottom: 10px; margin-top: 15px;">
+                                <span style="font-size: 16px">By clicking “Sign up” you agree to Ezond's <a target="_blank" href="https://ezond.com/terms-conditions/">Terms of Service</a> and <a href="https://ezond.com/privacy-policy/" target="_blank">Privacy Policy</a>.</span>
+                            </div>
+                            <div>
+                                <button id="signup" type="submit" class="just sign up btn btn-primary sys-button btn-lg">Sign up</button>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        function onSuccess(googleUser) {
+          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        }
+        function onFailure(error) {
+          console.log(error);
+        }
+        function renderButton() {
+
+
+          gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSignIn,
+            'onfailure': onFailure
+          });
+
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+    <script>
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var alke = document.cookie.split(";")
+
+            if (getParameterByName('error') == 'Email already taken.'){
+                location.href = '/'
+                return
+            }
+
+            $("#first_name").val(profile.getName())
+            $("#email").val(profile.getEmail())
+            $("#password").val(profile.getId())
+            $("#signup_form").submit()
+        }
+
+        $("div.field input").change(function() {
+            //console.log("change:" + $(this).val());
+            if ($(this).val()) {
+                $(this).siblings("label").css({ "top": "-20px", "font-size": "14px" });
+            }
+        });
+        $("#signup_form").on('submit', function(event) {
+            console.log("submit");
+
+
+            $("div.field-error").css("display", "none");
+
+            if (!$("#first_name").val()) {
+                console.log("empty first name");
+                $("#first_name").siblings("div.field-error").html("We need to know your name, so we know what to call you!").css("display", "block");
+                return false;
+            }
+
+            if (!$("#email").val()) {
+                console.log("empty email");
+                $("#email").siblings("div.field-error").html("Required").css("display", "block");
+                return false;
+            }
+
+            if (!isValidEmail($("#email").val())) {
+                console.log("invalid email");
+                $("#email").siblings("div.field-error").html("Please enter a valid email: example@domain.com").css("display", "block");
+                return false;
+            }
+            if (!$("#password").val()) {
+                console.log("empty password");
+                $("#password").siblings("div.field-error").html("Required").css("display", "block");
+                return false;
+            }
+
+            if ($("#password").val().length < 6) {
+                console.log("short password");
+                $("#password").siblings("div.field-error").html("Password must be atleast 6 characters long").css("display", "block");
+                return false;
+            }
+
+            // if (!$("#c_password").val()) {
+            //     console.log("empty password");
+            //     $("#c_password").siblings("div.field-error").html("Required").css("display","block");
+            //     return false;
+            // }
+
+            // if ($("#password").val() !== $("#c_password").val()) {
+            //     console.log("not match password");
+            //     $("#c_password").siblings("div.field-error").html("Passwords do not match").css("display","block");
+            //     $("#c_password").val("");
+            //     $("#password").val("");
+            //     return false;
+            // }
+
+            document.cookie = "temporaryemail=" + document.getElementById("email").value;
+            document.cookie = "temporarypassword=" + document.getElementById("password").value;
+
+            $("#signup_form").submit();
+            event.preventDefault();
+            return false;
+        });
+    </script>
+    <style>
+        * {
+            outline: none !important;
+        }
+
+        .logincard {
+            max-width: 460px !important;
+            min-width: 450px;
+            /*padding: 0px 45px;*/
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+
+        .main-light-color {
+            color: #00CC99;
+        }
+
+        .mb {
+            margin-bottom: 25px;
+        }
+
+        .mt {
+            margin-top: 15px;
+        }
+
+        label {
+            color: #637280;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100% !important;
+        }
+
+        input,
+        select {
+            background-color: #e6e9ea61;
+            box-sizing: border-box;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #E6E9EA;
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        #showtitle {
+            display: none;
+        }
+        .wrapper{
+            padding-bottom: 25px;
+        }
+
+        @media (max-width: 760px) {
+            .inside-formIII{
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 1000px) {
+            .w100p{
+                width: 100% !important;
+            }
+            .inside-formIII, .wrap{
+                width: 100% !important;
+            }
+
+            .inside-formIII form{
+                max-width: 100% !important;
+                min-width: 50% !important;
+                width: 100%;
+            }
+
+            section {
+                position: absolute;
+                width: 100%;
+                /*top: 50%;
+                transform: translateY(-50%);*/
+            }
+
+            #showtitle {
+                display: block;
+                margin-bottom: 15px;
+            }
+            #description {
+                display: none !important;
+            }
+        }
+
+        @media (min-height: 566px) {
+            md-content.vcent {
+                height: 100vh;
+            }
+        }
+
+        md-button:hover {
+            cursor: pointer;
+        }
+
+        button {
+            padding: 15px !important;
+            background-color: #286EFA !important;
+        }
+
+
+        .border-radius-5 {
+            border-radius: 5px
+        }
+
+        select:focus,
+        input:focus {
+            border-color: rgb(31, 140, 235);
+            outline: 0px;
+        }
+
+        .just.sign.up:focus {
+            background-color: #286EFA !important;
+        }
+
+        button:hover {
+            background-color: #1271c4 !important;
+        }
+
+        button:hover,
+        select:hover {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4680FB;
+        }
+
+        .dum {
+            color: #B7A7AB;
+        }
+
+        @media (max-width: 460px) {
+            md-card {
+                width: 100% !important;
+                min-width: 100% !important;
+                min-width: 1px !important;
+                padding: 15px 15px !important;
+            }
+        }
+
+        
+    </style>
+
+    <% include footer.html %>

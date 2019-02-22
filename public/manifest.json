@@ -1,0 +1,31 @@
+{
+	"short_name": "Ezond Ap2",
+	"name": "Ezond Ap2",  
+	"icons": [  
+		{  
+		  "src": "/img/favicon-dark-136.png",  
+		  "sizes": "192x192",  
+		  "type": "image/png"  
+		},  
+		{  
+		  "src": "/img/favicon-dark-256.png",  
+		  "sizes": "256x256",  
+		  "type": "image/png"  
+		},  
+		{  
+		  "src": "/img/favicon-dark-384.png",  
+		  "sizes": "384x384",  
+		  "type": "image/png"  
+		},  
+		{  
+		  "src": "/img/favicon-dark-512.png",  
+		  "sizes": "512x512",  
+		  "type": "image/png"  
+		}
+	],  
+	"background_color": "#FAFAFA",
+	"theme_color": "#512DA8", 
+	"display": "standalone",  
+	"orientation": "portrait",
+	"start_url": "/#!/login" 
+}

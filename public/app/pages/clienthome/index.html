@@ -1,0 +1,82 @@
+<div  style="margin: 0 auto;" ng-cloak>
+  	<div layout="row" style="transition: padding-top 200ms; margin: 0 auto;"> 
+
+<!--   		<div class="md-padding" flex="25" layout="column" style="background: #FAFBFD; border-right: 1px solid lightgrey;height: calc(100vh - {{customheight}});max-width: 220px;">
+  			<div flex="30" class="text-center md-padding" layout="column" layout-align="start center">
+  				<div style="background: url('https://networks.ezond.com/apis/image_or_color.php?user_id={{agency_info.id}}');border: 1px solid grey; width: 90px;height: 90px;border-radius: 50%;background-size: contain;">         
+				</div>
+				<span class="md-headline margin-top bold">{{agency_info.first_name + " " + agency_info.last_name}}</span>
+				<span class="md-title">Digital Account Manager</span>
+  			</div>
+  			<md-divider class="margin-bottom"></md-divider>
+  			<md-button ng-click="changestate('campaigns')" ng-class="{'md-primary md-raised':state=='campaigns'}">Campaigns</md-button>
+  			<md-button ng-click="changestate('marketing')" ng-class="{'md-primary md-raised':state=='marketing'}">Marketing</md-button>
+  			<md-button ng-click="changestate('account')" ng-class="{'md-primary md-raised':state=='account'}">My Account</md-button>
+  		</div> -->
+  		<style>
+        .tryu.hide-xs,
+        .tryu.hide-sm {
+            display: block !important;
+        }
+  		</style>
+
+<!--   		<div class="md-padding text-center" layout="column" layout-align="center" ng-if="state=='welcome'" flex style="padding-top: 40px;height: calc(100vh - {{customheight}});">
+  			<div class="md-display-1 bold margin-bottom">Hi, {{::user_fullname}}!</div>
+  			<div class="md-display-1 bold">Welcome to {{agency_name}}</div>
+  			<span flex=10></span>
+  			<div layout="row" layout-align="center">
+  				<md-button ng-click="changestate(state='campaigns')" class="md-raised">Campaigns</md-button>
+	  			<md-button ng-click="changestate(state='marketing')" class="md-raised">Marketing</md-button>
+	  			<md-button ng-click="changestate(state='account')" class="md-raised">My Account</md-button>
+  			</div>
+  		</div> -->
+  		<div class="md-padding text-center" ng-if="state=='campaigns'" flex style="height: calc(100vh - 61px); overflow: auto;">
+		    <div layout="row" style="margin: 0 auto; padding: 0px 50px 35px; box-sizing: content-box;">
+		        <h2 style="font-weight: 900;">Campaigns Hub</h2>
+		        <span flex=""></span>
+		        <div class="hide-xs hide-sm tryu" style="font-size: 16px; margin-right: 20px; position: relative; vertical-align: middle;" ng-show="activeMenu == 'campaigns'">
+		                <input style="font-size: 13px; height: 70%; border-radius: 100px; top: 15%; width: 250px; outline: none; padding-left: 40px; vertical-align: middle; border: none; right: 0px; position: absolute;" ng-change="searching()" ng-blur="toggleshowmobilesearch()" placeholder="Search..." ng-model="searchkey" required type="text"> 
+
+		                <div ng-hide="searchkey" style="position: absolute; height: 40%; top: 30%; right: 25px; border-left: 1px solid grey; padding-left: 20px;">
+		                    <i class="fas fa-search" style=" font-size: 14px;"></i>
+		                </div>
+		        </div>
+		    </div>
+		  	<md-card class="campaignscards" md-theme="default" layout="column" md-theme-watch="" ng-repeat="campaign in userdashboards | filter : {company_name: searchkey}" >
+		        <div class="rounblock text-center" style="line-height: 67px;font-size: 18px;">{{campaign.company_name[0]+""+campaign.company_name[1]}}</div>
+
+		        <md-card-content class="text-center no-padding" style="padding-top: 8px;">
+		          <div class="md-headline" style="max-height: 32px;max-width: 85%;margin: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+		            {{campaign.company_name}}
+		          </div>
+		          <div class="md-body-2 lighter-color">
+		            <a href="{{::campaign.url}}">{{::campaign.url}}</a>
+		          </div>
+
+		          <div class="campaignstatsgraph" style="background-image: url(https://networks.ezond.com/apis/chart_test.php?id={{::campaign.id}}&w=380&h=60);"></div>
+
+		          <div ng-click="pressing(campaign.id)" style="" ng-hide="!campaign.noticecount" class="curs-pointer  md-caption margin-top" layout="row">
+		            <span class="campaignimprovementsnotification text-uppercase" >{{campaign.noticecount}} Improvements available</span>
+		          </div>
+
+		          <div ng-click="pressing(campaign.id)" ng-hide="campaign.noticecount" class="curs-pointer  md-caption margin-top" layout="row">
+		            <span class="campaignimprovementsnotification text-uppercase">Ezond Bot is on the lookout</span>
+		          </div>
+		        </md-card-content>
+
+		        <div class="campaignactionbuttons">
+		          <!-- <div class="curs-pointer text-uppercase" style="" ng-click="selectcampaign(campaign);">
+		            <i class="ion-compose ion" style=""></i>
+		            Manage
+		          </div> -->
+		          <div class="curs-pointer text-uppercase" ng-click="selectcampaign(campaign);" ui-sref="app.dashboard.home({id: campaign.id})" style="">
+		            <i class="ion ion-connection-bars" style="color: #0076FC;"></i>
+		            Metrics</div>
+		        </div>
+		    </md-card>
+  		</div>
+  		<div class="md-padding text-center" ng-if="state=='marketing'" flex style="height: calc(100vh - 61px); overflow: auto;">
+  			marketing page
+  		</div>
+	</div>
+</div>

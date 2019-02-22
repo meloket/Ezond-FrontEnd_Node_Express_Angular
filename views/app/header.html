@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<!--app/panes/header.html-->
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<%- basePath %>css/main.css">
+        <link rel="stylesheet" href="<%- basePath %>css/app.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.gridster/0.5.6/jquery.gridster.css">
+        <link rel="shortcut icon" type="image/png" href="<%- basePath %>/img/favicon.png"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    </head>
+
+    <body>
+
+
+        <% include mainbar.html %>
+
+        <div id="topBar">
+            <div class="dashboardInfo bn-left">
+                <img src="<%- basePath %>img/logo.png" class="ezond-logo">
+                <div>
+                    <h5 data-bind="dashboardName" id="dashboardName">
+                        <% if (user.dashboards.length !== 0) { %>
+                            <%= user.dashboards[0].name %>
+                        <% } %>
+                    </h5><br/>
+                    <% if (user.dashboards.length !== 0) { %>
+                        <button class="bn bn-otr" onclick="toggleAddWidget()" >Widget&nbsp;<i class="fa fa-plus"></i></button>
+                        <button class="bn bn-otr" onclick="dashboardSettings()">Settings&nbsp;<i class="fa fa-cog"></i></button>
+                    <% } else { %>
+                        <button class="bn bn-otr hide" onclick="toggleAddWidget()" >Widget&nbsp;<i class="fa fa-plus"></i></button>
+                        <button class="bn bn-otr hide" onclick="dashboardSettings()">Settings&nbsp;<i class="fa fa-cog"></i></button>
+                    <% } %>
+                    <span class="lb lb-s lb-err" id="clientDashboardMessage" style="display: none;">Client Dashboard</span>
+                </div>
+            </div>
+
+            <div class="userInfo" onclick="toggleMainbar()" style="color: black">
+                <div><%= user.first_name %> <%= user.last_name %></div>
+                <button class="mainBarButton"></button>
+            </div>
+        </div>

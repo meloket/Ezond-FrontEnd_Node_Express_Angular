@@ -1,0 +1,23 @@
+<div id="networksPane" class="pa hide">
+<!--network.html-->
+	<div class="pa-head"><span data-bind="addDashboardPaneTitle">Network Providers</span><button class="pa-close" onclick="$(this).parent().parent().hide();"><i class="fa fa-times"></i>&nbsp;</button></div>
+    <div class="pa-body" data-pa-section="networkMain">
+        <h3>My Networks:</h3><br/><br/>
+        <ul class="networkList" id="userNetworkList">
+            <% if (user.networks) { %>
+                <% for (var i = 0; i < user.networks.length; i++) { %>
+					<li class="li-item" data-id="<%= user.networks[i].id %>" data-networkID="<%= user.networks[i].networkID %>">(<%= user.networks[i].networkName %>) <%= user.networks[i].account %>
+						<div class="bn-right"><button class="bn bn-err bn-s" onclick="removeNetwork(<%= user.networks[i].id %>)">Remove</button></div></li>
+                <% } %>
+            <% } %>
+        </ul>
+		<br/><br/>
+        <h2>Add a new Network:</h2><br/><br/>
+        <h3>Popular Networks:</h3><br/><br/>
+        <ul class="providerList">
+            <li title="Google Analytics" class="tooltip" onclick="addNetwork(1)"><img src="<%- basePath %>img/providers/google-analytics.png"></li>
+            <li title="Google Adwords" class="tooltip" onclick="addNetwork(2)"><img src="<%- basePath %>img/providers/google-adwords.png"></li>
+        </ul>
+        <br/><br/>
+    </div>
+</div>

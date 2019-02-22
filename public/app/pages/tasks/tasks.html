@@ -1,0 +1,95 @@
+<!-- <div layout="row" layout-align="center center" style="z-index: 1;background:white;height: 75px;position: fixed;width: 100%; padding: 0 120px 0 200px;">
+
+    <span flex=""></span>
+
+    <md-menu class="custom-scrollbar" style="margin: 0;">
+        <md-button style="margin:none;padding: 0px 16px" class="md-raised" ng-click="$mdOpenMenu()">
+            {{filtredDashboard || "Select campaign to filter"}}<i class="margin-sm-left ion-chevron-down" style="font-size: 12px"></i>
+        </md-button>
+        <md-menu-content style="padding-top: 0px; max-height: 400px">
+            <input type="text" ng-model="searchkey" style="padding: 8px; border: 0px" autofocus="">
+            <md-menu-item ng-show="filtredDashboard != ''" style="border: 0; padding: 8px; background: lightsteelblue; font-size: 20px;" layout-align="start center" layout="row" class="selected">{{filtredDashboard}}</md-menu-item>
+            <md-menu-item style=" border: 0; " class="list-group-item no-padding" ng-repeat="campaign in campaigns | filter : {company_name : searchkey}" ng-click="changeCampaign(campaign)" ng-hide="campaign.company_name == filtredDashboard">
+                <md-button>{{campaign.company_name}}</md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div> -->
+
+<h2 style="font-weight: 900;" class="no-margin">My Tasks</h2>
+
+
+<div style="box-sizing: content-box;max-width: 1070px;margin: 0 auto;padding-left: 90px; padding-right: 15px;">
+
+    <style>
+      span>b:hover {
+      color: black;
+      }
+    </style>
+
+
+    <h3 class="text-center" ng-show="!today_tasks.length && !future_tasks.length && !other_tasks.length">Yay! You don't have any Tasks</h3>
+
+    <h4 ng-if="today_tasks.length">Today tasks</h4>
+
+    <div class="curs-pointer lighter-color" style="padding: 8px 0px;background: white;padding: 20px;margin-bottom: 15px;" layout="row" layout-align="start start" flex ng-repeat="task in today_tasks | filter : {dash_name:filtredDashboard}">
+
+      <md-button class="md-icon-button" ng-click="toggleTaskStatus(task)" >
+        <i class="margin-right margin-sm-left curs-pointer" style="font-size: 20px; margin-top: 2px" ng-class="task.task_progress == 0 ? 'ion-android-checkbox-outline-blank' : 'ion-android-checkbox-outline'"></i>
+      </md-button>
+      <div layout="column" flex>
+        <div layout="row" class="text-capitalize md-title">
+            <span style="word-break: break-all;">{{::task.task_title}}</span>
+            <span flex=""></span>
+            <span class="md-subhead" ng-click="OpenTaskPage(task.dash_id)"><b>{{::task.dash_name}}</b></span>
+        </div>
+        <div ng-if="task.task_date" class="red">
+          Due <span class="red">{{::task.task_date}}</span>
+        </div>
+      </div>
+    </div>
+
+    <md-divider ng-show="today_tasks.length>0"></md-divider>
+
+    <h4 ng-if="future_tasks.length">Upcoming tasks</h4>
+
+    <div class="curs-pointer lighter-color" style="padding: 8px 0px;background: white;padding: 20px;margin-bottom: 15px;" layout="row" layout-align="start start" ng-repeat="task in future_tasks | filter : {dash_name:filtredDashboard}">
+      <md-button class="md-icon-button" ng-click="toggleTaskStatus(task)" >
+        <i class="margin-right margin-sm-left curs-pointer icon" style="font-size: 20px; margin-top: 2px"
+           ng-class="task.task_progress == 0 ? 'ion-android-checkbox-outline-blank' : 'ion-android-checkbox-outline'"></i>
+      </md-button>
+      <div layout="column" flex>
+        <div layout="row" class="text-capitalize md-title">
+            <span style="word-break: break-all;">{{::task.task_title}}</span>
+            <span flex=""></span>
+            <span class="md-subhead" ng-click="OpenTaskPage(task.dash_id)"><b>{{::task.dash_name}}</b></span>
+        </div>
+        <div ng-if="task.task_date" class="red">
+          Due <span class="red">{{::task.task_date}}</span>
+        </div>
+      </div>
+    </div>
+
+    <md-divider ng-show="future_tasks.length>0"></md-divider>
+
+    <h4 ng-if="other_tasks.length">Incomplete tasks</h4>
+
+    <div class="curs-pointer lighter-color" style="padding: 8px 0px;background: white;padding: 20px;margin-bottom: 15px;" layout-align="start start" flex
+         layout="row" ng-repeat="task in other_tasks | filter : {dash_name:filtredDashboard}">
+      <md-button class="md-icon-button" ng-click="toggleTaskStatus(task)" >
+        <i class="margin-right margin-sm-left curs-pointer icon" style="font-size: 20px; margin-top: 2px"
+           ng-class="task.task_progress == 0 ? 'ion-android-checkbox-outline-blank' : 'ion-android-checkbox-outline'"></i>
+      </md-button>
+      <div layout="column" flex>
+        <div layout="row" class="text-capitalize md-title">
+            <span style="word-break: break-all;">{{::task.task_title}}</span>
+            <span flex=""></span>
+            <span class="md-subhead" ng-click="OpenTaskPage(task.dash_id)"><b>{{::task.dash_name}}</b></span>
+        </div>
+        <div ng-if="task.task_date" class="red">
+          Due <span class="red">{{::task.task_date}}</span>
+        </div>
+      </div>
+    </div>
+    
+</div>

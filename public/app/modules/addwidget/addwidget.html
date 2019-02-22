@@ -1,0 +1,66 @@
+<div ng-show="showPopup['addWidget']">
+    <div>
+        <div data-reactroot="" class="common-ui-modal">
+            <div class="modal-backdrop"></div>
+            <div class="modal modal-small">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-bar clearfix">
+                            <a class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+                        </div>
+                        <div ng-show="step == 'choose-group'">
+                            <div class="sections-dashboard-add-widget-modal has-footer">
+                                <div class="modal-header">
+                                    <i class="modal-icon-logo icon-logo-widgets"></i>
+                                    <h3>Add Widget</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list">
+                                        <li class="row cursor widgetGroupCheck" ng-class="{active: selectedWidgetGroup == widgetGroup}" ng-repeat="widgetGroup in widgetGroups track by $index" ng-click="selectWidgetGroup(widgetGroup);selectNetwork($index)">
+                                            <div class="col-md-1 col-xs-1 col-sm-1"><input type="radio" name="selectedWidget"></div>
+                                            <div class="col-md-2 col-xs-2 col-sm-2 text-center">
+                                                <img src="{{::widgetGroup.logo}}">
+                                            </div>
+                                            <div class="col-md-9 col-xs-9-col-sm-9">
+                                                <div>{{::widgetGroup.name}}</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="common-buttons-button-loader btn btn-primary pull-left" ng-click="goToWidgetChoices()">Add Widget</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="has-footer" ng-show="step == 'choose-widget'">
+                                <div class="modal-header">
+                                    <i class="modal-icon-logo icon-logo-widgets"></i>
+                                    <h3>Edit Widget</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="common-widgets-options">
+                                        <div class="field">
+                                            <div class="field">
+                                                <label>Metrics</label>
+                                                <select class="form-control" ng-model = 'selectedMetric1' ng-change="selectMetric(selectedMetric1)">
+                                                    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+                                                </select>                                                
+                                                <select class="form-control margin-top" ng-model = 'selectedMetric2'>
+                                                    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="common-buttons-button-loader btn btn-primary pull-left" ng-click="addWidgetToDashboard()">Save Widget</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

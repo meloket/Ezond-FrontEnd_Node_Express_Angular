@@ -1,0 +1,426 @@
+<div class="canvas-sidebar" style="max-width: 1360px; margin: 0 auto">
+    <div class="common-report-interface canvas">
+        <div class="canvas-content">
+           <!--  <div class="intel_menu_container">
+                <div class="intel_menu">
+                    <div class="intel_menu_item selected_menu"><i class="icon icon-intel-all"></i> All</div>
+                    <div class="intel_menu_item"><i class="icon icon-intel-competition"></i> Competition</div>
+                    <div class="intel_menu_item"><i class="icon icon-intel-security"></i> Security</div>
+                    <div class="intel_menu_item"><i class="icon icon-intel-technology"></i> Technology</div>
+                    <div class="intel_menu_item"><i class="icon icon-intel-ranking"></i> Ranking</div>
+                </div>
+            </div> -->
+            <div class="widgets common-widgets-collection editable"  id="widget-container">
+                <div layout="row" class="widgetsrow1 layout-xs-column">
+                    <div flex=33 flex-xs=100 class="widget-holder" style="" >
+                        <!-- SSL Info -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">SSL / HTTPS</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple">
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(ssl_info.server_status)"></i>
+                                        <div class="widget_content_detail" ng-bind-html="ssl_info.server_address | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(ssl_info.cert_status)"></i>
+                                        <div class="widget_content_detail" ng-bind-html="ssl_info.cert_correctness | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(ssl_info.cert_expire_status)"></i>
+                                        <div class="widget_content_detail" ng-bind-html="ssl_info.cert_expiration | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(ssl_info.cert_host_status)"></i>
+                                        <div class="widget_content_detail" ng-bind-html="ssl_info.cert_host_correctness | trust"></div>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex=33 flex-xs=100 class="widget-holder" style="" >
+                        <!-- Essentials -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Essentials</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple">
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(essential_info.sitemap_status)"></i>
+                                        <div class="widget_content_detail widget_content_line2" ng-bind-html="essential_info.sitemap_info | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(essential_info.safe_status)"></i>
+                                        <div class="widget_content_detail widget_content_line2" ng-bind-html="essential_info.safe_info | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(essential_info.load_status)"></i>
+                                        <div class="widget_content_detail widget_content_line2" ng-bind-html="essential_info.load_info | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(essential_info.analytics_status)"></i>
+                                        <div class="widget_content_detail widget_content_line2" ng-bind-html="essential_info.analytics_info | trust"></div>
+                                    </div>
+                                    <div class="widget_content_item">                                    
+                                        <i class="icon intel_icons" ng-class="get_icon_status(essential_info.console_status)"></i>
+                                        <div class="widget_content_detail widget_content_line2" ng-bind-html="essential_info.console_info | trust"></div>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex=33 flex-xs=100 class="widget-holder" style="" >
+                        <!-- People also ask -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">People also ask</div>
+                                    <div class="widget_title_info">based on your Keywords</div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple">
+                                    <div class="widget_content_item_single" ng-repeat="keyword in site_keywords">{{keyword}}</div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Local Rank Tracker -->
+<!--                 <div class="widget-holder" style="height:168px;" >
+                    <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                        <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                            <div class="widget_title_container">
+                                <div class="widget_title">Local Rank Tracker</div>
+                                <div class="widget_title_info">Google NZ</div>
+                                <div class="exe_clr"></div>
+                            </div>
+                            <div class="widget_content_container widget_content_container_double" style=" margin-top: 0.5rem;">
+                                <div class="widget_content_item_header">
+                                    <div class="widget_keyword_header">Keyword</div>
+                                    <div class="widget_keyword_position">Position</div>
+                                    <div class="widget_keyword_change">Change</div>
+                                </div>
+                                <div class="widget_content_item_single" ng-repeat="keyword_rank in keywords_rank.keywords"> 
+                                    <div class="widget_keyword_header">{{keyword_rank.keyword}}</div>
+                                    <div class="widget_keyword_position">{{keyword_rank.rank}}</div>
+                                    <div class="widget_keyword_change" ng-class="{'widget_keyword_change_down' : keyword_rank.change_status == 1}">{{keyword_rank.change}}</div>
+                                </div>
+                                <div class="widget_content_item_footer">
+                                    Date Checked: <b>{{keywords_rank.report_date}}</b>
+                                </div>
+                            </div>
+                            <div class="exe_clr"></div>
+                        </div>
+                    </div>
+                </div> -->
+                <div layout="row" class="widgetsrow1 layout-xs-column">
+                    <div flex="50" flex-xs=100 class="widget-holder" >
+                        <!-- Mobile -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Mobile</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_double" style=" margin-top: 0.5rem;">
+                                    <div style="padding-top: 1rem; padding-bottom: 1rem; text-align: center;">
+                                        <div class="phone_screenshot" ng-bind-html="mobile.phone_screen | trust" style="vertical-align: top"></div>
+                                        <div class="tablet_screenshot" ng-bind-html="mobile.tablet_screen | trust"></div>
+                                    </div>
+                                    <div class="widget_footer_container">
+                                        <div class="widget_footer">{{mobile.mobile_info}}</div>
+                                        <div class="widget_footer_info"><i class="icon intel_icons" ng-class="get_icon_status(mobile.mobile_status)"></i></div>
+                                        <div class="exe_clr"></div>                                
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- Competitor -->
+                    <!-- <div class="widget-holder" >
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Competitor</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple" style="margin-top: 0; overflow: hidden; height: 20rem;">
+                                    <table style="width: calc(100%);">
+                                        <tr class="widget_content_item_header" style="background-color: #eeeeee;color: #666666; font-weight: normal; font-size: 1.1rem;">
+                                            <td class="widget_competitor_header">Competitor</td>
+                                            <td class="widget_competitor_rank">Rank</td>
+                                            <td class="widget_competitor_traffic">Traffic</td>
+                                            <td class="widget_competitor_soruces">Sources</td>
+                                            <td class="widget_competitor_analysis">Visit analysis</td>
+                                        </tr>
+                                        <tr class="widget_content_item_single_competitor" ng-repeat="competitor in competitors">
+                                            <td class="widget_competitor_header">{{competitor.url}}</td>
+                                            <td class="widget_competitor_rank">{{competitor.rank}}</td>
+                                            <td class="widget_competitor_traffic">{{competitor.traffic}}</td>
+                                            <td class="widget_competitor_soruces">{{competitor.source}}</td>
+                                            <td class="widget_competitor_analysis">{{competitor.analysis}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div flex="50" flex-xs=100 class="widget-holder" >
+                        <!-- PageSpeed Insights -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div layout="column" style="display: flex; height: 380px;" layout-align="space-between start" class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">PageSpeed Insights</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_double" style=" margin-top: 0; height: 20rem;">
+                                    <div class="page_speed_header">
+                                        <div class="page_speed_metor">Desktop Speed</div>
+                                        <div class="page_speed_info"></div>
+                                        <div class="page_speed_metor">Mobile Speed</div>
+                                    </div>
+                                    <div>
+                                        <canvas id="desktopPageSpeed" class="page_speed_metor"></canvas>
+                                        <div class="page_speed_info">
+                                            <div class="page_speed_info_value">{{page_speed.desktop}} / 100</div>
+                                            <div class="page_speed_info_caption">Page Speed</div>
+                                            <div class="page_speed_info_description">
+                                                <b>{{page_speed.site}}</b> desktop website speed is <b>{{page_speed.site_score}} range</b>. Page speed is more important for both search engines and visitors end.
+                                            </div>
+                                        </div>
+                                        <canvas id="mobilePageSpeed" class="page_speed_metor"></canvas>
+                                    </div>
+                                    <div class="page_speed_footer">
+                                        <div class="page_speed_info">
+                                            <div class="page_info_title">Page Size</div>
+                                        </div>
+                                        <div class="page_speed_metor">
+                                            <div class="page_info_title">Load Time</div>
+                                        </div>
+                                    </div>
+                                    <div class="page_speed_footer" style="position: relative;">
+                                        <div class="page_speed_info">
+                                            <div class="page_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(page_speed.page_size_status)"></i> {{page_speed.page_size}}KB (World Wide Web average is 320KB)</div>
+                                        </div>
+                                        <div class="page_speed_metor">
+                                            <div class="page_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(page_speed.load_time_status)"></i> {{page_speed.load_time}} second(s)</div>
+                                        </div>
+                                        <i class="icon intel_icons widget_page_notice" ng-class="get_icon_status(page_speed.site_status)"></i>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widgetsrow1">
+                    <div class="widget-holder" >
+                        <!-- Privacy -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Privacy</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple">
+                                    <div class="privacy_info_title">Email Privacy</div>
+                                    <div class="privacy_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(privacy.email_status)"></i> {{privacy.email_info}}</div>
+                                    <div class="privacy_info_title">Safe Browsing</div>
+                                    <div class="privacy_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(privacy.safe_status)"></i> {{privacy.safe_info}}</div>
+                                    <div style="position: relative;">
+                                        <i class="icon intel_icons widget_page_notice" ng-class="get_icon_status(privacy.privacy_status)"></i>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="widget-holder" style="height:168px;" >
+                    <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                        <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                            <div class="widget_title_container">
+                                <div class="widget_title">Social Presence</div>
+                                <div class="widget_title_info"></div>
+                                <div class="exe_clr"></div>
+                            </div>
+                            <div class="widget_content_container widget_content_container_simple">
+                                <div class="social_media_status_chart">
+                                    <img src="/images/add/graph_sample.jpg">
+                                </div>
+                                <div class="social_media_status">
+                                    <i class="icon intel_icons icon-intel-dot"></i> Your social media status
+                                    <div class="social_media_status_detail">
+                                        <i class="icon intel_icons icon-intel-facebook"></i> Facebook Likes: {{social.facebook}}
+                                    </div>
+                                    <div class="social_media_status_detail">
+                                        <i class="icon intel_icons icon-intel-googleplus"></i> PlusOne: {{social.google}}
+                                    </div>
+                                    <div class="social_media_status_detail">
+                                        <i class="icon intel_icons icon-intel-trumble"></i> StumbleUpon: {{social.stumble}}
+                                    </div>
+                                    <div class="social_media_status_detail">
+                                        <i class="icon intel_icons icon-intel-linkedin"></i> LinkedIn: {{social.linkedin}}
+                                    </div>
+                                    <div style="position: relative;">
+                                        <i class="icon intel_icons widget_page_notice" ng-class="get_icon_status(social.social_status)" style="position: absolute; right: 0.2rem; top: -1.5rem;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exe_clr"></div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="widgetsrow1">
+                    <div class="widget-holder" >
+                        <!-- Link Analysis -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Link Analysis</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_simple">
+                                    <div class="links_detail" style="width: calc(55%);">
+                                        <div class="links_info_title">In-Page Links</div>
+                                        <div class="links_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(link_analysis.inpage_status)"></i> We found a total of {{link_analysis.links.length}} links including both internal & external links of your site</div>
+                                        <div class="widget_content_container" style="margin-top: 0.5rem; height: 11rem; overflow-y: auto;" ng-show="link_analysis.links.length > 0">
+                                            <div class="widget_content_item_single">
+                                                <div class="widget_keyword_header">Anchor</div>
+                                                <div class="widget_keyword_position">Type</div>
+                                                <div class="widget_keyword_change">Follow</div>
+                                            </div>
+                                            <div class="widget_content_item_single" ng-repeat="link in link_analysis.links track by $index" ng-show="($index < isMore.inpage_limit) || (!(isMore.inpage))"> 
+                                                <div class="widget_keyword_header2"><a href="{{link.url}}" target="_blank" rel="noopener">{{link.text}}</a></div>
+                                                <div class="widget_keyword_position">{{link.type}}</div>
+                                                <div class="widget_keyword_change">{{link.follow}}</div>
+                                            </div>
+                                            <div class="widget_content_item_footer" style="line-height: 1.5rem;" ng-if="isMore.inpage">
+                                                <span class="more_detail" ng-click="isMore.inpage = false">Show More <i class="icon intel_icons icon-intel-more-left" style="vertical-align: text-bottom;"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="exe_clr"></div>
+                                    </div>
+                                    <div class="links_detail" style="margin-left: 2rem; width: calc(45% - 4rem);">
+                                        <div class="links_info_title">Broken Links</div>
+                                        <div class="links_info_detail" ng-if="link_analysis.broken_status == 0"><i class="icon intel_icons" ng-class="get_icon_status(link_analysis.broken_status)"></i> No broken links were found on this web page</div>
+                                        <div class="links_info_detail" ng-if="link_analysis.broken_status == 1"><i class="icon intel_icons" ng-class="get_icon_status(link_analysis.broken_status)"></i> Broken links were found on this web page</div>
+                                        <div class="widget_content_container" style="margin-top: 0.5rem; height: 11rem; overflow-y: auto;" ng-show="link_analysis.broken_links.length > 0">
+                                            <div class="widget_content_item_single">
+                                                <div class="widget_broken_link_header">Links</div>
+                                            </div>
+                                            <div class="widget_content_item_single" ng-repeat="link in link_analysis.broken_links track by $index" ng-show="($index < isMore.broken_limit) || (!(isMore.broken))"> 
+                                                <div class="widget_broken_link_header"><a href="{{link.url}}" target="_blank" rel="noopener">{{link.url}}</a></div>
+                                            </div>
+                                            <div class="widget_content_item_footer" style="line-height: 1.5rem;" ng-if="isMore.broken">
+                                                <span class="more_detail" ng-click="isMore.broken = false">Show More <i class="icon intel_icons icon-intel-more-left" style="vertical-align: text-bottom;"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="exe_clr"></div>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="widget-holder" style="height:168px;" >
+                    <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                        <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                            <div class="social_media_logo">
+                                <img src="/images/add/console.png">
+                            </div>
+                            <div class="widget_title_container">
+                                <div class="widget_title">Links to Your Site</div>
+                                <div class="widget_title_info"></div>
+                                <div class="exe_clr"></div>
+                            </div>
+                            <div class="total_links_count">Total Links<br><b>{{linksto.total}}</b></div>
+                            <div class="widget_content_container" style="margin-top: 0rem;">
+                                <div class="links_detail" style="width: calc(50%);">
+                                    <div class="widget_content_container" style="height: 11rem; overflow-y: auto;">
+                                        <div class="widget_content_item_single">
+                                            <div class="widget_broken_link_header">Who links the most</div>
+                                        </div>
+                                        <div class="widget_content_item_single" ng-repeat="link in linksto.links track by $index" ng-show="($index < isMore.links_limit) || (!(isMore.links))"> 
+                                            <div class="widget_links_header"><a href="{{link.url}}" target="_blank" rel="noopener">{{link.url}}</a></div>
+                                            <div class="widget_links_position">{{link.count}}</div>
+                                        </div>
+                                        <div class="widget_content_item_footer" style="line-height: 1.5rem;text-align: left;" ng-if="isMore.links">
+                                            <span class="more_detail" ng-click="isMore.links = false">More <i class="icon intel_icons icon-intel-more-left" style="vertical-align: text-bottom;"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="links_detail" style="margin-left: 0.5rem; width: calc(50% - 1rem);">
+                                    <div class="widget_content_container" style="height: 11rem; overflow-y: auto;">
+                                        <div class="widget_content_item_single">
+                                            <div class="widget_broken_link_header">Your most linked content</div>
+                                        </div>
+                                        <div class="widget_content_item_single" ng-repeat="content in linksto.contents track by $index" ng-show="($index < isMore.contents_limit) || (!(isMore.contents))"> 
+                                            <div class="widget_links_header"><a href="{{content.url}}" target="_blank" rel="noopener">{{content.url}}</a></div>
+                                            <div class="widget_links_position">{{content.count}}</div>
+                                        </div>
+                                        <div class="widget_content_item_footer" style="line-height: 1.5rem;text-align: left;" ng-if="isMore.contents">
+                                            <span class="more_detail" ng-click="isMore.contents = false">More <i class="icon intel_icons icon-intel-more-left" style="vertical-align: text-bottom;"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                            </div>
+                            <div class="exe_clr"></div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="widgetsrow1">
+                    <div class="widget-holder" style="height:168px;" >
+                        <!-- Technology -->
+                        <div class=" react-grid-item common-widgets-wrapper margin-0 one-metric-panel" style="position: relative;">
+                            <div class="common-widgets-one-metric-panel loading-metric intel_widget">
+                                <div class="widget_title_container">
+                                    <div class="widget_title">Technology</div>
+                                    <div class="widget_title_info"></div>
+                                    <div class="exe_clr"></div>
+                                </div>
+                                <div class="widget_content_container widget_content_container_verysimple">
+                                    <div class="technology_detail" style="width: calc(46%);">
+                                        <div class="technology_info_title">Encoding</div>
+                                        <div class="technology_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(technology.encoding_status)"></i> {{technology.encoding_info}}</div>
+                                    </div>
+                                    <div class="technology_detail">
+                                        <div class="technology_info_title">Doc Type</div>
+                                        <div class="technology_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(technology.doctype_status)"></i> {{technology.doctype_info}}</div>
+                                    </div>
+                                    <div class="technology_detail">
+                                        <div class="technology_info_title">W3C Validity</div>
+                                        <div class="technology_info_detail"><i class="icon intel_icons" ng-class="get_icon_status(technology.w3c_status)"></i> {{technology.w3c_info}}</div>
+                                    </div>
+                                </div>
+                                <div class="exe_clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

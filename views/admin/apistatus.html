@@ -1,0 +1,23 @@
+<% include ../app/header.html %>
+
+<div class="pl-wrap" style="text-align: center;">
+  <% include ../app/left_menu.html %>
+
+  <div class="pl pl-10" style="margin-top: 70px;">
+    <div class="pl-body">
+      <h3>Api status</h3><br/><br/>
+
+      <% for (var i = 0; i < testing.length; i++) { %>
+      <p>
+        <%= testing[i].networkName %>
+        <span><%= testing[i].id %></span>
+        <span style="background-color: <%= testing[i].broken %>;vertical-align: middle; display: inline-block;height: 15px; width: 15px; border-radius: 50%">
+                        </span>
+      </p>
+      <% } %>
+
+    </div>
+  </div>
+</div>
+
+<% include ../app/footer.html %>

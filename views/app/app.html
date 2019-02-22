@@ -1,0 +1,43 @@
+<% include header.html %>
+
+<% if (user.firstLogin) { %>
+    <% include firstlogin.html %>
+<% } %>
+
+<div class="pl-wrap" style="text-align: center;">
+    <% if (typeof user.progressReport !== "undefined") { %>
+        <div id="progressReport" class="pl pl-12 text-center">
+            <h3>Welcome back <%= user.first_name %> <%= user.last_name %></h3><br/><br/>
+
+            <img src="img/emoticons/<%= user.progressReport.emoticon %>.png"><br/>
+
+            <% if (user.progressReport.emoticon == "smile") { %>
+                Your days progress was good, keep up the good work.
+            <% } else if (user.progressReport.emoticon == "happy") { %>
+                You had a GREAT day, keep doing what you are doing.
+            <% } else if (user.progressReport.emoticon == "sad") { %>
+                Todays progress was not the best.
+            <% } else if (user.progressReport.emoticnon == "crying") { %>
+                You are having a bad day, try some different strategies.
+            <% } %>
+            <br/><br/>
+            You are tracking <%= user.progressReport.metric %> from <%= user.progressReport.type %><br/>
+            Yesterday you had <%= user.progressReport.yesterday %> <%= user.progressReport.metric %><br/>
+            Today you have <%= user.progressReport.today %> <%= user.progressReport.metric %><br/>
+            A change of <%= user.progressReport.value %>.<br/><br/>
+            <button class="bn bn-def" onclick="removeProgressReport()">Close</button>
+            <br/><br/>
+            (Note: This will not show again till tomorrow)
+        </div>
+    <% } %>
+
+    <div id="content" class="pl pl-12">
+        <% if (user.dashboards.length > 0) { %>
+            <div id="widgetContainer" class="gridster">
+                <ul></ul>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<% include footer.html %>

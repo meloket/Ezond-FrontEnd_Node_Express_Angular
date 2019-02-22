@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--dashboard_index/index.html-->
+<html lang="en" data-textdirection="LTR" class="loader" style="background: #E6E9EA">
+    <head>
+        <% include head_tags.html %>
+    </head>
+  <body data-open="click" ng-cloak data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar">
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54W69M4"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<div id="ezondapp" ng-cloak ui-view ></div>
+  
+    <% include footer_scripts.html %>
+
+  <% if (sentry_dns) { %>
+  <script src="https://cdn.ravenjs.com/3.27.0/angular/raven.min.js" crossorigin="anonymous"></script>
+  <script>
+      Raven
+      .config('<%= sentry_dns %>',{allowSecretKey: true})
+      .install();
+  </script>
+  <% } %>
+
+  </body>
+</html>

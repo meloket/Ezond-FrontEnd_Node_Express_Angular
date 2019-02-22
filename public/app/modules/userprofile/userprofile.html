@@ -1,0 +1,177 @@
+<div ng-cloak data-reactroot="" class="common-ui-modal ng-cloak" ng-show="showPopup['userprofile']">
+  <div class="modal-backdrop"></div>
+  <md-card>
+    <div ng-cloak class="modal">
+      <div class="modal-dialog">
+        <div ng-cloak class="modal-content mh-320">
+          <md-button ng-click="closePopup()" class="md-icon-button" aria-label="More"
+                     style=" right: 2px; position: absolute; z-index: 10000; top: 10px;">
+            <i class="ion-close" style="font-size: 14px;"></i>
+          </md-button>
+          <md-tabs ng-cloak md-stretch-tabs style="background-color: #F8F8F8">
+            <md-tab>
+              <md-tab-label>My Profile</md-tab-label>
+              <md-tab-body layout="row">
+                <md-tab-content layout="row" layout-align="center center">
+                  <div layout="row" layout-align="start center" flex="100">
+                    <div flex="40">
+                      <div class="common-ui-form-profile-photo">
+                        <div class="profile field">
+                          <div class="profile-content">
+                            <div class="action-links">
+                              <div class="common-ui-form-file-upload">
+                                <button type="button" class="file-upload-button btn btn-default btn-sm"
+                                        ng-click="openFile()"><i class="icon icon-upload"></i></button>
+                                <input onchange="angular.element(this).scope().fileNameChanged(this)" type="file"
+                                       id="photo_file" style="display: none;">
+                              </div>
+                            </div>
+                            <img ng-src="{{backendUrl}}apis/profileImage.php?preview={{preview}}&user_id={{user.id}}&{{timereport}}"
+                                 class="profile-image">
+                          </div>
+                        </div>
+                        <div></div>
+                      </div>
+                    </div>
+                    <div flex="60" md-padding style="padding-right: 15%">
+                      <div layout="row" class="margin-sm-bottom">
+                        <div class="margin-sm-right">
+                          <label for="first_name">First name</label>
+                          <input type="text" id="first_name" name="first_name"
+                                 class="margin-sm-bottom form-control margin-sm-right" placeholder="First Name"
+                                 value="{{user.first_name}}" maxlength="100">
+                        </div>
+                        <div class="">
+                          <label for="last_name">Last name</label>
+                          <input type="text" id="last_name" name="last_name" class="form-control"
+                                 placeholder="Last Name" value="{{user.last_name}}" maxlength="100">
+                        </div>
+                      </div>
+                      <div class="margin-sm-bottom margin-top">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" style="    max-width: 339px;" id="email" name="email"
+                               md-margin placeholder="Email" value="{{user.email}}" maxlength="100">
+                      </div>
+                      <div layout="row" class="margin-sm-bottom margin-top">
+                        <div class="margin-sm-right">
+                          <label for="password">New password</label>
+                          <input type="password" id="password" class="form-control margin-sm-right" name="password"
+                                 placeholder="New Password" value="" maxlength="32">
+                        </div>
+                        <div class="">
+                          <label for="confirmPassword">Confirm password</label>
+                          <input type="password" id="confirmPassword" class="form-control" name="confirmPassword"
+                                 placeholder="Confirm Password" value="" maxlength="32">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </md-tab-content>
+              </md-tab-body>
+            </md-tab>
+            <md-tab ng-if="ownerCheck">
+              <md-tab-label>Agency Settings</md-tab-label>
+              <md-tab-body>
+                <md-tab-content layout="row" layout-align="center center">
+                  <div layout="row" layout-align="start center" flex="100">
+                    <div flex="40">
+                      <div class="common-ui-form-profile-photo">
+                        <div class="profile field">
+                          <div class="profile-content">
+                            <div class="action-links">
+                              <div class="common-ui-form-file-upload">
+                                <button type="button" class="file-upload-button btn btn-default btn-sm"
+                                        ng-click="openAgencyFile()"><i class="icon icon-upload"></i></button>
+                                <input onchange="angular.element(this).scope().fileNameChanged2(this)" type="file"
+                                       id="agency_photo_file" style="display: none;">
+                              </div>
+                            </div>
+                            <img ng-src="{{backendUrl}}apis/agencyProfileImage.php?preview={{agencyPreview}}&user_id={{user.id}}&{{timereport}}">
+                          </div>
+                        </div>
+                        <div></div>
+                      </div>
+                    </div>
+                    <div flex="60" md-padding style="padding-right: 15%">
+                      <div class="margin-sm-bottom margin-top">
+                        <label for="domainName">White Label Domain Name</label>
+                        <div>
+                                                    <span class="md-subhead" layout-align="start center" layout="row">
+                                                        <span style="padding-right: 4px; ">http://</span>
+                                                        
+                                                        <input type="text" id="domainName"
+                                                               ng-model-options="{ debounce: 600 }"
+                                                               ng-change="changeDomain()" style="padding-left: 4px;"
+                                                               ng-model="user.domainName" class="form-control">
+                                                    </span>
+                          <div ng-show="showHint" class="margin-top">You will need to configure your web server
+                            <i class="ion-ios-help-outline cursor ion" style="font-size: 19px; vertical-align: middle;">
+                              <md-tooltip style="font-size: 14px" md-z-index="213123123">Enter <i class="white-c">yoursubdomain</i>.ezond.com
+                                if you dont want configure your server
+                              </md-tooltip>
+                            </i>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="margin-sm-bottom margin-top">
+                        <label for="adminEmail">Email</label>
+                        <input type="text" class="form-control" style="max-width: 339px;" id="adminEmail"
+                               name="adminEmail" placeholder="Email" value="{{user.adminEmail}}" maxlength="100"
+                               maxlength="100">
+                      </div>
+                      <div layout="row" class="margin-sm-bottom margin-top">
+                        <div class="margin-sm-right">
+                          <label for="adminPassword">New password</label>
+                          <input type="password" id="adminPassword" class="form-control margin-sm-right"
+                                 name="adminPassword" placeholder="New Password" value="" maxlength="32">
+                        </div>
+                        <div>
+                          <label for="confirmAdminPassword">Confirm password</label>
+                          <input type="password" id="confirmAdminPassword" class="form-control"
+                                 name="confirmAdminPassword" placeholder="Confirm Password" value="" maxlength="32">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </md-tab-content>
+              </md-tab-body>
+            </md-tab>
+            <md-tab ng-if="ownerCheck" md-on-deselect="hideButton=false" md-on-select="hideButton = true">
+              <md-tab-label>Plan</md-tab-label>
+              <md-tab-body>
+                <md-tab-content layout-align="center center" layout="row">
+                  <div style="text-align: center">
+                    <h2>Your current plan <span style="font-weight: bold; color: blue">{{currentPlan.name}}</span></h2>
+                    <h3 ng-show="currentPlan.trial">Expires at: {{planTermEnd}}</h3>
+                    <md-button class="md-primary" ng-click="managesubscription()">Manage subscription</md-button>
+                  </div>
+                </md-tab-content>
+              </md-tab-body>
+            </md-tab>
+          </md-tabs>
+          <div class="md-padding" layout="row" ng-hide="hideButton == true" layout-align="center">
+            <md-button class="md-raised md-primary" ng-click="saveProfile()">Save</md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-card>
+  <script>
+      $(function () {
+              $("#photo_file").change(function (event) {
+                  var file = event.target.files[0];
+                  $(".profile.field").addClass("loading");
+                  $scope.uploadFiles(file);
+
+              })
+
+              $("#agency_photo_file").change(function (event) {
+                  var file = event.target.files[0];
+                  $(".profile.field").addClass("loading");
+                  $scope.uploadAgencyFiles(file);
+              })
+          }
+      )
+  </script>
+</div>

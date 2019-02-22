@@ -1,0 +1,26 @@
+<% include header.html %>
+
+<div class="pl-wrap">
+    <div class="pl-row text-center">
+        <div class="temp_box">
+            <% if (locals.error) { %>
+                <label class="lb lb-err"><%= error %></label>
+            <% } %>
+            <form action="/user/auth" method="POST">
+                <img src="<%- basePath %>img/logo.png"><br/><br/><br/>
+
+                Email:<br/>
+                <input type="text" class="it" placeholder="Email" name="email"><br/>
+                Password:<br/>
+                <input type="hidden" name="admin" value="true">
+                <input type="password" class="it" name="password"><br/><br/>
+                <button type="submit" class="bn bn-std">Login</button><br/>
+                <a href="forgotpw">Forgot Password?</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<% include footer.html %>

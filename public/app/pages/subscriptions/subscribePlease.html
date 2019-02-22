@@ -1,0 +1,282 @@
+<div class="payment-page">
+    <div ng-show="billingStep == 1" id="step-1">
+        <h2 style="font-weight: 900;padding: 0px 0px 35px 50px;" class="no-margin">Billing</h2>
+        <!--    <div layout="row" class="payment-step-1-header">
+      Billing
+    </div> -->
+        <div layout="row" layout-align="center center" class="payment-step-1-subscription">
+            <h4>Your Subscription</h4>
+        </div>
+        <div layout="row">
+            <div layout="column" layout-align="center center" flex="20" flex-offset="40" flex-xs="90" flex-offset-xs="5">
+                <div class="payment-step-1-subscription_name">{{currentSubscription.name}}</div>
+            </div>
+        </div>
+        <div layout="row">
+            <div layout="column" layout-align="center center" flex="40" flex-offset="30" flex-sm="70" flex-offset-sm="15" flex-xs="90" flex-offset-xs="5" class="payment-step-1-subscription_expire">
+                <div>
+                    {{currentSubscription.trial ? 'Your Free Trial will expire in ' + leftSubscriptionDays + ' days': 'Your next renewal will be in ' + leftSubscriptionDays + ' days'
+                    }}
+                </div>
+            </div>
+        </div>
+        <div layout="row" layout-align="center center" style="margin-bottom: 5em; margin-top: 1em;">
+            <button ng-show="showPurchaseButton" class="button-purchase" ng-click="setBillingStep(2)">{{currentSubscription.trial ? 'Purchase Subscription': 'Upgrade Subscription'}}</button>
+        </div>
+        <div flex-offset=33 class="margin-bottom">
+            <div >Default payment method</div>
+            <div flex=50 ng-repeat="source in paymentSources">
+                <fieldset>
+                    <div ng-show="source.card">Number: **** **** **** {{source.card.last4}}</div>
+                    <div ng-show="source.last4">Number: **** **** **** {{source.last4}}</div>
+                    <div>Expire date: {{source.card.exp_month+" / "+source.card.exp_year}}</div>
+                    <md-button class="md-raised" ng-click="updateCard({})">Update card info</md-button>
+                </fieldset>
+            </div>
+            <md-button ng-show="!paymentSources.length" class="md-raised" ng-click="updateCard(source.card || {})">Update payment card</md-button>
+        </div>
+        <div layout="row">
+            <div flex="33" flex-offset="33" flex-sm="70" flex-offset-sm="15" flex-xs="90" flex-offset-xs="5" class="payment-step-1-subscription_options" layout-align="center center">
+                <div flex-offset="15" flex="70">{{usedOptions.campaigns}} of {{limitsOptions.campaigns}} Campagins Used</div>
+                <div flex-offset="15" flex="70" style="margin-bottom: 1.5em;">
+                    <md-progress-linear md-mode="determinate" value="{{progressOption(usedOptions.campaigns, limitsOptions.campaigns)}}"></md-progress-linear>
+                </div>
+                <div flex-offset="15" flex="70">{{usedOptions.keywords}} of {{limitsOptions.keywords}} Keywords Used</div>
+                <div flex-offset="15" flex="70" style="margin-bottom: 1.5em;">
+                    <md-progress-linear md-mode="determinate" value="{{progressOption(usedOptions.keywords, limitsOptions.keywords)}}"></md-progress-linear>
+                </div>
+                <div flex-offset="15" flex="70">{{usedOptions.ad_keywords}} of {{limitsOptions.ad_keywords}} Ad Tracker keywords Used</div>
+                <div flex-offset="15" flex="70" style="margin-bottom: 1.5em;">
+                    <md-progress-linear md-mode="determinate" value="{{progressOption(usedOptions.ad_keywords, limitsOptions.ad_keywords)}}"></md-progress-linear>
+                </div>
+            </div>
+        </div>
+        <div layout="row">
+            <div flex="33" flex-offset="33" flex-sm="70" flex-offset-sm="15" flex-xs="90" flex-offset-xs="5" class="payment-step-1-subscription_options margin-top margin-bottom-lg" layout-align="center center">
+                <div flex-offset="15" flex="70" class="margin-bottom bold">Invoices</div>
+                <div flex-offset="15" flex="70" ng-repeat="invoice in userInvoices" class="margin-bottom invoice-item-row">
+                    <div layout="row" ng-click="openInvoicePage(invoice.url)" class="cursor">
+                        <div flex="5">{{$index + 1}}</div>
+                        <div flex="70">{{invoice.formatedDate}}</div>
+                        <div flex class="text-center">$ {{invoice.total / 100}}</div>
+                    </div>
+                </div>
+                <div flex-offset="15" flex="70" ng-show="!existsInvoices">No Invoices exist as of now</div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="billingStep == 2" id="step-2">
+        <div layout="row" layout-align="cleft center" class="payment-back cursor" ng-click="setBillingStep(1)">
+            <p style="color: #4680FF">
+                < Back</p> </div> <div layout="row" layout-align="center center">
+                    <h2>Purchase Plan</h2>
+        </div>
+        <div layout="row" layout-align="center center" style="margin-top: 2em; margin-bottom: 2em;">
+            <svg width="755" height="26" viewBox="0 0 755 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0H366" transform="translate(16.408 12.5)" stroke="#0077FF" stroke-width="3" stroke-linecap="square" />
+                <path d="M0 0H366" transform="translate(372.408 12.5)" stroke="#E6EAEE" stroke-width="3" stroke-linecap="square" />
+                <path d="M12.5 25C19.4036 25 25 19.4036 25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 19.4036 5.59644 25 12.5 25Z" transform="translate(0.90799 1)" fill="#0077FF" />
+                <path d="M11 22C17.0751 22 22 17.0751 22 11C22 4.92487 17.0751 0 11 0C4.92487 0 0 4.92487 0 11C0 17.0751 4.92487 22 11 22Z" transform="translate(368.908 2)" fill="#FAFBFC" />
+                <path d="M7.4 14.8C11.4869 14.8 14.8 11.4869 14.8 7.4C14.8 3.31309 11.4869 0 7.4 0C3.31309 0 0 3.31309 0 7.4C0 11.4869 3.31309 14.8 7.4 14.8Z" transform="translate(372.508 5.60001)" stroke="white" stroke-width="7.2" />
+                <path d="M11 22C17.0751 22 22 17.0751 22 11C22 4.92487 17.0751 0 11 0C4.92487 0 0 4.92487 0 11C0 17.0751 4.92487 22 11 22Z" transform="translate(368.908 2)" stroke="#0077FF" stroke-width="3" />
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7824 1.2423L10.7294 0.212302C10.588 0.0760956 10.3993 0 10.2029 0C10.0066 0 9.81784 0.0760956 9.6764 0.212302L4.5994 5.1893L2.32241 2.9553C2.25391 2.88662 2.17233 2.83237 2.0825 2.79579C1.99266 2.7592 1.8964 2.74101 1.79941 2.7423C1.70182 2.74034 1.60483 2.75811 1.51428 2.79454C1.42372 2.83097 1.34145 2.88531 1.27241 2.9543L0.216405 3.9853C0.14789 4.05243 0.0934586 4.13256 0.0562993 4.22099C0.0191401 4.30942 0 4.40438 0 4.5003C0 4.59622 0.0191401 4.69118 0.0562993 4.77961C0.0934586 4.86804 0.14789 4.94817 0.216405 5.0153L3.01641 7.7573L4.06941 8.7873C4.21084 8.92351 4.39955 8.9996 4.5959 8.9996C4.79226 8.9996 4.98097 8.92351 5.12241 8.7873L6.17541 7.7573L11.7804 2.2723C11.8505 2.20648 11.9062 2.1268 11.9439 2.03831C11.9816 1.94983 12.0005 1.85448 11.9994 1.7583C12.0009 1.66211 11.9824 1.56665 11.945 1.47799C11.9077 1.38934 11.8523 1.30941 11.7824 1.2433V1.2423Z" transform="translate(6.90857 8.99969)" fill="white" />
+                <path d="M11 22C17.0751 22 22 17.0751 22 11C22 4.92487 17.0751 0 11 0C4.92487 0 0 4.92487 0 11C0 17.0751 4.92487 22 11 22Z" transform="translate(730.908 2)" fill="#FAFBFC" stroke="#E6EAEE" stroke-width="3" />
+            </svg>
+        </div>
+        <div>
+            <h2 class="text-center">Billing interval</h2>
+        </div>
+        <div layout="row" style="margin-bottom: 1em;">
+            <div flex-offset="30" flex="20" class="text-center">
+                <h3 ng-click="togglePlanIntervals('month')" class="cursor billing-plan-item" ng-class="{'billing-plan-item-selected': selectedInterval == planIntervals.month}">Month</h3>
+            </div>
+            <div flex="20" class="text-center">
+                <h3 ng-click="togglePlanIntervals('year')" class="cursor billing-plan-item" ng-class="{'billing-plan-item-selected': selectedInterval == planIntervals.year}">Year</h3>
+            </div>
+        </div>
+        <div layout="row" layout-align="left">
+            <div layout="column" flex="70" flex-xs="50">
+                <!--Plans-->
+                <div layout="row" layout-xs="column" class="billing-plan-row">
+                    <div flex class="billing-plan-item item-margin cursor" ng-class="{'billing-plan-item-selected': selectedPlan.id == plan.id}" ng-repeat="plan in billingPlans[selectedInterval]" ng-click="togglePlan(plan.id)">
+                        <h2 class="text-center">{{plan.name}}</h2>
+                        <div class="text-center billing-price-container">
+                            <span class="billing-price">${{plan.price / 100}}</span><span class="billing-price-detail"> /{{plan.interval == 'month' ? 'mo' : 'year'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--Plan details-->
+                <div layout="row" layout-xs="column" class="billing-details-container billing-plan-row item-margin text-center">
+                    <div flex class="billing-details-margin" ng-repeat="(propertyName, property) in subscriptionItems.properties" ng-class="{'billing-details-border': !$last}">
+                        <div layout="row" layout-align="center center" flex="100">
+                            <h4 class="billing-details-header">{{getHeaderFromPropertyName(propertyName)}}</h4>
+                        </div>
+                        <div layout="row" flex-offset="20" class="billing-details-body">
+                            <p flex="70" class="billing-details-quantity">{{property.number}}</p>
+                            <div flex="10" layout-align="left" ng-show="selectedPlan.type != 'free'">
+                                <i class="fa fa-minus-square fa-lg cursor" aria-hidden="true" ng-click="updateExtraItems(propertyName, 'remove')"></i>
+                            </div>
+                            <div flex="10" layout-align="left" ng-show="selectedPlan.type != 'free'">
+                                <i class="fa fa-plus-square fa-lg plus-item cursor" aria-hidden="true" ng-click="updateExtraItems(propertyName, 'add')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Billing information-->
+                <div layout="row" layout-align="left" class="billing-information" ng-show="selectedPlan.type != 'free'">
+                    <p>Billing information</p>
+                </div>
+                <form name="billing_info" id="billing_info" ng-show="selectedPlan.type != 'free'">
+                    <div layout="row" class="billing-information-row">
+                        <div layout="column" flex="45">
+                            <md-input-container flex="50">
+                                <label>Company name</label>
+                                <input required name="company_name" ng-model="billingInfo.company_name">
+                            </md-input-container>
+                        </div>
+                        <div layout="column" flex="45" flex-offset="10">
+                            <md-input-container flex="50">
+                                <label flex="100">Street number</label>
+                                <input flex="100" type="text" ng-model="billingInfo.street_number" name="street_number" required>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row" class="billing-information-row">
+                        <div layout="column" flex="45">
+                            <md-input-container flex="50">
+                                <label flex="100">Address</label>
+                                <input flex="100" type="text" ng-model="billingInfo.address" name="address" required>
+                            </md-input-container>
+                        </div>
+                        <div layout="column" flex="45" flex-offset="10">
+                            <md-input-container flex="50">
+                                <label flex="100">Region</label>
+                                <input flex="100" type="text" ng-model="billingInfo.region" name="region" required>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row" class="billing-information-row">
+                        <div layout="column" flex="45">
+                            <md-input-container flex="50">
+                                <label flex="100">Postcode</label>
+                                <input flex="100" type="number" ng-model="billingInfo.postcode" name="postcode" required>
+                            </md-input-container>
+                        </div>
+                        <div layout="column" flex="45" flex-offset="10">
+                            <md-input-container flex="50">
+                                <label flex="100">Country</label>
+                                <md-select flex="100" ng-model="billingInfo.country" name="country" required ng-change="changeCountry()">
+                                    <md-option value="NZ">New Zealand</md-option>
+                                    <md-option value="AU">Australia</md-option>
+                                    <md-option value="US">United States of America</md-option>
+                                    <md-option value="OTHER">Other</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div layout="column" flex="30" flex-xs="50" class="extra-container extra-container-content">
+                <!--Subscription items-->
+                <div layout="row" flex="10" flex-xs="5" class="subscription-item" ng-class="{'free-plan': isFreePlan}">
+                    <div flex="10" flex-sm="20" flex-xs="20" layout-align="center center">
+                        <p class="circle">$</p>
+                    </div>
+                    <div flex="40" flex-sm="30" flex-xs="80" layout-align="left center" class="bold">
+                        ${{selectedPlan.price / 100}} USD
+                    </div>
+                    <div flex="50" flex-xs="40" layout-align="left center">{{selectedPlan.name}}</div>
+                </div>
+                <div layout="row" flex="10" flex-xs="5" class="subscription-item" ng-class="{'free-plan': isFreePlan}">
+                    <div flex="10" flex-sm="20" flex-xs="20" layout-align="center center">
+                        <p class="circle">$</p>
+                    </div>
+                    <div flex="40" flex-sm="30" flex-xs="80" layout-align="left center" class="bold">
+                        ${{subscriptionItems.extra.campaigns.quantity * (subscriptionItems.extra.campaigns.price/100)}} USD
+                    </div>
+                    <div flex="50" flex-xs="40" layout-align="left center">{{subscriptionItems.extra.campaigns.name}}</div>
+                </div>
+                <div layout="row" flex="10" flex-xs="5" class="subscription-item" ng-class="{'free-plan': isFreePlan}">
+                    <div flex="10" flex-sm="20" flex-xs="20" layout-align="center center">
+                        <p class="circle">$</p>
+                    </div>
+                    <div flex="40" flex-sm="30" flex-xs="80" layout-align="left center" class="bold">
+                        ${{subscriptionItems.extra.keywords.quantity * (subscriptionItems.extra.keywords.price/100)}} USD
+                    </div>
+                    <div flex="50" flex-xs="40" layout-align="left center">{{subscriptionItems.extra.keywords.name}}</div>
+                </div>
+                <div layout="row" flex="10" flex-xs="5" class="subscription-item" ng-class="{'free-plan': isFreePlan}" ng-show="tax > 0">
+                    <div flex="10" flex-sm="20" flex-xs="20" layout-align="center center">
+                        <p class="circle">$</p>
+                    </div>
+                    <div flex="40" flex-sm="30" flex-xs="80" layout-align="left center" class="bold">
+                        ${{subscriptionTotalTax / 100}} USD
+                    </div>
+                    <div flex="50" flex-xs="40" layout-align="left center">{{tax || 0}}% GST</div>
+                </div>
+                <div layout="row" flex="10" flex-xs="5" ng-class="{'free-plan': isFreePlan}" class="subscription-item" style="border-top: 1px solid grey;">
+                    <div flex="10" flex-sm="20" flex-xs="20" layout-align="center center">
+                        <p class="circle">$</p>
+                    </div>
+                    <div flex="40" flex-sm="30" flex-xs="80" layout-align="left center" class="bold">
+                        ${{subscriptionTotalWithTax / 100}} USD
+                    </div>
+                    <div flex="50" flex-xs="40" layout-align="left center" style="font-weight: 700">Amount due</div>
+                </div>
+                <!--Payment details-->
+                <div ng-show="selectedPlan.type != 'free'" layout="row" layout-align="left center" flex="10" style="margin-top: 4em;">
+                    <div class="bold">Payment details</div>
+                    <div>
+                        <img src="/images/card.png">
+          </div>
+                    </div>
+                    <div ng-show="selectedPlan.type != 'free'" layout="row" layout-xs="column" flex="10">
+                        <div layout="column" flex="65" flex-xs="100">
+                            <label flex="100">Card Number</label>
+                            <div flex="100" id="card-number" class="cards-inputs"></div>
+                        </div>
+                        <div layout="column" flex="35" flex-xs="100">
+                            <label flex="100">EXP Date</label>
+                            <div flex="100" id="card-expiry" class="cards-inputs"></div>
+                        </div>
+                    </div>
+                    <div ng-show="selectedPlan.type != 'free'" layout="row" layout-xs="column" flex="10" class="margin-top">
+                        <div layout="column" flex="65" flex-xs="100">
+                            <label flex="100">Name on card:</label>
+                            <input flex="100" type="text" class="cards-inputs" ng-model="billingInfo.name_on_card" name="name_on_card" style="padding-top: 0.5em; font-weight: 700;">
+                        </div>
+                        <div layout="column" flex="35" flex-xs="100">
+                            <label flex="100">CVC</label>
+                            <div flex="100" id="card-cvc" class="cards-inputs"></div>
+                        </div>
+                    </div>
+                    <div ng-show="selectedPlan.type != 'free'" layout="row" layout-xs="column" flex="10" id="card-errors" class="card-errors margin-top" role="alert"></div>
+                    <!--Complete purchase-->
+                    <div layout="row" layout-align="center center" flex="15">
+                        <span flex="100" id="loading" class="loading" style="display: none;"></span>
+                        <button id="button-purchase" class="button-purchase" ng-click="purchaseSubscription()">Complete Purchase</button>
+                    </div>
+                    <div layout="row" flex="10" style="margin-top: 1.5em;">
+                        <div>Your next renewal will be on {{nextRenewal}} for the amount of ${{subscriptionTotalWithTax / 100}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="step-3" style="display: none;">
+            <div layout="row" style="margin-top: 5em;">
+                <div layout="column" class="extra-container" flex="70" flex-offset="15" style="margin-bottom: 10em;">
+                    <div layout="row" layout-align="center center" class="payment-step-3-header">
+                        <h1> Awesome, you are all set.</h1>
+                    </div>
+                    <div layout="row" class="text-center">
+                        <div layout="col" flex="30" flex-offset="35" class="payment-step-3-body">
+                            <p flex="100" id="subscribedPlan"></p>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="center center" class="payment-step-3-footer">
+                        <button class="button-purchase" ng-click="goToControlPanel()">Back to Dashboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

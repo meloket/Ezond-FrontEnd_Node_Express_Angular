@@ -1,0 +1,168 @@
+<div class="canvas-sidebar" style="padding-top: 75px">
+    <div class="common-report-interface-header has-sidebar" style="top: 9rem;">
+        <div class="spacer">
+            <div class="left custom-scrollbar">
+                <div class="common-report-interface-header-ui-title">
+                    &nbsp;<span class="title">Rank Tracker</span>
+                </div>
+                <div class="common-report-interface-header-ui-menu">
+                    <div class="navigation-box">
+                        <ul class="nav nav-pills hidden-mobile">
+                            <li ng-class="{active: $index == selectdIndex}" ng-repeat="menu in ratingsInfo.menu" ng-click="changeMenu($index);">
+                                <md-button class=" new-buttons" title="{{menu}}">{{menu}} </md-button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <md-button class="md-raised new-buttons" ng-click="managekeywords()">
+                    Keywords
+                </md-button>
+                <md-button id="CalendarTextBtn2" class="new-buttons md-raised common-ui-form-report-date margin-sm-left " ng-show="bindAccountInfo.websiteUrl != ''">
+                    <i class="ion ion-android-calendar margin-xs-right"></i>
+                    <span id="CalendarTextDisp2">{{calendarLabel}}</span>
+                    <i class="icon icon-caret-down hidden-mobile margin-xs-left exe_hidden"></i>
+                </md-button>
+                <input type=text id="CalendarText2" style="width: 0px;border:0;" readonly>
+            </div>
+        </div>
+        <div id="interface-report-settings"></div>
+    </div>
+    <div class="common-report-setup-buttons" ng-show='emptykeywords()'>
+        <div>
+            <div>
+                <button class="btn setup md-button md-ink-ripple" type="button" ng-click="managekeywords()" title="Setup Dashboard">
+                    <div class="profile-image ng-scope">
+                        <img src="images/logos/widgetIcon.svg">
+                    </div>
+                    <h4 class="ng-scope">Add keywords</h4>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div ng-show="emptyresult()">
+            <h1 class="text-center">No data found for this period.</h1>
+        </div>
+    </div>
+    <div ng-hide='emptyresult()' class="react-grid-layout widgets common-widgets-collection">
+        <div class="react-grid-item common-widgets-wrapper common-widgets-wrapper width-12 height-4 padding-1 margin-0">
+            <div class="common-widgets-chart panel">
+                <div class="common-widgets-chart-header">
+                    <div class="common-widgets-chart-header-tab text-center icon-1-5x" ng-style="{'width': (100 / searchEgines.length) + '%', 'float': 'left'}" ng-repeat="(key, searchEngine) in searchEgines" ng-click="toggleSearchEngine(searchEngine);" ng-class="{selected : searchEngine == activeEngine}" tabindex="{{key}}">
+                        <span>{{ucFirst(searchEngine)}}</span>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="chart-container" id="chart-container" style="width: 98%;">
+                </div>
+            </div>
+        </div>
+        <div class="react-grid-item common-widgets-wrapper common-widgets-wrapper width-12 height-2 padding-1">
+            <div layout="row" layout-xs="column">
+                <md-card layout="column" flex ng-repeat="field in topData[activeEngine]">
+                    <md-subheader layout="row" layout-align="center center">
+                        <span>{{field.title}}</span>
+                    </md-subheader>
+                    <md-card-content layout="row" layout-align="center center">
+                        <span style="font-size: 2em; font-weight: 600">{{field.value}}/{{soloList.length}}</span>
+                    </md-card-content>
+                    <md-card-footer layout="row" layout-align="center center">
+                        Lifetime Change
+                    </md-card-footer>
+                </md-card>
+            </div>
+        </div>
+        <div class="react-grid-item common-widgets-wrapper width-12 height-2 padding-0 report-table" ng-class="{loading: tableloading}">
+            <div class="common-widgets-table">
+                <div class="common-widgets-table-header">
+                    <div class="controls">
+                        <div class="left">
+                            <div><span>{{result_desc}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <div>
+                        <table class="table table-striped table-overflow table-no-results sortable">
+                            <thead class="common-widgets-table-thead">
+                                <tr>
+                                    <th class="text-left long">
+                                        <span>Keyword</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>Location</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>1 Day</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>7 Days</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <span>30 Days</span>
+                                    </th>
+                                    <th class="text-center">
+                                        <img ng-src="images/google-icon.png" class="se-icon">
+                                    </th>
+                                    <th class="text-center">
+                                        <img ng-src="images/bing-icon.png" class="se-icon">
+                                    </th>
+                                    <th class="text-center">
+                                        <img ng-src="images/yahoo-icon.png" class="se-icon">
+                                    </th>
+                                    <th class="text-center short">
+                                        <span>Google Local</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="common-widgets-table-tbody">
+                                <tr style="height: auto;" ng-hide="soloList.length != 0">
+                                    <td colspan="20" class="text-muted noresults">No data matching the selected criteria.</td>
+                                </tr>
+                                <tr ng-repeat="one in soloList">
+                                    <td class="md-padding" ng-class="{'alert-danger': wordForChart == one.keyword}" >{{one.keyword}}</td>
+                                    <td>{{one.location}}</td>
+                                    <td class="text-center">
+                                        <span>
+                                            <i class="fa fa-arrow-up" aria-hidden="true" style="color: green;" ng-show="one[activeEngine].oneDayChange > 0"></i>
+                                            <i class="fa fa-arrow-down" aria-hidden="true" style="color: red;" ng-show="one[activeEngine].oneDayChange < 0"></i>
+                                            {{one[activeEngine].oneDayChange == 0 ? '-' : ' ' + one[activeEngine].oneDayChange}}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span>
+                                            <i class="fa fa-arrow-up" aria-hidden="true" style="color: green;" ng-show="one[activeEngine].sevenDaysChange > 0"></i>
+                                            <i class="fa fa-arrow-down" aria-hidden="true" style="color: red;" ng-show="one[activeEngine].sevenDaysChange < 0"></i>
+                                            {{one[activeEngine].sevenDaysChange == 0 ? '-' : ' ' + one[activeEngine].sevenDaysChange}}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span>
+                                            <i class="fa fa-arrow-up" aria-hidden="true" style="color: green;" ng-show="one[activeEngine].thirtyDaysChange > 0"></i>
+                                            <i class="fa fa-arrow-down" aria-hidden="true" style="color: red;" ng-show="one[activeEngine].thirtyDaysChange < 0"></i>
+                                            {{one[activeEngine].thirtyDaysChange == 0 ? '-' : ' ' + one[activeEngine].thirtyDaysChange}}
+                                        </span>
+                                    </td>
+                                    <td class="md-padding text-center">
+                                        {{found(one.google.currentPosition, null)}}
+                                    </td>
+                                    <td class="md-padding text-center">
+                                        {{found(one.bing.currentPosition, null)}}
+                                    </td>
+                                    <td class="md-padding text-center">
+                                        {{found(one.yahoo.currentPosition, null)}}
+                                    </td>
+                                    <td class="md-padding text-center">
+                                        {{found(one.map_pack.currentPosition, 'Not found')}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

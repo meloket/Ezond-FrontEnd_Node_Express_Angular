@@ -1,0 +1,61 @@
+<% include header.html %>
+
+<section class="section-call-to-action2 slide"> 
+    <div class="wrapper">        
+        <div class="inside-form" id="activate_form" style="width: 400px;">
+            <div class="field">
+                <img style="width: 200px;" src="/img/logo-dark.png"><br/><br/><br/>
+            </div>
+            <% if (typeof success !== "undefined") { %>
+                <span class="lb lb-suc" style="font-size: 17px;"><%= success %></span><br/><br/><a href="/" class="bn bn-std" style="font-size: 20px;">Click here to login now</a><br/><br/>
+            <% } %>
+
+            <% if (typeof error !== "undefined") { %>
+                <span class="lb lb-err"><%= error %></span><br/><br/>
+            <% } %>
+
+            <% if (typeof email !== "undefined") { %>
+
+                
+                <form method="POST" action="/doactivate" id="activateForm">
+                    <h3>Activate <%= email %></h3><br/>
+                    <div class="field">                         
+                        <input type="hidden" class="it" value="<%= email %>" name="email">                    
+                    </div>
+                    <div class="field">                        
+                        Enter Activation code: <br/><br/>
+                        <input type="text" class="it" value="<%= code %>" name="code" id="activate_code" style="border: 1px solid;height: 5rem; padding-left: 20px">
+                        <div class="field-error" style="display: none;"></div>
+                    </div>
+                    <div class="field">
+                        <input type="submit" class="bn bn-std" id="activate_btn" value="Activate">
+                    </div>
+                </form>
+            <% } else if (typeof success === "undefined") { %>
+                <span class="lb lb-err">No Email to activate</span>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script>
+
+$("#activateForm").on('submit', function(event) {
+    console.log("submit");
+    // hide all warning messages
+    $("div.field-error").css("display","none");
+    // warning process
+    if(!$("#activate_code").val()) {
+        console.log("empty activate_code");
+        $("#activate_code").siblings("div.field-error").html("Required").css("display","block");
+        return false;
+    }
+    $("#activateForm").submit();
+    event.preventDefault();
+    return false;
+});
+
+</script>
+
+<% include footer.html %>

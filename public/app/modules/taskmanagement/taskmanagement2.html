@@ -1,0 +1,297 @@
+<!-- taskmanagement.html -->
+<div class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['taskManagement']" style="right: -500px;">
+    <div data-reactroot="" class="common-ui-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal" ng-click="removePopOver()" style="justify-content: flex-end;">
+            <div class="modal-dialog mobilecenter" ng-class="{'sevenanimation-remove': hidding, 'sevenanimation': showPopup['taskManagement']}" style="width:70%; min-width: 800px;max-height: 100%;height: 100%;right: -940px;">
+                <md-dialog ng-cloak style="border-radius:0px !important;height: 100%;opacity: 1; max-width: none;max-height: 100vh">
+                    <md-toolbar style="background-color: #EEEEEE;padding: 25px 25px;">
+                        <div class="md-toolbar-tools">
+                            <md-button ng-if="!taskmanagement_state" ng-click="closePopup()" class="md-icon-button" aria-label="Close">
+                                <i class="ion-close " style="font-size: 16px;"></i>
+                            </md-button>
+                            <span class="text-uppercase bold">{{campaign.company_name}}</span>
+                            <span flex></span>
+                            <md-menu style="margin: 0;" class="changeCampaignStatusDropdown" md-offset="25 55" md-is-locked-open="true">
+                                <div aria-label='input destination' aria-expanded="false" aria-haspopup="true" class="curs-pointer margin-right" layout="row" layout-align="center center" style="display: inline-block;">
+                                    <div ng-mouseover="selectCampaign(campaign)" ng-class="{'campstatus1': campaign.campaignStatus==1, 'campstatus2': campaign.campaignStatus==2, 'campstatus3': campaign.campaignStatus==3}" ng-click="$mdMenu.open($event); addOvh(); menuOpened=true" class="statusbutton" layout="row" layout-align="center center" style="padding: 10px 30px;height: 50px;">
+                                        <span style="color: white;" class="md-body-1 curs-pointer"
+                                        ng-show="campaign.campaignStatus == 1">Normal</span>
+                                        <span style="color: white" class="md-body-1 curs-pointer"
+                                        ng-show="campaign.campaignStatus == 2">Review</span>
+                                        <span style="color: white" class="md-body-1 curs-pointer"
+                                        ng-show="campaign.campaignStatus == 3">Urgent</span>
+                                        <i class="ion-chevron-down md-subheader margin-sm-left white-c" flex="nogrow" style="background: none;"></i>
+                                    </div>
+                                </div>
+                                <md-menu-content width="2" class="no-padding">
+                                    <md-menu-item>
+                                        <span ng-click="changeCampaignStatus(1);" style="color: green;"
+                                        class="md-body-1 curs-pointer">Normal</span>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <span ng-click="changeCampaignStatus(2)" style="color: orange"
+                                        class="md-body-1 curs-pointer">Review</span>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <span ng-click="changeCampaignStatus(3)" style="color: red"
+                                        class="md-body-1 curs-pointer">Urgent</span>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <div class="headtags curs-pointer text-capitalize blue-hover" type="button" style="background: #F6F6F6;opacity: 0.7" ui-sref="app.dashboard.home({id: campaign.id})" ng-click="closePopup(750)">
+                                <i class="ion-compose margin-sm-right margin-sm-left" style="font-size: 16px;"></i>
+                                <small class="margin-sm-right lightblue">Metrics</small>
+                            </div>
+                        </div>
+                    </md-toolbar>
+                    <!-- <md-dialog-content ng-if="taskmanagement_state" class="taskManagementscroll" flex>
+                        <h2>{{order_to_show.name}}</h2>
+                        <h2>{{order_to_show.form_data.name}}</h2>
+                        <formio form="order_to_show"></formio>
+                    </md-dialog-content> -->
+                    <!-- <md-dialog-content ng-if="taskmanagement_state" class="taskManagementscroll md-padding" flex>
+                        <h2>{{order_to_show.name}}</h2>
+                        <div ng-repeat="field in order_to_show.components">
+                            <div class="md-padding">{{field.label}}: <span class="bold">{{field.defaultValue}}</span></div>
+                        </div>
+                    </md-dialog-content> -->
+                    <md-dialog-content ng-show="!taskmanagement_state" class="taskManagementscroll" flex ng-class="{'loader loaderopacity': loadingCheck}">
+                        <div class="exe_task_lists md-padding remove-padding" style="padding: 24px !important;height:calc(100% - 12rem);" id="scrollTaskPart">
+                            <div layout=row style="">
+                                <div class="campaign_description_editor remove-margin flex margin-bottom" style="padding: 8px;border: 1px solid lightgray;" placeholder="Description"></div>
+                            </div>
+                            <span class="margin-bottom margin-top"></span>
+                            <div class="" style="overflow: hidden;" layout="row" layout-align="start start" ng-show="uploads.length > 0">
+                                <a class="margin-sm-right statusbutton exe_uploads_pane icon_containter headtags no-border" ng-href="{{::backendUrl}}apis/downloadFile.php?actionIdx={{::upload.actionIdx}}" target="_blank" rel="noopener" layout="row" layout-align="center center" ng-repeat="upload in uploads">
+                                    <i class="ion-document margin-sm-right" style="font-size:20px"></i>
+                                    <span>{{::upload.actionDetail}}</span>                                       
+                                </a>
+                            </div>
+                            <md-divider class="margin-top margin-bottom"></md-divider>
+                            <div class="exe_task_tag_pane icon_containter" layout="row">
+                                <i class="ion-ios-pricetags margin-sm-left margin-sm-right margin-sm-right hidden-xs" style="width: 22px;font-size: 24px;"></i>
+                                <span class="md-title bold margin-sm-right">Tags</span>
+                                <div class="margin-sm-right custom-scrollbar flex" layout="row" style="overflow: scroll;">
+                                    <div ng-repeat="tagName in camapignTagArray" class="headtags margin-right curs-pointer md-body-2" ng-class="getTagClassName(tagName)" ng-click="selectCustomTag($event, tagName)">
+                                        {{tagName}}
+                                        <i class="ion ion-close curs-pointer margin-sm-left white-c" ng-click="removeTagName(tagName)"></i>
+                                    </div>
+                                </div>
+                                <div class="curs-pointer button bold text-uppercase  headtags statusbutton text-uppercase" ng-hide="addTag" ng-click="clickAddTag()" style="color: grey;"><i class="ion-plus margin-sm-right"></i>Add tag</div>
+                                <div ng-show="addTag" class="margin-left" style="padding-left: 0; position: relative;">
+                                    <input type=text class="newTagEdit" placeholder="New Tag..." style="color:#888888;height: 2.2rem;" ng-keypress="tagNameChanged($event)" ng-model="newTagName" ng-blur="removeNewTagName()">
+                                    <div class="tagNameSuggestionContainer" ng-show="newTagName != ''">
+                                        <div class="tagNameSuggestion" ng-click="addCustomTag(tagName)" layout="row" layout-align="center center" ng-repeat="tagName in existCamapignTagArray | filter : newTagName">
+                                            <div class="" style="padding-right:1rem;">{{tagName}}</div>
+                                        </div>
+                                        <div class="tagNameSuggestion" ng-click="addCustomTag(newTagName)">
+                                            <font color="blue">NEW TAG</font>
+                                            <br>{{newTagName}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <md-divider class="margin-top margin-bottom"></md-divider>
+                            <!-- <div layout="row">
+                                <div ng-click="showOrderDetails(order)" flex layout="column" style="background: {{order.color}};" class="serviceorder" ng-repeat="order in service_orders">
+                                    <div  class="white-c flex md-headline">{{order.form_data.name}}</div>
+                                    <div  class="white-c flex md-title">{{order.type && 'Recurring' || 'Once'}}</div>
+                                    <div  class="white-c flex md-caption">Added {{order.created_at}}</div>
+                                </div>
+                            </div> -->
+                            <md-divider class="margin-top margin-bottom"></md-divider>
+                            <div layout="column">
+                                <div ng-repeat="action in activities | limitTo : defaultLimitActions" class="actionontaskamangementcontainer exe_activity_pane headtags" ng-if="action.actionType == 2 ||  (action.actionType == 4 && !getchangedstatusname(action.actionContent).statusChanged)">
+                                    <div class="actionontaskamangement exe_activity_pane_content" layout-align="center center" layout="row" style="">
+                                        <span class="mb-subhead bold text-uppercase margin-sm-right">{{::action.userName}}</span>
+                                        <span>{{::action.actionContent}}</span> <span flex style="word-break: break-all;white-space: normal;">{{::action.actionDetail}}</span>
+                                        <span class="margin-sm-left margin-sm-right" >{{::action.actionDisplayTime}}</span>
+                                        <i class="ion-close showmeonhover ion curs-pointer" ng-if="action.userIdx == myuserid && action.actionType == 4 " viewBox="0 0 32 32" style="margin-left:0.3rem; margin-right:0.3rem;width:10px;height:10px;" ng-click="removeComment(action)"></i>
+                                    </div>
+                                </div>
+                                <div ng-hide="hideLoadMore" ng-click="getUserActivities();defaultLimitActions=10000" class="headtags curs-pointer no-margin md-subhead headtags bold no-animate lightblue" style="    border: none; width: 170px; margin: 0 auto; text-align: center;background: #4681FF;">
+                                    <span class="white-c text-uppercase">Load more</span>
+                                </div>
+                                <style>.no-animate *, .no-animate{
+                                    transition: none !important;
+                                }
+                                .checkmark-empty{
+                                    width: 24px;
+                                    font-size: 24px;
+                                    height: 24px;
+                                    background: white;
+                                    border-radius: 50%;
+                                    border: 1px solid gainsboro;
+                                }
+                                .ion-checkmark-circled{
+                                    color: #4682FE;
+                                }
+                                </style>
+                                <div id="dragula_container1" class="no-animate" flex>
+                                    <div ng-repeat="task in tasks | orderBy : 'taskOrder' : true" taskId="{{::task.actionIdx}}" ng-hide="!showincompleted && task.taskProgress==0" class="no-border headtags taskslist no-animate exe_task_order lighter-color margin-top margin-bottom" ng-class="{'exe_task_created': task.taskProgress == 0, 'exe_task_completed': task.taskProgress == 1, 'is-focused' : curEditTask == task}">
+                                        <div class="lighter-color curs-pointer exe_task_item" layout="row" layout-align="start center">
+                                            <i class=" lighter-color margin-sm-left margin-right checkmark-empty"  ng-click="toggleTaskStatus(task)" ng-show="task.taskProgress == 0">
+                                            </i>
+                                            <i class="lighter-color margin-sm-left margin-right ion ion-checkmark-circled" style="font-size: 24px;" ng-show="task.taskProgress == 1" ng-click="toggleTaskStatus(task)">
+                                            </i>
+                                            <div class="lighter-color" style="overflow: hidden; line-height: 1.4rem;" flex layout="row" layout-align="start center">
+                                                <textarea class=" curs-pointer lighter-color autogrow_area" ng-focus="changeEditTask(task)" ng-change="handlePaste(task)" ng-class="{'curEditCell' : curEditTask == task}" type=text ng-model="task.actionDetail" style="font-size: 16px;line-height: 1.5rem; width:100%; background-color: transparent; border: 0; outline:none;resize: none;padding-top: 0.4rem; height:0rem;font-size: 13px;" ng-blur="updateTaskDetail(task)" ng-keydown="taskDetailChanged($event, task)"></textarea>
+                                            </div>
+                                            <div class="exe_task_item_pane" style="cursor:pointer;" value="{{::task.actionIdx}}">
+                                                <span class="margin-right datepicker_recurring_start hidden-xs" style="display:inline-block; height:2rem; line-height:2rem;" ng-show="task.filePath != ''">{{::(task.filePath?GetFormattedShortDateString(task.filePath):'')}}</span>
+                                                <i class="ion ion-android-calendar datepicker_recurring_start" style="vertical-align: middle;height:1rem; font-size: 16px;"></i>
+                                                <input type=text class="CalendarText" style="width: 0px;border:0;" readonly ng-model="task.filePath">
+                                            </div>
+                                            <md-menu md-offset="-150 0">
+                                                <div class="text-uppercase" ng-click="selectAssignMember($event, task);$mdMenu.open()" style="background-color: {{ ::usercolors[task.taskAssigner] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 8.5px; width: 40px; height: 40px; line-height: 40px; border-radius: 50%;">
+                                                    <span style="width: 40px; height: 40px; left: 0;color: white; position: absolute;">{{::nameinitials(task.assignerName || "")}}</span>
+                                                    <div class="" style="left: 0;position: absolute;background: url('{{::backendUrl}}apis/image_or_color.php?user_id={{::task.taskAssigner}}&{{::timereport}}');border: 1px solid grey; width: 40px;height: 40px;border-radius: 50%;background-size: contain;">
+                                                    </div>
+                                                </div>
+                                                <md-menu-content>
+                                                    <div class="Member-cellsContainer" ng-repeat="user in users" ng-click="assignNewUser(user)">
+                                                        <div class="member_info"><span>{{::user.userName}}</span>
+                                                            <br>{{::user.email}}</div>
+                                                        <div class="member_photo">
+                                                            <span class="text-uppercase" style="background-color: {{ ::usercolors[user.userIdx] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 8.5px; width: 25px; height: 25px; line-height: 25px; border-radius: 50%;">
+                                                            <span style="width: 25px; height: 25px; left: 0;color: white; position: absolute;">{{::nameinitials(user.userName)}}</span>
+                                                            <div class="margin-sm-right" style="position: absolute;background: url('{{::backendUrl}}apis/image_or_color.php?user_id={{::user.userIdx}}&{{::timereport}}');border: 1px solid grey; width: 25px;height: 25px;border-radius: 50%;background-size: contain;">
+                                                            </div>
+                                                            </span>
+                                                        </div>
+                                                        <div class="exe_clr"></div>
+                                                    </div>
+                                                </md-menu-content>
+                                            </md-menu>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div layout-xs=column class="margin-top" layout="row" layout-align="center center">
+                                    <div ng-click="createNewTask(0)" ng-class="{'margin-right': tasks.length}" class="headtags md-subhead lightblue text-uppercase curs-pointer bold" style="opacity: 0.8;margin-bottom: 10px;">
+                                        <i class="ion-plus grey-c" style="vertical-align: middle;"></i>
+                                        <span class="grey-c" style="vertical-align: middle;border-width: 2px;">Add new Task</span>
+                                    </div>
+                                    <div ng-show="tasks.length" class="headtags curs-pointer no-margin md-subhead headtags bold no-animate lightblue" ng-click="toggleshowincomplete()" style="background: #4681FF;color: white;border: none">
+                                        Show
+                                        <span class="white-c" ng-if="!showincompleted">incomplete</span>
+                                        <span class="white-c" ng-if="showincompleted">only completed</span>
+                                        tasks.
+                                    </div>
+                                </div>
+                            </div>
+                            <md-divider class="margin-left margin-right margin-top margin-bottom"></md-divider>
+                            <div class="exe_activity_panes" layout="row">
+                                <div class="remove-margin" flex>
+                                    <div style="clear: both; height:0.5rem;"></div>
+                                    <div ng-repeat="action in activities">
+                                        <div class="exe_activity_pane headtags margin-bottom" layout="row" layout-align="start center" ng-if="action.actionType < 2">
+                                            <div class="exe_activity_pane_photo margin-right">
+                                                <div class="text-uppercase" style="background-color: {{ ::usercolors[action.userIdx] }};">
+                                                    <span class="mb-subhead bold" style="color: white; ">{{::nameinitials(action.userName || "")}}</span>
+                                                    <div class="margin-sm-right" style="background: url('{{::backendUrl}}apis/image_or_color.php?user_id={{::action.userIdx}}&{{::timereport}}');border: 1px solid grey; border-radius: 50%;background-size: contain;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="exe_activity_pane_content" layout="row">
+                                                <div class="margin-right">
+                                                    <div class="md-subhead bold text-uppercase">{{::action.userName}}</div>
+                                                    <div style="font-size: 11px;">{{::action.actionDisplayTime}}</div>
+                                                </div>
+                                                <div class="exe_file_icon" ng-if="action.actionType == 1">{{::(action.actionDetail.length > 3 ? action.actionDetail.substring(action.actionDetail.length - 3):'') | uppercase}}</div>
+                                                <span class="exe_file_name" ng-if="action.actionType == 1"><a ng-href="{{::backendUrl}}apis/downloadFile.php?actionIdx={{::action.actionIdx}}" target="_blank" rel="noopener">{{::action.actionDetail}}</a></span>
+                                                <div layout="column">
+                                                    <span class="md-subhead" ng-show="action.actionType == 1">{{::action.actionContent}}</span>
+                                                    <span ng-hide="action.actionType == 1" class="grey-c" ng-bind-html="action.actionContent | trust"></span>
+                                                    <span ng-hide="action.actionType == 1" class="grey-c">{{::action.actionDetail}}</span>
+                                                </div>
+                                                <div ng-if="action.actionType == 1 && checkFileIsImage(action.actionDetail)" style="clear: both; margin-top:0.4rem; border: 1px solid #b7bfc6;">
+                                                    <a ng-href="{{::backendUrl}}apis/downloadFile.php?actionIdx={{::action.actionIdx}}" target="_blank" rel="noopener"><img style="max-width: 100%;" ng-src="{{::backendUrl}}apis/downloadFile.php?actionIdx={{::action.actionIdx}}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="exe_activity_pane headtags alert" ng-class="{ 'alert-danger': getchangedstatusname(action.actionContent).lastWord == 'Attention', 'alert-warning': getchangedstatusname(action.actionContent).lastWord == 'Required', 'alert-info': getchangedstatusname(action.actionContent).lastWord == 'Normal'}" layout="row" ng-if="action.actionType == 4 && getchangedstatusname(action.actionContent).statusChanged">
+                                            <div class="exe_activity_pane_photo">
+                                                <div class="text-uppercase" style="background-color: {{ ::usercolors[action.userIdx] }}; text-align: center; display: block; font-weight: bold; position: relative; font-size: 8.5px; width: 25px; height: 25px; line-height: 25px; border-radius: 50%;">
+                                                    <span style="width: 25px;font-size: 10px;line-height: 24px; height: 25px; left: 0;color: white; position: absolute;">{{::nameinitials(action.userName || "")}}</span>
+                                                    <div class="margin-sm-right" style="left: 0;position: absolute;background: url('{{::backendUrl}}apis/image_or_color.php?user_id={{::action.userIdx}}&{{::timereport}}');border: 1px solid grey; width: 25px;height: 25px;border-radius: 50%;background-size: contain;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="exe_activity_pane_content" flex>
+                                                {{::action.userName}}
+                                                <span style="font-size: 11px;">{{::action.actionDisplayTime}}</span>
+                                                <i class="ion ion-close showmeonhover curs-pointer" ng-if="action.userIdx == myuserid && action.actionType == 4 " ng-click="removeComment(action)"></i>
+                                                <br>
+                                                <div >
+                                                    <div>{{::action.actionContent}}</div>
+                                                    <br />
+                                                    <div ng-if="action.actionDetail != ''" class="md-subhead">NOTE: {{::action.actionDetail}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both; height:0.5rem;"></div>
+                                </div>
+                            </div>
+                            <div id="activityendpage"></div>
+                        </div>
+                    </md-dialog-content>
+                    <md-dialog-actions ng-if="!taskmanagement_state" class="md-padding" style="min-height: 100px;padding-left: 24px;padding-right: 24px;">
+                        <div style="width: 100%;">
+                            <md-progress-linear style="z-index: 1;top:5px;width: 66%;left: 16%;" md-mode="indeterminate" ng-disabled="!fileUploadingProgress"></md-progress-linear>
+                            <div class="exe_activity_pane" layout="row">
+                                <div class="exe_activity_pane_content xs-full-width " layout="row" layout-align="end center" style="position: relative; width: 100%;">
+                                    <div class="dragandrophandler" ng-show="fileDrag">Drag & Drop Files Here</div>
+                                    <div class="headtags no-margin toolTipContent" ng-hide="fileDrag || editMessage" ng-click="foucsEditBox()">WRITE COMMENT, DRAG & DROP FILES, STATUS UPDATE OR WORK LOG</div>
+                                    <textarea style="margin-right: 20px;" id="txtMsgContent" class="headtags" ng-model="newMsgContent"  ng-hide="fileDrag || (!editMessage)"  ng-blur="toggleEditMessage(newMsgContent)"></textarea>
+                                    <div class="names" ng-show="showNotiNames == 'catched'" style="position: absolute; left: 40px; bottom: -16px;">
+                                        <div ng-repeat="usr in atNotiUsers | filter: atNotiNAME" ng-click="selectAtNotiUsr(usr)">
+                                            {{usr.first_name}}
+                                        </div>
+                                    </div>
+                                    <div class="controls" style="position: absolute; bottom: 0.8rem; right: 2.3rem;" ng-HHide="newMsgContent=='' || fileDrag || (!editMessage)" ng-hide="!editMessage">
+                                        <md-button class="md-icon-button kurebenik">
+                                            <i class="ion ion-images" style="font-size: 26px;color: #3C4ABB;">
+                                        </i>
+                                        </md-button>
+                                        <input style="display: none;" type="file" id="filetoUpload2">
+                                        <md-button class="md-icon-button" ng-click="msgSend(newMsgContent)">
+                                            <i class="ion ion-android-send" style="font-size: 26px;color: #3C4ABB;margin-left: 4px;"></i>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exe_clr"></div>
+                        </div>
+                    </md-dialog-actions>
+                </md-dialog>
+            </div>
+        </div>
+        <div id="tagColorPatternPopOver" class="ng-hide rc-tooltip common-ui-popover popover-medium popover-grey-arrow rc-tooltip-placement-bottom" ng-style="{'left': tipOffsetLeft2, 'top': tipOffsetTop2}" ng-show="popover == 'selectTagColor'">
+            <div class="rc-tooltip-content" style="width: 145px;">
+                <div class="rc-tooltip-arrow"></div>
+                <div class="rc-tooltip-inner">
+                    <div class="ColorPicker-cellsContainer">
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorNone" title="None" ng-click="changeTagColor('TagCell--colorNone')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorRed" title="Red" ng-click="changeTagColor('TagCell--colorRed')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorOrange" title="Orange" ng-click="changeTagColor('TagCell--colorOrange')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorYellowOrange" title="YellowOrange" ng-click="changeTagColor('TagCell--colorYellowOrange')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorYellow" title="Yellow" ng-click="changeTagColor('TagCell--colorYellow')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorYellowGreen" title="YellowGreen" ng-click="changeTagColor('TagCell--colorYellowGreen')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorGreen" title="Green" ng-click="changeTagColor('TagCell--colorGreen')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorBlueGreen" title="BlueGreen" ng-click="changeTagColor('TagCell--colorBlueGreen')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorAqua" title="Aqua" ng-click="changeTagColor('TagCell--colorAqua')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorBlue" title="Blue" ng-click="changeTagColor('TagCell--colorBlue')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorIndigo" title="Indigo" ng-click="changeTagColor('TagCell--colorIndigo')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorPurple" title="Purple" ng-click="changeTagColor('TagCell--colorPurple')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorMagenta" title="Magenta" ng-click="changeTagColor('TagCell--colorMagenta')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorHotPink" title="HotPink" ng-click="changeTagColor('TagCell--colorHotPink')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorPink" title="Pink" ng-click="changeTagColor('TagCell--colorPink')"></button>
+                        <button class="ColorPickerCell ColorPicker-cell ColorPickerCell--colorCoolGray" title="CoolGray" ng-click="changeTagColor('TagCell--colorCoolGray')"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

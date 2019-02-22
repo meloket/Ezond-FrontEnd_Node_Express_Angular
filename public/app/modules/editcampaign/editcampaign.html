@@ -1,0 +1,50 @@
+<!-- editcampaign.html -->
+<div ng-cloak class="create-campaign-module  common-ui-modal" ng-show="showPopup['editCampaign']">
+  <!-- editcampaign.html -->
+  <div class="modal-backdrop"></div>
+  <div class="modal modal-small" ng-show="!showAccount">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-bar clearfix">
+          <a ng-if="!user.firstLogin" class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+        </div>
+        <div>
+          <div class="has-navigation has-footer sections-campaign">
+            <div class="modal-header">
+              <i class="modal-icon-logo icon-logo-campaign"></i>
+              <h3>Edit Campaign</h3>
+            </div>
+            <div class="modal-body">
+              <div class="spacer tab-pane">
+                <div></div>
+                <div class="field">
+                  <input type="text" id="company" class="form-control" ng-model="campaign.company_name"
+                         placeholder="Company name" value="" maxlength="100">
+                </div>
+                <div class="field">
+                  <input type="text" id="url" class="form-control" ng-model="campaign.url"
+                         placeholder="http://www.yourdomain.com" autocomplete="off">
+                </div>
+                <div class="field">
+                  <div>
+                    <input type="text" id="location2" class="form-control" ng-model="campaign.location"
+                           placeholder="Enter the location you want to target">
+                  </div>
+                </div>
+                <div class="field">
+                  <div>
+                    <input type="text" id="group" class="form-control" ng-model="campaign.group"
+                           placeholder="Campaign group">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" ng-click="updateCampaign()">Save Campaign</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

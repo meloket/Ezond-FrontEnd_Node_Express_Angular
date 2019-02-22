@@ -1,0 +1,34 @@
+<md-dialog>
+	<md-toolbar layout="row" layout-align="start center" class="md-padding">
+		<span class="white-c">{{dlgTitle}}</span>
+		<span flex=""></span>
+		<md-button class="md-icon-button" ng-click="closeDialog()">
+			<i class="ion-close white-c"></i>
+		</md-button>
+	</md-toolbar>
+	<md-dialog-content ng-show="step == \'choose-group\'" style="width:400px; padding-top: 30px" class="md-padding" layout="column">
+		<md-radio-group>
+			<md-radio-button  class="margin-left" ng-value="$index" layout="row" ng-click="selectWidgetGroup(widgetGroup);selectNetwork($index)" ng-repeat="widgetGroup in widgetGroups track by $index"  ng-class="{active: selectedWidgetGroup == widgetGroup}">
+				<span layout="row" layout-align="center center">
+					<img width="32" height="32" class="margin-left margin-right" src="{{::widgetGroup.logo}}">
+
+					<span style="text-align: right;" class="margin-left margin-right">{{::widgetGroup.name}}</span>
+				</span>
+			</md-radio-button>
+		</md-radio-group>
+		<md-divider></md-divider>
+	</md-dialog-content>
+	<md-dialog-content style="width:400px; padding-top: 30px"  class="md-padding" ng-show="step == \'choose-widget\'">
+		<label>Metrics</label>
+		<select class="form-control" ng-model=\'selectedMetric1\' ng-change="selectMetric(selectedMetric1)">
+		    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+		</select>
+		<select class="form-control margin-top" ng-model=\'selectedMetric2\'>
+		    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+		</select>
+	</md-dialog-content>
+	<md-dialog-actions class="md-padding" style="padding-top: 0px" layout="row" layout-align="center">
+		<md-button ng-show="step == \'choose-group\'" class="md-raised md-primary" ng-click="goToWidgetChoices()">Add widget</md-button>
+		<md-button ng-show="step == \'choose-widget\'" class="md-raised md-primary" ng-click="addWidgetToDashboard();closeDialog()">Save widget</md-button>
+	</md-dialog-actions>
+</md-dialog>

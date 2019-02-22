@@ -1,0 +1,29 @@
+<div id="mainBar" style="margin-right: -300px">
+    <button class="bn bn-otr bn-f" onclick="toggleNetworks()">My Networks</button>
+    <button class="bn bn-otr bn-f" onclick="toggleAgencyPane()">My Agency</button>
+    <a href="#" class="bn bn-otr bn-f" onclick="$('#settingsPane').toggle()">Settings</a>
+    <% if (user.adminLevel > 0) { %>
+        <a href="/admin" class="bn bn-otr bn-f">Admin Panel</a>
+    <% } %>
+    <button class="bn bn-war bn-f" onclick="$('#feedbackPane').toggle()">Feedback</button>
+    <a href="<%- basePath %>user/logout" class="bn bn-err bn-f">Logout</a>
+    <br/><br/>
+
+    <h3>My Dashboards</h3>
+    <button class="bn bn-otr bn-right" onclick="toggleAddDashboard()"><i class="fa fa-plus"></i></button><br/><br/>
+    <% if (user.dashboards.length == 0) { %>
+        <span class="no-dashboard-message">You do not have any dashboards, create your first one now!</span>
+    <% } else { %>
+        <span class="no-dashboard-message hide">"You do not have any dashboards, create your first one now!</span>
+    <% } %>
+
+    <ul class="dashboardsList" id="myDashboards">
+        <% for (var i=0; i < user.dashboards.length; i++) { %>
+        <li data-did="<%= user.dashboards[i].id %>" class="dashboard">
+            <a href='#' class="lt-item">
+                <%= user.dashboards[i].name %>
+            </a>
+        </li>
+        <% } %>
+    </ul>
+</div>

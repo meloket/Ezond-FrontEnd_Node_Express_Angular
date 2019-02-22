@@ -1,0 +1,48 @@
+.widget-holder {
+	min-height: 100px;
+	background: #fff;
+	padding:20px;
+    display: inline-block;
+}
+
+.dashboard-widgets-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.widget {
+    text-align: center;
+    padding: 0 20px 20px 20px;
+}
+
+.widget-content {
+    border: 1px solid #aaa;
+}
+
+.widget-title {
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+    background: #ededed;
+    padding: 10px;
+    color: #555;
+}
+
+.widget-column {
+    margin: 20px 0px;
+}
+
+.widget-column:first-child {
+    border-right: 1px solid #ddd;
+}
+
+.widget-param-value {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.widget-param-name {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #666;
+}

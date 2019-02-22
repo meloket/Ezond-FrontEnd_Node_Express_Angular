@@ -1,0 +1,34 @@
+<div  ng-cloak class="create-campaign-module ng-cloak common-ui-modal" ng-show="showPopup['editCampaign']">
+    <div class="modal-backdrop"></div>
+    <div  ng-cloak class="modal modal-small" ng-show="!showAccount">
+        <md-dialog  ng-cloak style="opacity: 2">
+            <md-toolbar layout="row" layout-align="center center" class="md-padding">
+                <span class="white-c">Edit Campaign</span>
+                <span flex=""></span>
+                <md-button class="white-c md-icon-button" ng-click="closePopup()"><i class="ion-close white-c"></i></md-button>
+            </md-toolbar>
+            <md-dialog-content class="md-padding" style="width: 400px; padding-top: 30px;">
+                <div class="field">
+                    <input type="text" id="company" class="form-control" ng-model="campaign.company_name" placeholder="Company name" value="" maxlength="100">
+                </div>
+                <div class="field">
+                    <input type="text" id="url" class="form-control" ng-model="campaign.url" placeholder="http://www.yourdomain.com" autocomplete="off">
+                </div>
+                <div class="field">
+                    <div>
+                        <input type="text" id="location2" class="form-control" ng-model="campaign.location" placeholder="Enter the location you want to target">
+                    </div>
+                </div>
+                <div class="field">
+                    <div>
+                        <input type="text" id="group" class="form-control" ng-model="campaign.group" placeholder="Campaign group">
+                    </div>
+                </div>
+            </md-dialog-content>
+            <md-dialog-actions layout="column"  class="md-padding" style="padding-top: 0">
+            	<md-divider class="margin-bottom"></md-divider>
+                <md-button ng-click="updateCampaign()" class="md-primary md-raised">Save Campaign</md-button>
+            </md-dialog-actions>
+        </md-dialog>
+    </div>
+</div>

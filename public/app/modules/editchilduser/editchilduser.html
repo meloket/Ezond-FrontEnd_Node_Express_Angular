@@ -1,0 +1,116 @@
+<div ng-cloak class="edit-user-module ng-cloak common-ui-modal" ng-show="showPopup['editChildUser']">
+    <div class="modal-backdrop"></div>
+    <div ng-cloak  class="modal modal-small" >
+        <div  ng-cloak class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-bar clearfix">
+                <a class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+              </div>
+              <div>
+                <div class="has-navigation has-footer sections-campaign">
+                  <div class="modal-header">
+                    <i class="modal-icon-logo icon-logo-users"></i>
+                    <h3>Edit User</h3>
+                  </div>
+                  <div class="modal-navigation">
+                    <ul class="nav nav-tab">
+                      <li class="col-md-4 active" ng-class="{active: step == 'contact'}" ng-click="step = 'contact'"><a>Contact</a></li>
+                      <li class="col-md-4" ng-class="{active: step == 'campaigns'}" ng-click="changeStep('campaigns')"><a>Campaigns</a></li>
+                      <li class="col-md-4" ng-class="{active: step == 'permissions'}" ng-click="changeStep('permissions')"><a>Permissions</a></li>
+                    </ul>
+                  </div>
+                  <div class="modal-body">
+                    <div class="spacer tab-pane" ng-show="step == 'contact'">
+                      <div></div>
+                      <div class="field">
+                        <input class="form-control" id="edituser-firstname" type="text" ng-model="edituser.first_name" placeholder="Firstname">
+                      </div>
+                      <div class="field">
+                        <input class="form-control" id="edituser-lastname" type="text" ng-model="edituser.last_name" placeholder="Lastname">
+                      </div>
+                      <div class="field">
+                        <div>
+                          <input class="form-control" id="edituser-email" type="email" ng-model="edituser.email" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div>
+                          <input class="form-control" id="edituser-password" type="password" ng-model="edituser.password" placeholder="Password" value="">
+                          <input type="hidden" id="edituser-id" ng-model="edituser.id">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spacer tab-pane" ng-show="step == 'campaigns'">
+                      <div class="field">
+                        <label>Campaign Access</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="campaign_access" ng-model="edituser.campaign_access" value="all" ng-click="setCampaignAccessSelector('hidden')"><span>All</span></label>
+                            <label><input type="radio" name="campaign_access" ng-model="edituser.campaign_access" value="restricted" ng-click="setCampaignAccessSelector('visible')"><span>Restricted</span></label>
+                        </div>
+                        <div id="campaign_access_holder" class="row relative" ng-show="edituser.campaign_access == 'restricted'">
+                          <div class="col-md-6" id="campaign-inaccessible">
+                            <h4>Inaccessible</h4>
+                            <div class="panel">
+                              <div class="input-group">
+                                <input type="text" placeholder="Search" class="form-control" ng-model="filterByName.company_name" value="">
+                                <span class="input-group-addon">
+                                  <i class="icon icon-search"></i>
+                                </span>
+                              </div>
+                              <div class="list-group">
+                                <a class="list-group-item" ng-repeat="dashboard in user.dashboards | filter: filterByName" ng-click="toggleDashboardAccess(dashboard.id)" ng-show="!isDashboardAccessible(dashboard.id)">
+                                  <i class="icon icon-minus margin-sm-right"></i>
+                                  <span>{{ dashboard.company_name }}</span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="vertical-divider">
+                            <i class="icon icon-arrow-right"></i>
+                          </div>
+                          <div class="col-md-6" id="campaign-accessible">
+                            <h4>Accessible</h4>
+                            <div class="panel">
+                              <div class="input-group">
+                                <input type="text" placeholder="Search" ng-model="filterByName2.company_name" class="form-control" value="">
+                                <span class="input-group-addon">
+                                  <i class="icon icon-search"></i>
+                                </span>
+                              </div>
+                              <div class="list-group">
+                                <a class="list-group-item" ng-repeat="dashboard in user.dashboards | filter: filterByName2" ng-click="toggleDashboardAccess(dashboard.id)" ng-show="isDashboardAccessible(dashboard.id)">
+                                  <i class="icon icon-minus margin-sm-right"></i>
+                                  <span>{{ dashboard.company_name }}</span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="spacer tab-pane" ng-show="step == 'permissions'">
+                      <ul class="integrations-list common-widgets-options">
+                        <li class="enabled-section" ng-repeat="provider in providers track by $index">
+                          <div class="common-ui-form-switch" ng-class="{'on': isProviderAccessible(provider.id)}" ng-click="toggleProvider($event, provider.id)">
+                            <input type="checkbox" >
+                            <label>
+                              <span class="inner"></span>
+                              <span class="switch"></span>
+                            </label>
+                          </div>
+                          {{provider.name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="chkDataValid()" ng-show="step == 'contact'">Next</button>
+                    <button class="btn btn-primary" ng-click="step = 'permissions'" ng-show="step == 'campaigns'">Next</button>
+                    <button type="submit" class="btn btn-primary" ng-show="step == 'permissions'" ng-click="saveChanges()">Save User</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

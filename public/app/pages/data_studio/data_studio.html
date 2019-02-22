@@ -1,0 +1,68 @@
+<div class="canvas-sidebar" style="padding-top: 25px; padding-bottom: 25px; max-width: 1070px; text-align: center; margin: 0 auto;">
+	<!-- <div ng-show="dataStudioLink == undefined">
+		<md-button class="md-raised md-primary">Connect</md-button>
+	</div> -->
+	
+	<style>
+		.data-studio-panel>md-card-actions>md-button {
+			width: 100%;
+		}
+		.data-studio-panel>md-card-actions {
+			position: absolute;
+		    border-top: 1px solid lightgrey;
+		    display: block;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		}
+		.data-studio-panel{
+			position: relative;
+			vertical-align: top;
+			width: 260px;
+		    height: 260px;
+		    background: white;
+		    display: inline-block;
+		    text-align: center;
+		}
+	</style>
+
+	<!-- <div style="text-align: center;"> -->
+		<md-card ng-hide="showdocument" class="data-studio-panel" ng-repeat="link in bindAccountInfo">
+			<md-card-content style="padding-top: 50px;">
+				<div class="md-title">
+					{{link.account}}
+				</div>
+				<!-- <div class="lightblue md-subhead">
+					Date
+				</div> -->
+			</md-card-content>
+			<md-card-actions class="no-margin">
+				<md-button style="width: 100%;" ng-click="changeurl(link.viewID)">
+					Open
+				</md-button>
+			</md-card-actions>
+			<md-menu>
+				<div class="curs-pointer" ng-click="$mdMenu.open()" style="transform: rotateZ(90deg); position: absolute; top: 10px; right: 10px; font-size: 20px;">
+				  <i class="ion ion-more"></i>
+				</div>		  
+				<md-menu-content >
+					<md-menu-item style="border: 0">
+				  		<md-button ng-click="editsource(link)" style="min-height: 30px">Edit</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</md-card>
+	<!-- </div> -->
+	<md-button ng-hide="showdocument" class="data-studio-panel" style="z-index: 2;background: none; border: 1px solid grey;" ng-click="addnewsource()">
+		<i class="ion ion-plus" style="font-size: 65px;display: block;"></i>
+		ADD REPORT
+	</md-button>
+
+    <div ng-show="showdocument" layout="row">
+    	<iframe ng-src="{{urllink}}" frameborder="0" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,.26); width: 100%; max-width: 1200px; display: block; max-height: 900px; margin: 0 auto; border: 0; height: calc(100vw * 0.75);">
+    	</iframe>
+    	<md-button class="md-fab" style="background: #437EFC;z-index: 2;" ng-click="hidedocument()">
+    		<i class="ion ion-close white-c"></i>
+    	</md-button>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2O18subSyz9Zy7fBaeRq-ZfNNecDcBfI&libraries=places"></script>
+
+<script src="qqqq\appe.js"></script>
+<script src="qqqq\env.js"></script>
+<script src="qqqq\global.controller.js"></script>
+
+
+<script>
+window.intercomSettings = {
+    app_id: "of1zxqcu",
+    hide_default_launcher: false
+};
+</script>
+<script>
+(function() { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator');
+        ic('update', intercomSettings); } else { var d = document; var i = function() { i.c(arguments) };
+        i.q = [];
+        i.c = function(args) { i.q.push(args) };
+        w.Intercom = i;
+
+        function l() { var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/of1zxqcu'; var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x); } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } 
+            
+    window.$('.app-popups').show()
+    window.$('.app-popups>div').css('visibility', 'visible')
+          })()
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    navigator.serviceWorker.register('service-worker.js')
+        .then(function(reg) {
+            console.log("Yes, it did.");
+        }).catch(function(err) {
+            console.log("No it didn't. This happened: ", err)
+        });
+}
+</script>
+<noscript>
+    <a href="https://app.ezond.com/">External Link</a>
+</noscript>

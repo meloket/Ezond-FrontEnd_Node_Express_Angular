@@ -1,0 +1,94 @@
+<% include ../app/header.html %>
+
+<div class="pl-wrap text-center">
+  <% include ../app/left_menu.html %>
+
+  <div class="pl pl-10 page-content">
+    <% for (var key in plans) { %>
+    <div style="margin: 10px;">
+      <button id="create-<%= key %>-plan">Create new <%= key %> plan</button>
+    </div>
+    <div class="pl-body">
+      <h3 class="plan-group"><%= key.charAt(0).toUpperCase() + key.substr(1) %> plans</h3>
+      <table class="table table-hover" data-page-length='500'>
+        <thead class="text-left">
+        <tr>
+          <th>Name</th>
+          <th>Interval</th>
+          <th>Price, $</th>
+          <th>Campaigns</th>
+          <th>Keywords</th>
+          <th>Ad Keywords</th>
+          <th>Trial</th>
+          <th>Type</th>
+          <th>Disabled</th>
+          <th>Deleted</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (var i = 0; i < plans[key].length; i++) { %>
+        <% let plan = plans[key][i] %>
+        <tr data-plan-id="<%- plan.id %>" data-stripe-id="<%- plan.stripe_id %>" data-deleted="<%= plan.deleted_at ? 1 : 0 %>" class="text-left plan-item">
+          <td><%= plan.name %></td>
+          <td><%= plan.interval %></td>
+          <td><%= plan.price / 100 %></td>
+          <td><%= plan.campaigns_number %></td>
+          <td><%= plan.keywords_number %></td>
+          <td><%= plan.ad_keywords_number %></td>
+          <td><%= plan.trial ? 'Yes' : 'No' %></td>
+          <td><%= plan.type%></td>
+          <td><%= plan.disabled_at ? 'Yes' : 'No'  %></td>
+          <td><%= plan.deleted_at ? 'Yes' : 'No' %></td>
+        </tr>
+        <% } %>
+        </tbody>
+      </table>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<div id="edit-plan" class="pa hide plan-modal" data-panewidth="810">
+  <div class="pa-head">
+    <h4 class="modal-title">Edit plan</h4>
+    <button class="pa-close" onclick="$(this).parent().parent().hide();">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="pa-body">
+    <div class="pl-row text-center">
+      <h4 class="plan-header"></h4>
+    </div>
+
+    <div class="pl-body">
+      <input type="hidden" name="plan-id" value="">
+      <input type="hidden" name="plan-stripe_id" value="">
+      <input type="hidden" name="plan-disabled" value="">
+      <div class="pl-row plan_name">
+        <label class="pl-5 pl-left" for="plan_name">Maximum campaigns number:</label>
+        <input class="pl-5 pl-left" type="text" id="plan_name" name="name" required>
+      </div>
+      <div class="pl-row campaigns_number">
+        <label class="pl-5 pl-left" for="campaigns_number">Maximum campaigns number:</label>
+        <input class="pl-5 pl-left" type="number" id="campaigns_number" name="campaigns_number" min="0" step="5" val="">
+      </div>
+      <div class="pl-row keywords_number">
+        <label class="pl-5 pl-left" for="keywords_number">Maximum keywords number:</label>
+        <input class="pl-5 pl-left" type="number" id="keywords_number" name="keywords_number" min="0" step="100" val="">
+      </div>
+      <div class="pl-row ad_keywords_number">
+        <label class="pl-5 pl-left" for="ad_keywords_number">Maximum ad keywords number:</label>
+        <input class="pl-5 pl-left" type="number" id="ad_keywords_number" name="ad_keywords_number" min="0" step="100" val="">
+      </div>
+    </div>
+
+    <div class="pl-row text-center">
+      <button id="delete-plan" class="pl-3 bn bn-m bn-err">Delete</button>
+      <button id="disable-plan" class="pl-offset-1 pl-3 bn bn-m bn-war"></button>
+      <button id="save-plan" class="pl-offset-1 pl-3 bn bn-m bn-std">Save</button>
+    </div>
+  </div>
+</div>
+
+<% include ../app/footer.html %>

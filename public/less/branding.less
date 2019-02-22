@@ -1,0 +1,382 @@
+// branding
+@brand-primary-color: 						#ffffff;
+@brand-accent-color: 						#2985CC;
+@brand-secondary-color: 					#2985CC;
+@brand-link-color: 							#2985CC;
+
+// variables
+@light-interface-threshold:					50%;
+@main-header-link:							contrast(@brand-primary-color, @brand-secondary-color, #ffffff, @light-interface-threshold);
+@button-border-color:						darken(@brand-accent-color, 10%);
+
+@mobile:      ~"screen and (-webkit-min-device-pixel-ratio: 3.0) and (max-width: 1080px), screen and (max-width: 480px)";
+
+// helper classes
+.brand-accent-color {
+	color: @brand-accent-color !important;	
+}
+.brand-accent-background {
+	background: @brand-accent-color !important;
+}
+
+// link
+a, a:hover {
+	color: @brand-link-color;
+}
+
+// button
+.btn-primary, .btn-info, .common-widgets-wrapper .btn.setup {
+	background-color: @brand-accent-color!important;
+	border-color: @brand-accent-color !important;
+	&:hover {
+		&:hover,
+		&:focus  {
+		    background-color: darken(@brand-accent-color, 12%)!important;
+		}
+	}
+}
+.toggle-button.active {
+	background-color: @brand-accent-color;
+}
+
+// label
+.label-primary {
+	background-color: @brand-accent-color;
+}
+
+// lists
+.list-group-item.active,
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:hover, 
+.dropdown-menu>.active>a:focus, 
+.dropdown-popover .dropdown-list ul li.selected {
+	background-color: @brand-accent-color !important;
+    border-color: @brand-accent-color !important;
+}
+
+// login
+.common-layouts-login {
+	background-color: @brand-primary-color !important;
+	
+	& when(@main-header-link = @brand-secondary-color) {
+		input, input[name=username], input[name=password] {
+			background-color: #dddddd !important;
+			-webkit-box-shadow: 0 0 0px 1000px #dddddd inset !important;
+		}
+		a {
+			color: @brand-accent-color !important;
+		}
+		.logged-in-users {
+			background-color: #dddddd !important;
+		}
+		.toggle-button:not(.active) {
+			color: #777 !important;	
+		}
+	}
+	& when not(@main-header-link = @brand-secondary-color) {
+		input, input[name=username], input[name=password] {
+			-webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+		}
+	}
+}
+
+// report download
+.sections-reports-download {
+	background-color: @brand-primary-color !important;
+	& > div {
+		span {
+			color: @main-header-link;
+		}
+		.circle-loader {
+			border-left-color: @main-header-link;
+		}
+		.load-complete {
+			border-color: @main-header-link;
+		}
+		.complete-mark {
+			&:after {
+				border-right: 2px solid @main-header-link;
+		    	border-top: 2px solid @main-header-link;
+			}
+		}
+	}
+}
+
+// header
+.common-header {
+	background-color: @brand-primary-color !important;
+	border-color: @brand-primary-color !important;
+	& when(@main-header-link = @brand-secondary-color) {
+		border-color: #c3c3c3 !important;
+		.main-header-link.popover-opened:after {
+			@media @mobile {
+				border-bottom: 8px solid #c3c3c3!important;
+			}
+		}
+	}		
+	//.main-header-border(@main-header-link);
+}
+.system-message {
+	background: @brand-accent-color;
+}
+
+@media @mobile {
+	.modal .modal-dialog .modal-content {
+
+		.modal-header {
+			background-color: @brand-primary-color !important;
+			border-color: @brand-primary-color !important;
+			& when(@main-header-link = @brand-secondary-color) {
+				border-color: #c3c3c3 !important;
+			}				
+			//.main-header-border(@main-header-link);
+			h3 {
+				color: @main-header-link;
+			}
+		}
+
+		.modal-close-icon {
+			color: @main-header-link;
+		}
+	}
+
+	.main-header {
+		& when(@main-header-link = @brand-secondary-color) {
+			.main-header-link.popover-opened:after {
+				@media @mobile {
+					border-bottom: 8px solid #c3c3c3!important;
+				}
+			}
+		}
+	}
+}
+
+.modal-icon-logo {
+	color: @brand-accent-color !important;
+}
+
+.modal-icon-color {
+	fill: @brand-accent-color !important;
+}
+
+.main-header-link {
+	color: @main-header-link !important;
+}
+
+.common-header-campaigns-control {
+	.campaigns-dropdown {
+		background-color: @brand-secondary-color !important;
+		& > span, & > i {
+			color: contrast(@brand-secondary-color, #666, #ffffff, @light-interface-threshold);
+		}
+	}
+}
+
+.main-header-settings {
+	color: @brand-secondary-color !important;
+	& when(@brand-primary-color = @brand-secondary-color) {
+		color: #ffffff !important;
+	}
+}
+
+.logo-upload .thumbnail.logo {
+	background-color: @brand-primary-color !important;
+}
+
+// panels
+.panel {
+	&.active {
+		background: @brand-accent-color !important;
+		
+		.panel-corner-icon {
+			color: @brand-accent-color !important;
+		}
+	}
+}
+a.panel {
+	&:hover, &.active {
+		border-color: @brand-accent-color !important;;
+	}
+}
+
+// campaigns
+.common-widgets-panels-ui-campaign {
+	
+	&:hover, &.popover-opened {
+		border-color: @brand-accent-color !important;
+	}
+	
+	.action-links {
+		background: @brand-accent-color !important;
+		border-color: @button-border-color !important;
+		
+		> button.btn {
+			border-color: @button-border-color !important;
+			
+			&:hover {
+				color: @button-border-color !important;
+				background: inherit !important;
+			}
+			
+			&:before {
+				border-color: @button-border-color !important;
+			}
+		}
+	}
+}
+
+// help
+#intercom-container {
+	.intercom-sheet {
+		.intercom-conversations-new-conversation-button {
+			background: @brand-accent-color !important;
+			border-color: @button-border-color !important;
+		}
+	}
+}
+.vote .vote-label {
+	background: @brand-accent-color;
+}
+
+// sidebar
+.common-menu-sidebar ul.level-1 > li.active {
+	background-color: @brand-accent-color !important;
+}
+
+// spinners
+.loading:after{
+	border-color: @brand-accent-color rgba(0,0,0,0) rgba(0,0,0,0) @brand-accent-color!important;
+}
+
+// charts
+.common-widgets-chart .common-widgets-chart-charts-highchart:not(.common-widgets-chart-charts-solidgauge):not(.common-widgets-chart-charts-gauge) .highcharts-container svg > path {
+	fill: fade(@brand-primary-color, 20%) !important;
+}
+
+div.common-widgets-chart .common-widgets-chart-charts-solidgauge,
+div.common-widgets-chart .common-widgets-chart-charts-solidgauge {
+	.highcharts-container svg .highcharts-series > path {
+		fill: @brand-accent-color !important;
+	}
+	.gauge-label .value {
+		color: @brand-accent-color !important;
+	}
+}
+
+.common-widgets-big-stats .big-stat.selected .panel, .common-widgets-big-stats .big-stat:hover .panel {
+	border-color: @brand-accent-color!important;
+}
+
+// overlay
+.overlay {
+
+	background: @brand-primary-color;
+
+	#progressbar li:after, #progressbar li:before {
+		background: @main-header-link;
+		color: contrast(@main-header-link, #666, #ffffff, @light-interface-threshold);
+	}
+
+	#progressbar li.active:before,  #progressbar li.active:after{
+		background: @brand-accent-color;
+	}
+
+	& > .icon, #progressbar li{
+		//color: @main-header-link;
+	}
+	
+	fieldset {
+		& when(@brand-primary-color = #ffffff) {
+			background: #f8f8f8 !important;
+		}
+				
+		//.overlay-fieldset(@brand-primary-color);
+	}
+
+}
+
+.react-grid-item.react-grid-placeholder {
+	background: @brand-accent-color!important;
+}
+
+// messages
+ul.comments li.requester {
+	border-color: @brand-accent-color;
+	
+	.comment-body {
+		background: @brand-accent-color;
+		border-color: @brand-accent-color;
+		
+	    &:before, &:after {
+	    	border-color: transparent @brand-accent-color;
+	    }
+	}
+}
+
+// tooltip
+.rc-tooltip-placement-bottom .rc-tooltip-arrow,
+.rc-tooltip-placement-bottomLeft .rc-tooltip-arrow,
+.rc-tooltip-placement-bottomRight .rc-tooltip-arrow {
+	border-bottom-color: @brand-accent-color;
+}
+.rc-tooltip-placement-top .rc-tooltip-arrow,
+.rc-tooltip-placement-topLeft .rc-tooltip-arrow,
+.rc-tooltip-placement-topRight .rc-tooltip-arrow {
+	border-top-color: @brand-accent-color;
+}
+.rc-tooltip-placement-left .rc-tooltip-arrow,
+.rc-tooltip-placement-leftTop .rc-tooltip-arrow,
+.rc-tooltip-placement-leftBottom .rc-tooltip-arrow {
+	border-left-color: @brand-accent-color;	
+}
+.rc-tooltip-placement-right .rc-tooltip-arrow,
+.rc-tooltip-placement-rightTop .rc-tooltip-arrow,
+.rc-tooltip-placement-rightBottom .rc-tooltip-arrow {
+	border-right-color: @brand-accent-color;
+}
+.rc-tooltip-inner {
+	background: @brand-accent-color;
+}
+.tooltip-icon {
+	color: @brand-accent-color;
+}
+
+.login-container-a(@color) when (@color = @brand-secondary-color) {
+	color: @brand-accent-color !important;
+}
+
+.login-container-input(@color) when (@color = @brand-secondary-color) {
+	background-color: #dddddd !important;
+}
+
+.main-header-border(@color) when (@color = @brand-secondary-color) {
+	border-color: #c3c3c3 !important;
+}
+
+.overlay-fieldset(@color) when (@color = #ffffff) {
+	background: #f8f8f8 !important;
+}
+
+// billing
+.increment .increment-control .icon:hover:not(.disabled) {
+	color: @brand-accent-color !important;
+}
+.sections-billing-purchase-plans > div {
+	&:hover {
+		.panel {
+			border-color: @brand-accent-color !important;
+		}
+	}
+	&.active {
+		.panel {
+			border-color: @brand-accent-color !important;
+			
+			.name {
+				color: @brand-accent-color !important;
+			}
+			.dollar {
+				color: @brand-accent-color !important;
+			}
+		}
+	}
+}

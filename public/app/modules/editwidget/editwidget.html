@@ -1,0 +1,43 @@
+<div style="display: none;" ng-show="showPopup['editWidget']">
+    <div>
+        <div data-reactroot="" class="common-ui-modal">
+            <div class="modal-backdrop"></div>
+            <div  class="modal modal-small">
+                <div class="modal-dialog">
+                    <div   class="modal-content">
+                        <div class="modal-bar clearfix">
+                            <a class="modal-close-icon" ng-click="closePopup()"><i class="icon icon-delete"></i></a>
+                        </div>
+                        <div>
+                            <div class="has-footer">
+                                <div class="modal-header">
+                                    <i class="modal-icon-logo icon-logo-widgets"></i>
+                                    <h3>Edit Widget</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="common-widgets-options">
+                                        <div class="field">
+                                            <div class="field">
+                                                <label>Metrics</label>
+                                                <select class="form-control" ng-model = 'metric1' ng-change="selectMetric(metric1)">
+                                                    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+                                                </select>
+                                                <select class="form-control margin-top" ng-model = 'metric2'>
+                                                    <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="common-buttons-button-loader btn btn-primary pull-left" ng-click="updateWidget()">Save Settings</button>
+                                    <button type="button" class="common-buttons-button-loader btn btn-danger pull-right" ng-click="deleteWidget()">Remove Widget</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

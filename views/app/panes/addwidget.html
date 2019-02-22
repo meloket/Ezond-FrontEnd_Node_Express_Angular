@@ -1,0 +1,77 @@
+<div id="addWidgetPane" class="pa hide" style="overflow-y: scroll;">
+	<div class="pa-head"><span data-bind="addDashboardPaneTitle">Add Widget</span><button class="pa-close" onclick="$(this).parent().parent().hide();"><i class="fa fa-times"></i>&nbsp;</button></div>
+    <div class="pa-body" data-pa-section="widgetMain">
+        <h3>Widget Sets:</h3><br/><br/>
+        <ul id="widgetSets" class="widgetSetList">
+			<% for (var i = 0; i < widgetSets.length; i++) { %>
+				<li onclick="showWidgetSetInfo(<%= i %>)"><h4><%= widgetSets[i].name %></h4><br/><br/><%= widgetSets[i].description %>
+					<% if (widgetSets[i].network == 1) { %>
+						<br/><br/><span class="lb lb-otr lb-s"><img src="<%- basePath %>img/providers/google-analytics-small.jpg" class="provider-icon-small bn-left"> Requires: Google Analytics Network</span>
+					<% } else if (widgetSets[i].network == 2) { %>
+						<br/><br/><span class="lb lb-otr lb-s"><img src="<%- basePath %>img/providers/google-adwords-small.jpg" class="provider-icon-small bn-left"> Requires: Google Adwords Network</span>
+					<% } %>
+				</li>
+			<% } %>
+        </ul>
+        <br/><br/>
+        <h3>Popular Widgets:</h3><br/><br/>
+        <ul id="popularWidgets" class="widgetList">
+			<% for (var i = 0; i < popularWidgets.length; i++) { %>
+				<li title="<%= popularWidgets[i].description %>" class="tooltip" onclick="widgetConfirm('<%= popularWidgets[i].did %>')">
+					<% if (popularWidgets[i].network == 1) { %>
+						<img src="<%- basePath %>img/providers/google-analytics-small.jpg" class="provider-icon-small bn-left">
+					<% } else if (popularWidgets[i].network == 2) { %>
+						<img src="<%- basePath %>img/providers/google-adwords-small.jpg" class="provider-icon-small bn-left">
+					<% } %>
+
+					<%= popularWidgets[i].name %></li>
+			<% } %>
+        </ul>
+        <br/><br/>
+        <a href="#" class="bn bn-def bn-f" onclick="showHidePaneSection('allWidgets', 'widgetMain')">All Widgets&nbsp;<i class="fa fa-arrow-right"></i></a>
+    </div>
+
+    <div class="pa-body hide" data-pa-section="allWidgets" style="display: none;">
+        <h3>All Widgets:</h3><button class="bn bn-std bn-right" onclick="showHidePaneSection('widgetMain', 'allWidgets')" >Back</button><br/><br/>
+        <ul class="networkList">
+			<% for (var i = 0; i < allWidgets.length; i++) { %>
+				<li onclick="widgetConfirm('<%= allWidgets[i].did %>')">
+					<% if (allWidgets[i].networkID == 1) { %>
+						<img src="img/providers/google-analytics-small.jpg" class="provider-icon-small bn-left">
+					<% } else if (allWidgets[i].networkID == 2) { %>
+						<img src="img/providers/google-adwords-small.jpg" class="provider-icon-small bn-left">
+					<% } %>
+					<%= allWidgets[i].name %></li>
+			<% } %>
+        </ul>
+    </div>
+
+    <div class="pa-body hide" data-pa-section="widgetSettings" style="display: none;">
+        <h3>Widget Settings:</h3><button class="bn bn-std bn-right" onclick="showHidePaneSection('widgetMain', 'widgetSettings')" >Back</button><br/><br/>
+        Name: <input type="text" placeholder="Optional" class="it it-f" id="widgetName"><br/><br/>
+        Size:
+        <select class="st st-f" id="widgetSize">
+            <option value="s">Small</option>
+            <option value="m">Medium</option>
+            <option value="l">Large</option>
+        </select><br/><br/>
+        Description: <textarea class="ta ta-f" style="min-height: 150px" placeholder="Optional" id="widgetDescription"></textarea>
+		Network Property/View:
+		<select class="st st-f" id="networkViewList">
+        </select>
+        <br/><br/>
+        <button class="bn bn-std bn-right" onclick="saveSingleWidget()">Finish</button>
+    </div>
+
+    <div class="pa-body hide" data-pa-section="widgetSet" style="display: none;">
+        <h3>Adding Widget Set: <span data-bind="widgetSetName">???</span></h3><button class="bn bn-std bn-right" onclick="showHidePaneSection('widgetMain', 'widgetSet')">Back</button><br/><br/>
+        This widget set will be adding the following widgets to your dashboard:<br/><br>
+        <ul id="widgetSetWidgetList">
+		</ul>
+		Network Property/View:
+		<select class="st st-f" id="networkViewListSet">
+        </select>
+        <br/><br/>
+        <button class="bn bn-std bn-right" onclick="saveWidgetSet()">Finish</button>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+<% include ../app/header.html %>
+<div class="pl-wrap" style="text-align: center;">
+  <% include ../app/left_menu.html %>
+
+  <div class="pl pl-10" style="margin-top: 70px;">
+    <div class="pl-body">
+      <h3>Agency</h3>
+      <table class="table table-hover" data-page-length='500'>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Agency Name</th>
+          <th>Staffs</th>
+          <th>Clients</th>
+          <th>Campaigns</th>
+          <th>Subscription Plan</th>
+          <th>Register Date</th>
+          <th>Last Login</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% for (var i = 0; i < users.length; i++) { %>
+
+        <tr style="text-align: left;">
+          <td><%= users[i].first_name %> <%= users[i].last_name %></td>
+          <td><% if(users[i].company) { %><%= users[i].company %><% } else { %>N/A<% } %></td>
+          <td><%= users[i].count_staff %></td>
+          <td><%= users[i].count_client %></td>
+          <td><%= users[i].count_campaign %></td>
+          <td><%= users[i].plan %></td>
+          <td><%= users[i].reg_date %></td>
+          <td><% if(users[i].login_date) { %><%= users[i].login_date %><% } else { %>N/A<% } %></td>
+          <td><a data-toggle="modal" data-target="#myModal" onclick="getagency(<%= users[i].id %>)"
+                 style="cursor:pointer;">Edit</a></td>
+        </tr>
+        <% } %>
+
+        </tbody>
+      </table>
+      <ul class="lt lt-divs lt-light">
+
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="pa hide" style="width: 502px; height: 300px; top: 0px; display: none;" data-panewidth="500"
+     data-paneheight="300">
+  <div class="pa-head">
+    <h4 class="modal-title">Edit Agency</h4>
+    <button class="pa-close" onclick="$(this).parent().parent().hide();">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+  <div class="pa-body" data-pa-section="agencyMain" style="min-height: 300px;">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">First Name:</label>
+      <input type="text" class="form-control" id="f_name" style="margin: 0 0 0 82px;" placeholder="First Name" value=""
+             name="f_name">
+      <span id="e_f_name" style='color:red;'><b></b></span>
+    </div>
+    </br>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Last Name:</label>
+      <input type="text" class="form-control" id="l_name" style="margin: 0 0 0 82px;" placeholder="Last Name"
+             name="l_name">
+      <span id="e_l_name" style='color:red;'><b></b></span>
+    </div>
+    </br>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" style="margin: 0 0 0 91px;" placeholder="Enter password"
+             name="pwd" autocomplete="off">
+      <span id="e_pass" style='color:red;'><b></b></span>
+    </div>
+    </br>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Confirm Password:</label>
+      <input type="password" class="form-control" id="c_pwd" style="margin: 0 0 0 30px;" placeholder="Re-Enter password"
+             name="c_pwd" autocomplete="off">
+      <span id="e_c_pass" style='color:red;'><b></b></span>
+    </div>
+    </br>
+    <input type="hidden" class="form-control" id="id" name="id">
+    <div class="form-group">
+      <button onclick="update_agency()" class="btn bn-std">Submit</button>
+    </div>
+
+  </div>
+</div>
+<style>
+  .form-control {
+    width: 50%;
+  }
+
+  .form-group {
+    text-align: unset !important;
+  }
+</style>
+<script>
+    $('#myModal').hide();
+
+    function getagency(id) {
+        $('#e_l_name').text('');
+        $('#e_f_name').text('');
+        $('#e_pass').text('');
+        $('#e_c_pass').text('');
+        $.get('getAgency', {id: id}, function (agency) {
+            data = agency;
+            $('#myModal').show();
+            $("#f_name").val(data.data[0].first_name);
+            $("#l_name").val(data.data[0].last_name);
+            $("#id").val(data.data[0].id);
+        });
+    }
+
+    function update_agency() {
+        num = 0;
+
+        var f_name = $("#f_name").val();
+        var l_name = $("#l_name").val();
+        var pass = $("#pwd").val();
+        var c_pass = $("#c_pwd").val();
+        var id = $("#id").val();
+
+        if (f_name == '') {
+            $('#e_f_name').text('Please Enter The First Name');
+            num = 1;
+        } else {
+            $('#e_f_name').text('');
+        }
+        if (l_name == '') {
+            $('#e_l_name').text('Please Enter The Last Name');
+            num = 1;
+        } else {
+            $('#e_l_name').text('');
+        }
+
+        if (c_pass.length > 0 || pass.length > 0) {
+            if (c_pass != pass) {
+                $('#e_pass').text('Please Use Same Password');
+                $('#e_c_pass').text('Please Use Same Password');
+                num = 1;
+            }
+        }
+
+        if (num == 0) {
+            var detail = {};
+            detail.first_name = f_name;
+            detail.last_name = l_name;
+            detail.id = id;
+            if (pass) {
+                detail.password = pass;
+            }
+
+            $.post('updateagency', {data: detail}, function (resp) {
+                $('#myModal').hide();
+            });
+        }
+    }
+
+</script>
+
+<% include ../app/footer.html %>

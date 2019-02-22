@@ -1,0 +1,18 @@
+<div id="widgetSettingsPane" class="pa hide">
+	<div class="pa-head">Widget Settings<button class="pa-close" onclick="$(this).parent().parent().hide();"><i class="fa fa-times"></i>&nbsp;</button></div>
+    <div class="pa-body">
+        Name:
+        <input type="text" class="it it-f" id="settingsWidgetName" data-bind="settingsWidgetName"><br/><br/>
+        Description:
+        <textarea class="ta ta-f" style="height: 150px;" id="settingsWidgetDescription" data-bind="settingsWidgetDescription"></textarea><br/><br/>
+		Size:
+        <select class="st st-f" id="settingsWidgetSize" data-bind="settingsWidgetSize">
+            <option value="s">Small</option>
+            <option value="m">Medium</option>
+            <option value="l">Large</option>
+        </select>
+    </div>
+    <div class="pa-foot">
+        <button class="bn bn-suc bn-left" onclick="updateWidget()">Update</button><button class="bn bn-err bn-left" onclick="deleteWidget()">Delete</button>
+    </div>
+</div>

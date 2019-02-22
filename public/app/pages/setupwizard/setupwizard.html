@@ -1,0 +1,136 @@
+<link rel="stylesheet" type="text/css" href="/css/spares.css">
+<style type="text/css">
+	.row.stepContainer{margin:0px auto; width: 960px; text-align: center;}
+	.step{width: 300px; margin: 10px; float:left;}
+	.setupwizard-header{margin: 0px;}
+    .create-campaign-module .fixed-block, .add-widget-module .fixed-block {
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+	}
+	@media screen and (max-width: 960px) {
+		.row.stepContainer {
+	    	width: 340px;
+		}
+	}
+	@media screen and (max-width: 320px) {
+		.row.stepContainer {
+	    	width: 100%;
+		}
+		.step{
+			width: 100%;
+			margin: 0px;
+		}
+	}
+	.common-ui-modal .modal-navigation ul.nav>li.active:before {
+	    border-width: 0;
+	}
+</style>
+
+<div class="setupwizard"> 
+    <!-- setupwizard.html -->
+    <div class="setupwizard-header">
+        <img src="/img/logo-dark.png" height="55" alt="">
+    </div>
+    <br>
+    <h2 class="text-center"><span style="color: #767676; font-size: 28px;     vertical-align: text-bottom;">Welcome to <img style="height: 48px;" src="/img/logo-dark-no-pic.png" alt=""></span>
+
+    <br>
+    <br>
+    <div class="row stepContainer">
+        <!-- First step: email confirmation -->
+        <div class="step" ng-class="{disabled: !enabledSteps.email}">
+            <div class="card text-center">
+                <div class="card-title icon">
+                    <i class="fa fa-envelope-open" aria-hidden="true"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Confirm Email</h3>
+                    <p>
+                        If you didn't recieve a confirmation email, check your spam folder.
+                    </p>
+                </div>
+                <br>
+                <!-- Change email -->
+                <a ng-click="changeEmail = true;retryconfirmemail()" ng-show="!changeEmail" style="text-decoration: none; color: #66ab1f; font-size:12pt;">Change email</a>
+                <div ng-show="changeEmail" class="change-email">
+                    <input class="form-control" type="text" ng-model="user.email">
+                </div>
+                <br>
+                <br>
+                <div class="card-text">
+                    <p ng-if="emailSuccess">Email has been sended. Check your inbox.</p>
+                </div>
+                <!-- Change email end -->
+
+                <div ng-if="!enabledSteps.details" class="card-title card-button pointer" ng-click="resendConfirmEmail()">Resend</div>
+                <div ng-if="enabledSteps.details" class="card-title text-center card-button" >Done</div>
+            </div>
+        </div>
+
+        <!-- Second step: providing name -->
+        <div class="step" ng-class="{disabled: !enabledSteps.details}">
+            <div class="card text-center">
+                <div class="card-title icon">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                </div>
+                <div ng-show="substep != 'namedetails'">
+                    <div class="card-text">
+                        <h3>Provide your name</h3>
+                        <p>Let's fill some details</p>
+                    </div>
+
+                    <div class="card-title card-button pointer" ng-click="enterDetails()">Get started</div>
+                </div>
+                <div ng-show="substep == 'namedetails'" class="text-left padding-20">
+                    <div class="name-details-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="user.first_name" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="user.last_name" class="form-control" placeholder="Last name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone number</label>
+                            <input type="text" ng-model="user.phone" class="form-control" placeholder="Your phone">
+                        </div>
+                        <div class="form-group">
+                            <label>Number of clients</label>
+                            <input type="text" ng-model="user.clientsnum" class="form-control" placeholder="Number of clients">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.subscribe"> Subscribe to our newsletters
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div ng-if="!enabledSteps.createCampaign" class="card-title text-center card-button pointer" ng-click="saveUserDetails()">Save</div>
+                    <div ng-if="enabledSteps.createCampaign" class="card-title text-center card-button" >Done</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third step: create campaign -->
+        <div class="step" ng-class="{disabled: !enabledSteps.createCampaign}">
+            <div class="card text-center">
+                <div class="card-title icon">
+                    <i class="fa fa-bolt" aria-hidden="true"></i>
+                </div>
+                
+                <div class="card-text">
+                    <h3>Create campaign</h3>
+                    <p>Do you first campaign</p>
+                </div>
+
+                <div class="card-title text-center card-button pointer" ng-click="createCampaign()">Create</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
